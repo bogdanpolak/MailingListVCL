@@ -5,8 +5,8 @@ uses
   MainFormUnit in 'MainFormUnit.pas' {FormMain},
   MainDataModule in 'MainDataModule.pas' {MainDM: TDataModule},
   ScriptForm in 'ScriptForm.pas' {FormDBScript},
-  UnitDatabaseScriptsDDL in 'UnitDatabaseScriptsDDL.pas',
-  UnitMySQLCreateDB in 'UnitMySQLCreateDB.pas';
+  UnitMySQLCreateDB in 'UnitMySQLCreateDB.pas',
+  UnitInterbaseCreateDB in 'UnitInterbaseCreateDB.pas';
 
 {$R *.res}
 
