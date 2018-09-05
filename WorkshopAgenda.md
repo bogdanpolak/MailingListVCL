@@ -24,6 +24,6 @@ W ciągu ostatnich dwóch dekad narzędzia programistyczne bardzo się zmieniły
 
 ### Przygotowania do warsztatu
 
-Strona o przygotowaniach: [informacje i dyskusja w serwisie reddit.com](https://www.reddit.com/user/BogdanPolakBSC/comments/9cwjvr/) [![assets/reddit-button.png]](https://www.reddit.com/user/BogdanPolakBSC/comments/9cwjvr/)
+Strona o przygotowaniach: [informacje i dyskusja w serwisie reddit.com](https://www.reddit.com/user/BogdanPolakBSC/comments/9cwjvr/) [![reddit button](assets/reddit-button.png)](https://www.reddit.com/user/BogdanPolakBSC/comments/9cwjvr/)
 
 Pytania i dyskusję na temat przygotowań proszę wpisywać jako komentarze pod artykułem reddit.com. Jeśli jeszcze nie korzystałeś z serwisu reddit.com to aby rozpocząć wpisywanie komentarzy wystastarczy przejść krótką rejestrację klikając na [BECOME A REDDITOR].
