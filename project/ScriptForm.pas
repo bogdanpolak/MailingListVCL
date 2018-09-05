@@ -36,9 +36,9 @@ implementation
 
 {$R *.dfm}
 
-uses MainDataModule, UnitDatabaseScriptsDDL;
+uses MainDataModule, UnitInterbaseCreateDB;
 
-  { TODO : Nowczeœniejsza struktura danych lub wyrzucenie danych na zwn¹trz }
+{ TODO : Nowczeœniejsza struktura danych lub wyrzucenie danych na zwn¹trz }
 type
   TEmailRec = record
     email: string;
