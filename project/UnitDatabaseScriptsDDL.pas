@@ -5,6 +5,7 @@ interface
 const
   IB_SCRIPT =
     'SET DROPnonexistent ON;'+sLineBreak+
+    'SET AUTOCOMMIT OFF;'+sLineBreak+
     'DROP TRIGGER TR_MailingList;'+sLineBreak+
     'DROP GENERATOR GEN_MailingList_ID;'+sLineBreak+
     'DROP TRIGGER TR_MailingEmail;'+sLineBreak+
@@ -46,19 +47,15 @@ const
     '    NEW.emailid = GEN_ID( GEN_MailingEmail_ID, 1);'+sLineBreak+
     'END^'+sLineBreak+
     'SET TERM ;^'+sLineBreak+
-    'SET DROPnonexistent OFF;'+sLineBreak;
-
-  FILL_SAMPLE_DATA =
-    'INSERT INTO MailingList(description)'+
-    ' VALUES (''Mailing g³ówny'');'+sLineBreak+
-    'INSERT INTO MailingList(description)'+
-    ' VALUES (''Lista testowa'');'+sLineBreak+
-
-    'INSERT INTO MailingEmail(email,listid,reg_timestamp)'+
-    ' VALUES (''bogdan.polak.no.spam@bsc.com.pl'', 2, ''NOW'');'+sLineBreak+
-    'INSERT INTO MailingEmail(email,listid,reg_timestamp)'+
-    ' VALUES (''jan.kowalski@gmail.pl'', 2, ''NOW'');'+sLineBreak+
+    'SET DROPnonexistent OFF;'+sLineBreak+
+    'COMMIT;'+sLineBreak+
+    'INSERT INTO MailingList(description) VALUES (''Mailing g³ówny'');'+sLineBreak+
+    'INSERT INTO MailingList(description) VALUES (''Lista testowa'');'+sLineBreak+
     '';
+
+  IB_INSERT_EMAIL_SQL = 'INSERT INTO MailingEmail'+
+    '(email, listid, firstname, lastname, company, reg_timestamp)'+
+    ' VALUES (:email, :listid, :firstname, :lastname, :company, :reg)';
 
 
 implementation
