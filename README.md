@@ -1,11 +1,12 @@
-# vcl-mailing-list
+ï»¿# Project: VCL Mailing List
+
 Mailing List is sample Delphi VCL (SQL client-server) project used for demo purposes during BSC Delphi Workshop 09-2018 in Warsaw and Katowice. Warning! This is an exceptionally ugly and dirty code project. This was the purpose of its creation. During the workshops, it will be modernized.
 
 # Cel projektu
 
-Projekt powsta³ na potrzeby Nowoczesne programowanie w Delphi. Jest to wyj¹tkowo brzydki projekt i taki mia³ byæ cel jego powstania. W trakcie warszatów bêdzie unowoczeœniany.
+Projekt powstaÅ‚ na potrzeby warsztatu: "Nowoczesne programowanie w Delphi". Jest to wyjÄ…tkowo brzydki projekt i taki miaÅ‚ byÄ‡ cel jego powstania. W trakcie warszatÃ³w bÄ™dzie on unowoczeÅ›niany.
 
-# Wiêcej informacji o warsztatach
+# WiÄ™cej informacji o warsztatach
 
 * Agenda warsztatu: [Agenda](./WorkshopAgenda.md)
 * Oryginalna strona rejestracji na warsztaty: [strona w serwisie embarcadero.com.pl](http://embarcadero.com.pl/seminaria/2018-q3-modern-development-in-Delphi/)
