@@ -1,53 +1,29 @@
 # Warsztaty: Nowoczesne programowanie w Delphi
 
-
-
 ### Zaproszenie
 
+Czy pamiÄ™tacie jak 20 lat temu po raz pierwszy zobaczyliÅ›cie demo Delphi? Dla wiÄ™kszoÅ›ci najbardziej szokujÄ…cy byÅ‚ niesamowity wzorzec: TDataSet + TDataSource + TDBGrid. ZaskakujÄ…ca byÅ‚a prostota tego ukÅ‚adu, a przy tym jego szerokie moÅ¼liwoÅ›ci oraz to, Å¼e pracowaÅ‚ z dowolnÄ… bazÄ… danych. Gdy odkryliÅ›cie moÅ¼liwoÅ›ci jakie dajÄ… zdarzenia tych komponentÃ³w to zapewne byliÅ›cie pewni, Å¼e oglÄ…dacie przeÅ‚omowe narzÄ™dzie. Faktycznie tak byÅ‚o z Delphi. DwadzieÅ›cia lat w informatyce to wiecznoÅ›Ä‡, ale mimo to wzorzec wprowadzony w Delphi 1 przetrwaÅ‚ do dzisiaj i jest nadal niesamowicie skuteczny (w pewnych zastosowaniach). 
 
-
-Czy pamiêtacie jak 20 lat temu po raz pierwszy zobaczyliœcie demo Delphi? Dla wiêkszoœci najbardziej szokuj¹cy by³ niesamowity wzorzec: TDataSet + TDataSource + TDBGrid. Zaskakuj¹ca by³a prostota tego uk³adu, a przy tym jego szerokie mo¿liwoœci oraz to, ¿e pracowa³ z dowoln¹ baz¹ danych. Gdy odkryliœcie mo¿liwoœci jakie daj¹ zdarzenia tych komponentów to zapewne byliœcie pewni, ¿e ogl¹dacie prze³omowe narzêdzie. Faktycznie tak by³o z Delphi. Dwadzieœcia lat w informatyce to wiecznoœæ, ale mimo to wzorzec wprowadzony w Delphi 1 przetrwa³ do dzisiaj i jest nadal niesamowicie skuteczny (w pewnych zastosowaniach). 
-
-
-
-W ci¹gu ostatnich dwóch dekad narzêdzia programistyczne bardzo siê zmieni³y, zmieni³o siê tak¿e podejœcie zespo³ów IT do tworzenia oprogramowania. Jêzyk Delphi uleg³ tak¿e bardzo du¿ym zmianom na przestrzeni ostatnich lat i choæ udostêpnia obecnie zupe³nie nowe mo¿liwoœci to wiêkszoœæ programistów nie korzysta z nowej funkcjonalnoœci, a ich styl pracy nie zmieni³ siê od lat. Aby nie zostaæ w tyle za innymi i sprostaæ oczekiwaniom klientów, konieczne jest zarówno unowoczeœnienie tworzonego kodu, jak te¿ wprowadzenie pewnych zmian do warsztatu pracy oraz organizacji dzia³ania zespo³u. 
-
-
+W ciÄ…gu ostatnich dwÃ³ch dekad narzÄ™dzia programistyczne bardzo siÄ™ zmieniÅ‚y, zmieniÅ‚o siÄ™ takÅ¼e podejÅ›cie zespoÅ‚Ã³w IT do tworzenia oprogramowania. JÄ™zyk Delphi ulegÅ‚ takÅ¼e bardzo duÅ¼ym zmianom na przestrzeni ostatnich lat i choÄ‡ udostÄ™pnia obecnie zupeÅ‚nie nowe moÅ¼liwoÅ›ci to wiÄ™kszoÅ›Ä‡ programistÃ³w nie korzysta z nowej funkcjonalnoÅ›ci, a ich styl pracy nie zmieniÅ‚ siÄ™ od lat. Aby nie zostaÄ‡ w tyle za innymi i sprostaÄ‡ oczekiwaniom klientÃ³w, konieczne jest zarÃ³wno unowoczeÅ›nienie tworzonego kodu, jak teÅ¼ wprowadzenie pewnych zmian do warsztatu pracy oraz organizacji dziaÅ‚ania zespoÅ‚u. 
 
 ### O warsztatach
 
-
-
-**BSC Polska** zaprasza programistów Delphi na *darmowe warsztaty*, podczas których poka¿emy jak w praktyce u¿ywaæ nowe mo¿liwoœci jêzyka Delphi oraz jak zorganizowaæ pracê zespo³u, wprowadzaj¹c: przegl¹dy kodu Ÿród³owego, automatyczne testy, lokalne i wspólne repozytorium kodu, jak rejestrowaæ drobne zmiany, pracowaæ w parach oraz dzieliæ du¿e bloki kodu na mniejsze. To wszystko zobaczycie w praktyce w czasie prezentacji - to jednak nie wszystko, równoczeœnie bêdziemy starali siê zadbaæ by efektem naszej pracy by³ czysty i solidny kod Ÿród³owy.
-
+**BSC Polska** zaprasza programistÃ³w Delphi na *darmowe warsztaty*, podczas ktÃ³rych pokaÅ¼emy jak w praktyce uÅ¼ywaÄ‡ nowe moÅ¼liwoÅ›ci jÄ™zyka Delphi oraz jak zorganizowaÄ‡ pracÄ™ zespoÅ‚u, wprowadzajÄ…c: przeglÄ…dy kodu ÅºrÃ³dÅ‚owego, automatyczne testy, lokalne i wspÃ³lne repozytorium kodu, jak rejestrowaÄ‡ drobne zmiany, pracowaÄ‡ w parach oraz dzieliÄ‡ duÅ¼e bloki kodu na mniejsze. To wszystko zobaczycie w praktyce w czasie prezentacji - to jednak nie wszystko, rÃ³wnoczeÅ›nie bÄ™dziemy starali siÄ™ zadbaÄ‡ by efektem naszej pracy byÅ‚ czysty i solidny kod ÅºrÃ³dÅ‚owy.
 
 
 | DATA | GODZINA | MIASTO | MIEJSCE |
-
 |-|-|-|-|
+| 12 wrzeÅ›nia 2018 | 10:00-14:00 | Warszawa | [Golden Floor Tower](https://www.goldenfloor.pl/centrum/golden-floor-tower/) |
+| 19 wrzeÅ›nia 2018 | 10:00-14:00 | Katowice | [Park Hotel Diament Katowice](http://www.hotelediament.pl/hotele/park-hotel-diament-katowice/) |
 
-| 12 wrzeœnia 2018 | 10:00-14:00 | Warszawa | [Golden Floor Tower](https://www.goldenfloor.pl/centrum/golden-floor-tower/) |
+### Dlaczego warto przyjÅ›Ä‡?
 
-| 19 wrzeœnia 2018 | 10:00-14:00 | Katowice | [Park Hotel Diament Katowice](http://www.hotelediament.pl/hotele/park-hotel-diament-katowice/) |
-
-
-
-### Dlaczego warto przyjœæ?
-
-
-
-* Aby nie staæ siê "dinozaurem" informatyki. Mo¿esz zacz¹æ pracowaæ nowoczeœniej w Delphi tak jak Twoi koledzy programuj¹cy w Ruby, JavaScript, Go i wielu innych jêzykach.
-
-* Aby wykorzystaæ nowe mo¿liwoœci jêzyka Delphi. Warsztaty maj¹ zmieniæ Twoje spojrzenie na to jak powinno siê, a jak nie powinno programowaæ w œrodowisku Delphi. 
-
-* Aby nabraæ odwagi do wprowadzania zmian w Twojej firmie. Nie bêdziesz pierwszy na tej drodze. Ci którzy ju¿ spróbowali za nic nie chc¹ wracaæ do spaghetti kodu pisanego w zdarzeniach ;-)
-
-
+* Aby nie staÄ‡ siÄ™ "dinozaurem" informatyki. MoÅ¼esz zaczÄ…Ä‡ pracowaÄ‡ nowoczeÅ›niej w Delphi tak jak Twoi koledzy programujÄ…cy w Ruby, JavaScript, Go i wielu innych jÄ™zykach.
+* Aby wykorzystaÄ‡ nowe moÅ¼liwoÅ›ci jÄ™zyka Delphi. Warsztaty majÄ… zmieniÄ‡ Twoje spojrzenie na to jak powinno siÄ™, a jak nie powinno programowaÄ‡ w Å›rodowisku Delphi. 
+* Aby nabraÄ‡ odwagi do wprowadzania zmian w Twojej firmie. Nie bÄ™dziesz pierwszy na tej drodze. Ci ktÃ³rzy juÅ¼ sprÃ³bowali za nic nie chcÄ… wracaÄ‡ do spaghetti kodu pisanego w zdarzeniach ;-)
 
 ### Przygotowania do warsztatu
 
-
-
 Strona o przygotowaniach: [informacje i dyskusja w serwisie reddit.com](https://www.reddit.com/user/BogdanPolakBSC/comments/9cwjvr/) [![assets/reddit-button.png]](https://www.reddit.com/user/BogdanPolakBSC/comments/9cwjvr/)
 
-Pytania i dyskusjê na temat przygotowañ proszê wpisywaæ jako komentarze pod artyku³em reddit.com. Jeœli jeszcze nie korzysta³eœ z serwisu reddit.com to aby rozpocz¹æ wpisywanie komentarzy wystastarczy przejœæ krótk¹ rejestracjê klikaj¹c na [BECOME A REDDITOR].
+Pytania i dyskusjÄ™ na temat przygotowaÅ„ proszÄ™ wpisywaÄ‡ jako komentarze pod artykuÅ‚em reddit.com. JeÅ›li jeszcze nie korzystaÅ‚eÅ› z serwisu reddit.com to aby rozpoczÄ…Ä‡ wpisywanie komentarzy wystastarczy przejÅ›Ä‡ krÃ³tkÄ… rejestracjÄ™ klikajÄ…c na [BECOME A REDDITOR].
