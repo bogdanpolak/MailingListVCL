@@ -4,7 +4,9 @@ uses
   Vcl.Forms,
   MainFormUnit in 'MainFormUnit.pas' {FormMain},
   MainDataModule in 'MainDataModule.pas' {MainDM: TDataModule},
-  ScriptForm in 'ScriptForm.pas' {FormDBScript};
+  ScriptForm in 'ScriptForm.pas' {FormDBScript},
+  UnitDatabaseScriptsDDL in 'UnitDatabaseScriptsDDL.pas',
+  UnitMySQLCreateDB in 'UnitMySQLCreateDB.pas';
 
 {$R *.res}
 
