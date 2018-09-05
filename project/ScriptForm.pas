@@ -38,6 +38,7 @@ implementation
 
 uses MainDataModule, UnitDatabaseScriptsDDL;
 
+  { TODO : Nowczeœniejsza struktura danych lub wyrzucenie danych na zwn¹trz }
 type
   TEmailRec = record
     email: string;
@@ -45,23 +46,29 @@ type
     firstName: string;
     lastName: string;
     comapny: string;
-    reg: string;
+    regDate: string;
   end;
 
 const
-  NUMBER_OF_EMAILS = 2;
-  EmailTableData: array[0..NUMBER_OF_EMAILS-1] of TEmailRec = (
-    (email:'bogdan.polak.no.spam@bsc.com.pl';listID:2; firstName:'Bogdan';
-      lastName:'Polak'; comapny:'BSC Polska'; reg:''),
-    (email:'jan.kowalski@gmail.pl';listID:2; firstName:'Jan';
-      lastName:'Kowalski'; comapny:'SuperComp SA'; reg:'')
-  );
+  NUMBER_OF_EMAILS = 5;
+  EmailTableData: array [0 .. NUMBER_OF_EMAILS - 1] of TEmailRec =
+    ((email: 'bogdan.polak.no.spam@bsc.com.pl'; listID: 2; firstName: 'Bogdan';
+    { TODO : Poprawiæ: Formatowanie daty i czasu zale¿ne od ustawieñ regionalnych }
+    lastName: 'Polak'; comapny: 'BSC Polska'; regDate: '15.08.2018 19:30'),
+    (email: 'jan.kowalski@gmail.pl'; listID: 2; firstName: 'Jan';
+    lastName: 'Kowalski'; comapny: 'Motife Sp. z o.o.'; regDate: ''),
+    (email: 'jarzabek@poczta.onet.pl'; listID: 2; firstName: 'Kazimierz';
+    lastName: 'Jarz¹b'; comapny: 'SuperComp SA'; regDate: ''),
+    (email: 'adam.adamowski.waswaw@marriot.com'; listID: 2; firstName: 'Adam';
+    lastName: 'Adamowski'; comapny: 'Marriott Hotel Warszawa'; regDate: ''),
+    (email: 'ajankowska@pekao.com.pl'; listID: 2; firstName: 'Anna';
+    lastName: 'Jankowska'; comapny: 'Bank Pekao SA Warszawa'; regDate: ''));
 
 procedure TFormDBScript.BitBtn1Click(Sender: TObject);
 var
   isExecutedWithoutErros: Boolean;
   sc: TFDSQLScript;
-  i: Integer;
+  i: integer;
   adr: string;
 begin
   Memo1.Lines.Clear;
@@ -77,28 +84,33 @@ begin
   begin
     Memo1.Lines.Add('- - - - - - - - - - - - - - - - -');
     Memo1.Lines.Add('Dodawanie adresów email ...');
+    { TODO : Zanieniæ: na Array DML }
     FDQuery1.SQL.Text := IB_INSERT_EMAIL_SQL;
-    FDQuery1.Params.ArraySize := NUMBER_OF_EMAILS;
-    for i := 0 to NUMBER_OF_EMAILS-1 do
+    for i := 0 to NUMBER_OF_EMAILS - 1 do
     begin
-      FDQuery1.ParamByName('email').AsStrings[i] := EmailTableData[i].email;
-      FDQuery1.ParamByName('listid').AsIntegers[i] := EmailTableData[i].listID;
-      FDQuery1.ParamByName('firstname').AsStrings[i] := EmailTableData[i].firstName;
-      FDQuery1.ParamByName('lastname').AsStrings[i] := EmailTableData[i].lastName;
-      FDQuery1.ParamByName('company').AsStrings[i] := EmailTableData[i].comapny;
-      if EmailTableData[i].reg='' then
-        FDQuery1.ParamByName('reg').AsDateTimes[i] := Now()
+      FDQuery1.ParamByName('email').AsString := EmailTableData[i].email;
+      FDQuery1.ParamByName('listid').AsInteger := EmailTableData[i].listID;
+      FDQuery1.ParamByName('firstname').AsString := EmailTableData[i].firstName;
+      FDQuery1.ParamByName('lastname').AsString := EmailTableData[i].lastName;
+      FDQuery1.ParamByName('company').AsString := EmailTableData[i].comapny;
+      if EmailTableData[i].regDate = '' then
+        FDQuery1.ParamByName('reg').AsDateTime := Now()
       else
-        FDQuery1.ParamByName('reg').AsStrings[i] := EmailTableData[i].reg;
+        FDQuery1.ParamByName('reg').AsDateTime :=
+          StrToDateTime(EmailTableData[i].regDate);
+      FDQuery1.ExecSQL;
     end;
-    FDQuery1.Execute(NUMBER_OF_EMAILS,0);
     case NUMBER_OF_EMAILS of
-      0: adr := 'adresów';
-      1: adr := 'adres';
-      2..4: adr := 'adresy';
-      else adr := 'adresy';
+      0:
+        adr := 'adresów';
+      1:
+        adr := 'adres';
+      2 .. 4:
+        adr := 'adresy';
+    else
+      adr := 'adresy';
     end;
-    Memo1.Lines.Add(Format('Dodano %d %s email',[FDQuery1.RowsAffected,adr]));
+    Memo1.Lines.Add(Format('Dodano %d %s email', [NUMBER_OF_EMAILS, adr]));
   end
 end;
 
