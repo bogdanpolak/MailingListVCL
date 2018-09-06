@@ -5,7 +5,8 @@ interface
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants,
   System.Classes, Vcl.Graphics,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.ExtCtrls, Vcl.StdCtrls, ChromeTabs;
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.ExtCtrls, Vcl.StdCtrls, ChromeTabs,
+  ChromeTabsClasses;
 
 type
   TFormMain = class(TForm)
@@ -22,6 +23,9 @@ type
     Button4: TButton;
     Button5: TButton;
     procedure btnCreateDatabaseStructuresClick(Sender: TObject);
+    procedure btnImportEmailsClick(Sender: TObject);
+    procedure ChromeTabs1ButtonCloseTabClick(Sender: TObject; ATab: TChromeTab;
+      var Close: Boolean);
     procedure FlowPanel1Resize(Sender: TObject);
     procedure FormCreate(Sender: TObject);
   private
@@ -37,11 +41,34 @@ implementation
 
 {$R *.dfm}
 
-uses ScriptForm;
+uses ScriptForm, ImportFrameUnit;
 
 procedure TFormMain.btnCreateDatabaseStructuresClick(Sender: TObject);
 begin
   FormDBScript.Show;
+end;
+
+procedure TFormMain.btnImportEmailsClick(Sender: TObject);
+var
+  frm: TFrameImport;
+  tab: TChromeTab;
+begin
+  frm := TFrameImport.Create(pnMain);
+  frm.Parent := pnMain;
+  frm.Visible := True;
+  frm.Align := alClient;
+  tab := ChromeTabs1.Tabs.Add;
+  tab.Data := frm;
+  tab.Caption := btnImportEmails.Caption;
+end;
+
+procedure TFormMain.ChromeTabs1ButtonCloseTabClick(Sender: TObject;
+  ATab: TChromeTab; var Close: Boolean);
+var
+  obj: TObject;
+begin
+  obj := TObject(ATab.Data);
+  (obj as TFrame).Free;
 end;
 
 procedure TFormMain.FlowPanel1Resize(Sender: TObject);

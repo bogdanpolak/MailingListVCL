@@ -27,8 +27,6 @@ object FormMain: TFormMain
     Align = alTop
     Caption = ' Zadania '
     TabOrder = 0
-    ExplicitLeft = 9
-    ExplicitWidth = 458
     object ScrollBox1: TScrollBox
       Left = 2
       Top = 15
@@ -38,7 +36,6 @@ object FormMain: TFormMain
       VertScrollBar.Tracking = True
       Align = alClient
       TabOrder = 0
-      ExplicitWidth = 658
       object FlowPanel1: TFlowPanel
         AlignWithMargins = True
         Left = 3
@@ -53,7 +50,6 @@ object FormMain: TFormMain
         ParentCtl3D = False
         TabOrder = 0
         OnResize = FlowPanel1Resize
-        ExplicitWidth = 832
         object btnCreateDatabaseStructures: TButton
           AlignWithMargins = True
           Left = 4
@@ -72,6 +68,7 @@ object FormMain: TFormMain
           Height = 25
           Caption = 'Import e-mali'
           TabOrder = 1
+          OnClick = btnImportEmailsClick
         end
         object Button2: TButton
           AlignWithMargins = True
@@ -120,6 +117,7 @@ object FormMain: TFormMain
     Height = 30
     Margins.Top = 5
     Margins.Bottom = 0
+    OnButtonCloseTabClick = ChromeTabs1ButtonCloseTabClick
     ActiveTabIndex = -1
     Options.Display.CloseButton.Offsets.Vertical = 6
     Options.Display.CloseButton.Offsets.Horizontal = 2
@@ -440,8 +438,6 @@ object FormMain: TFormMain
     LookAndFeel.ScrollButtons.Arrow.Disabled.OutlineAlpha = 200
     Align = alTop
     TabOrder = 1
-    ExplicitTop = 172
-    ExplicitWidth = 462
   end
   object pnMain: TPanel
     AlignWithMargins = True
@@ -454,10 +450,6 @@ object FormMain: TFormMain
     BevelOuter = bvNone
     Caption = 'pnMain'
     TabOrder = 2
-    ExplicitLeft = 5
-    ExplicitTop = 15
-    ExplicitWidth = 636
-    ExplicitHeight = 104
   end
   object Timer1: TTimer
     Interval = 300
