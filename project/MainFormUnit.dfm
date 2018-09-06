@@ -451,9 +451,10 @@ object FormMain: TFormMain
     Caption = 'pnMain'
     TabOrder = 2
   end
-  object Timer1: TTimer
-    Interval = 300
-    Left = 112
-    Top = 72
+  object tmrIdle200: TTimer
+    Interval = 200
+    OnTimer = tmrIdle200Timer
+    Left = 192
+    Top = 112
   end
 end
