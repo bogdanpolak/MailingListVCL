@@ -80,6 +80,7 @@
 *.projdata
 *.tvsconfig
 *.dsk
+*.otares
 
 # ########## Delphi history and backups
 # (__history) History folder
