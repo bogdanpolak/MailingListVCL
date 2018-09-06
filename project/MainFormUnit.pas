@@ -10,7 +10,7 @@ uses
 
 type
   TFormMain = class(TForm)
-    Timer1: TTimer;
+    tmrIdle200: TTimer;
     grboxCommands: TGroupBox;
     ChromeTabs1: TChromeTabs;
     pnMain: TPanel;
@@ -28,6 +28,7 @@ type
       var Close: Boolean);
     procedure FlowPanel1Resize(Sender: TObject);
     procedure FormCreate(Sender: TObject);
+    procedure tmrIdle200Timer(Sender: TObject);
   private
     { Private declarations }
   public
@@ -88,6 +89,16 @@ procedure TFormMain.FormCreate(Sender: TObject);
 begin
   FlowPanel1.Caption := '';
   pnMain.Caption := '';
+end;
+
+procedure TFormMain.tmrIdle200Timer(Sender: TObject);
+var
+  tmr: TTimer;
+begin
+  tmr := (Sender as TTimer);
+  if tmr.Tag=0 then
+    btnImportEmails.Click;
+  tmr.Tag := tmr.Tag + 1;
 end;
 
 end.
