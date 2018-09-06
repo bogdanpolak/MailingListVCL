@@ -6,7 +6,8 @@ uses
   MainDataModule in 'MainDataModule.pas' {MainDM: TDataModule},
   ScriptForm in 'ScriptForm.pas' {FormDBScript},
   UnitMySQLCreateDB in 'UnitMySQLCreateDB.pas',
-  UnitInterbaseCreateDB in 'UnitInterbaseCreateDB.pas';
+  UnitInterbaseCreateDB in 'UnitInterbaseCreateDB.pas',
+  ImportFrameUnit in 'ImportFrameUnit.pas' {FrameImport: TFrame};
 
 {$R *.res}
 
