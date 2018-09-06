@@ -1,6 +1,10 @@
 # ########## Open Console File
 
-OpenConsole.bat
+./OpenConsole.bat
+
+# ########## OS X hidden file index data
+
+.DS_Store
 
 # ########## Delphi project file
 # (*.dproj) Delphi Project file
