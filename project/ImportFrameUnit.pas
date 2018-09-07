@@ -9,7 +9,7 @@ uses
   Vcl.Grids, Vcl.DBGrids, FireDAC.Stan.Intf, FireDAC.Stan.Option,
   FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf,
   FireDAC.DApt.Intf, FireDAC.Comp.DataSet, FireDAC.Comp.Client, Vcl.DBCtrls,
-  Vcl.ExtCtrls;
+  Vcl.ExtCtrls, FireDAC.Stan.Async, FireDAC.DApt;
 
 type
   TFrameImport = class(TFrame)
@@ -29,6 +29,11 @@ type
     tmrFrameShow: TTimer;
     chkAutoLoadJSON: TCheckBox;
     grBoxFrameConfiguration: TGroupBox;
+    dsQueryCurrEmails: TFDQuery;
+    dsQueryCurrEmailsEMAIL: TWideStringField;
+    dsQueryCurrEmailsFIRSTNAME: TWideStringField;
+    dsQueryCurrEmailsLASTNAME: TWideStringField;
+    dsQueryCurrEmailsCOMPANY: TWideStringField;
     procedure btnLoadNewEmailsClick(Sender: TObject);
     procedure DBGrid1DrawColumnCell(Sender: TObject; const Rect: TRect;
       DataCol: Integer; Column: TColumn; State: TGridDrawState);
@@ -48,7 +53,7 @@ implementation
 {$R *.dfm}
 
 uses
-  System.JSON, System.IOUtils, UnitMockData;
+  System.JSON, System.IOUtils, UnitMockData, MainDataModule;
 
 // ---------------------------------------------------------
 // TDBGrid with DBCheckBox. Solution copied form:
@@ -65,6 +70,7 @@ var
   s: string;
   i: Integer;
   jObj: TJSONObject;
+  email: string;
 begin
   if FileOpenDialog1.Execute then
   begin
@@ -74,18 +80,26 @@ begin
     mtabEmails.Open;
     mtabEmails.EmptyDataSet;
     mtabEmailsImport.DisplayValues := ';';
+    dsQueryCurrEmails.Open();
     for i := 0 to jData.Count - 1 do
     begin
       jObj := jData.Items[i] as TJSONObject;
       mtabEmails.Append;
       mtabEmailsImport.Value := True;
-      mtabEmailsEmail.Value := jObj.Values['email'].Value;
+      email := jObj.Values['email'].Value;
+      mtabEmailsEmail.Value := email;
       if Assigned(jObj.Values['firstname']) then
         mtabEmailsFirstName.Value := jObj.Values['firstname'].Value;
       if Assigned(jObj.Values['lastname']) then
         mtabEmailsLastName.Value := jObj.Values['lastname'].Value;
       if Assigned(jObj.Values['company']) then
         mtabEmailsCompany.Value := jObj.Values['company'].Value;
+      if dsQueryCurrEmails.LocateEx('email = ' + QuotedStr(email)) then
+      begin
+        mtabEmailsCurFirstName.Value := dsQueryCurrEmailsFIRSTNAME.Value;
+        mtabEmailsCurLastName.Value := dsQueryCurrEmailsLASTNAME.Value;
+        mtabEmailsCurCompany.Value := dsQueryCurrEmailsCOMPANY.Value;
+      end;
       mtabEmails.Post;
     end;
   end;
@@ -99,20 +113,30 @@ end;
 
 procedure TFrameImport.DBGrid1DrawColumnCell(Sender: TObject; const Rect: TRect;
   DataCol: Integer; Column: TColumn; State: TGridDrawState);
-const
-  IsChecked: array [Boolean] of Integer = (DFCS_BUTTONCHECK,
-    DFCS_BUTTONCHECK + DFCS_CHECKED);
 var
-  DrawState: Integer;
   DrawRect: TRect;
 begin
+  if not mtabEmailsCurFirstName.IsNull then
+  begin
+    DBGrid1.Canvas.Font.Style := [fsStrikeOut];
+    DBGrid1.Canvas.Font.Color := RGB(130,60,0);
+  end
+  else
+  begin
+    DBGrid1.Canvas.Font.Style := DBGrid1.Font.Style;
+    DBGrid1.Canvas.Font.Color := clWindowText;
+  end;
+  DBGrid1.DefaultDrawColumnCell(Rect, DataCol, Column, State);
   if (Column.Field.FieldName = 'Import') then
   begin
     DrawRect := Rect;
-    InflateRect(DrawRect, -1, -1);
-    DrawState := IsChecked[Column.Field.AsBoolean];
-    DBGrid1.Canvas.FillRect(Rect);
-    DrawFrameControl(DBGrid1.Canvas.Handle, DrawRect, DFC_BUTTON, DrawState);
+    InflateRect(DrawRect, -2, -2);
+    if Column.Field.AsBoolean then
+      DrawFrameControl(DBGrid1.Canvas.Handle, DrawRect, DFC_BUTTON,
+        DFCS_BUTTONCHECK + DFCS_CHECKED)
+    else
+      DrawFrameControl(DBGrid1.Canvas.Handle, DrawRect, DFC_BUTTON,
+        DFCS_BUTTONCHECK);
   end;
 end;
 
@@ -142,6 +166,7 @@ var
   jData: TJSONArray;
   i: Integer;
   jObj: TJSONObject;
+  email: string;
 begin
   tmrFrameShow.Enabled := False;
   sProjFileName := ChangeFileExt(ExtractFileName(Application.ExeName), '.dpr');
@@ -152,18 +177,27 @@ begin
     mtabEmails.Open;
     mtabEmails.EmptyDataSet;
     mtabEmailsImport.DisplayValues := ';';
+    dsQueryCurrEmails.Open();
     for i := 0 to jData.Count - 1 do
     begin
       jObj := jData.Items[i] as TJSONObject;
       mtabEmails.Append;
       mtabEmailsImport.Value := True;
-      mtabEmailsEmail.Value := jObj.Values['email'].Value;
+      email := jObj.Values['email'].Value;
+      mtabEmailsEmail.Value := email;
       if Assigned(jObj.Values['firstname']) then
         mtabEmailsFirstName.Value := jObj.Values['firstname'].Value;
       if Assigned(jObj.Values['lastname']) then
         mtabEmailsLastName.Value := jObj.Values['lastname'].Value;
       if Assigned(jObj.Values['company']) then
         mtabEmailsCompany.Value := jObj.Values['company'].Value;
+      if dsQueryCurrEmails.Locate('email', email) then
+      begin
+        mtabEmailsImport.Value := False;
+        mtabEmailsCurFirstName.Value := dsQueryCurrEmailsFIRSTNAME.Value;
+        mtabEmailsCurLastName.Value := dsQueryCurrEmailsLASTNAME.Value;
+        mtabEmailsCurCompany.Value := dsQueryCurrEmailsCOMPANY.Value;
+      end;
       mtabEmails.Post;
     end;
   end;

@@ -92,7 +92,7 @@ object FrameImport: TFrameImport
       end>
   end
   object grBoxFrameConfiguration: TGroupBox
-    Left = 248
+    Left = 304
     Top = 112
     Width = 185
     Height = 73
@@ -114,9 +114,6 @@ object FrameImport: TFrameImport
       State = cbChecked
       TabOrder = 0
       Visible = False
-      ExplicitLeft = 16
-      ExplicitTop = 16
-      ExplicitWidth = 137
     end
   end
   object FileOpenDialog1: TFileOpenDialog
@@ -189,5 +186,35 @@ object FrameImport: TFrameImport
     OnTimer = tmrFrameShowTimer
     Left = 40
     Top = 104
+  end
+  object dsQueryCurrEmails: TFDQuery
+    Connection = MainDM.FDConnection1
+    FetchOptions.AssignedValues = [evMode]
+    FetchOptions.Mode = fmAll
+    SQL.Strings = (
+      'select email,firstname,lastname,company from MailingEmail')
+    Left = 224
+    Top = 104
+    object dsQueryCurrEmailsEMAIL: TWideStringField
+      FieldName = 'EMAIL'
+      Origin = 'EMAIL'
+      Required = True
+      Size = 100
+    end
+    object dsQueryCurrEmailsFIRSTNAME: TWideStringField
+      FieldName = 'FIRSTNAME'
+      Origin = '"FIRSTNAME"'
+      Size = 50
+    end
+    object dsQueryCurrEmailsLASTNAME: TWideStringField
+      FieldName = 'LASTNAME'
+      Origin = '"LASTNAME"'
+      Size = 50
+    end
+    object dsQueryCurrEmailsCOMPANY: TWideStringField
+      FieldName = 'COMPANY'
+      Origin = 'COMPANY'
+      Size = 100
+    end
   end
 end
