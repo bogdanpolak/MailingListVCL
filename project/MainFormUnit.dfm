@@ -2,8 +2,8 @@ object FormMain: TFormMain
   Left = 0
   Top = 0
   Caption = 'FormMain'
-  ClientHeight = 441
-  ClientWidth = 660
+  ClientHeight = 513
+  ClientWidth = 728
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -22,25 +22,27 @@ object FormMain: TFormMain
     AlignWithMargins = True
     Left = 7
     Top = 5
-    Width = 646
+    Width = 714
     Height = 124
     Align = alTop
     Caption = ' Zadania '
     TabOrder = 0
+    ExplicitWidth = 646
     object ScrollBox1: TScrollBox
       Left = 2
       Top = 15
-      Width = 642
+      Width = 710
       Height = 107
       VertScrollBar.Smooth = True
       VertScrollBar.Tracking = True
       Align = alClient
       TabOrder = 0
+      ExplicitWidth = 642
       object FlowPanel1: TFlowPanel
         AlignWithMargins = True
         Left = 3
         Top = 3
-        Width = 632
+        Width = 700
         Height = 97
         Align = alTop
         BevelOuter = bvNone
@@ -50,6 +52,7 @@ object FormMain: TFormMain
         ParentCtl3D = False
         TabOrder = 0
         OnResize = FlowPanel1Resize
+        ExplicitWidth = 632
         object btnCreateDatabaseStructures: TButton
           AlignWithMargins = True
           Left = 4
@@ -113,7 +116,7 @@ object FormMain: TFormMain
     AlignWithMargins = True
     Left = 7
     Top = 137
-    Width = 646
+    Width = 714
     Height = 30
     Margins.Top = 5
     Margins.Bottom = 0
@@ -438,18 +441,21 @@ object FormMain: TFormMain
     LookAndFeel.ScrollButtons.Arrow.Disabled.OutlineAlpha = 200
     Align = alTop
     TabOrder = 1
+    ExplicitWidth = 646
   end
   object pnMain: TPanel
     AlignWithMargins = True
     Left = 7
     Top = 167
-    Width = 646
-    Height = 269
+    Width = 714
+    Height = 341
     Margins.Top = 0
     Align = alClient
     BevelOuter = bvNone
     Caption = 'pnMain'
     TabOrder = 2
+    ExplicitWidth = 646
+    ExplicitHeight = 269
   end
   object tmrIdle200: TTimer
     Interval = 200
