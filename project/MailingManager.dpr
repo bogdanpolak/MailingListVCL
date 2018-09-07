@@ -7,7 +7,8 @@ uses
   ScriptForm in 'ScriptForm.pas' {FormDBScript},
   UnitMySQLCreateDB in 'UnitMySQLCreateDB.pas',
   UnitInterbaseCreateDB in 'UnitInterbaseCreateDB.pas',
-  ImportFrameUnit in 'ImportFrameUnit.pas' {FrameImport: TFrame};
+  ImportFrameUnit in 'ImportFrameUnit.pas' {FrameImport: TFrame},
+  UnitMockData in 'UnitMockData.pas';
 
 {$R *.res}
 
