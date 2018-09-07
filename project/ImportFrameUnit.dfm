@@ -163,6 +163,9 @@ object FrameImport: TFrameImport
       FieldName = 'Company'
       Size = 100
     end
+    object mtabEmailsConflicts: TBooleanField
+      FieldName = 'Conflicts'
+    end
     object mtabEmailsCurFirstName: TWideStringField
       FieldName = 'CurFirstName'
       Size = 100

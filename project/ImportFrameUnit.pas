@@ -9,7 +9,7 @@ uses
   Vcl.Grids, Vcl.DBGrids, FireDAC.Stan.Intf, FireDAC.Stan.Option,
   FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf,
   FireDAC.DApt.Intf, FireDAC.Comp.DataSet, FireDAC.Comp.Client, Vcl.DBCtrls,
-  Vcl.ExtCtrls, FireDAC.Stan.Async, FireDAC.DApt;
+  Vcl.ExtCtrls, FireDAC.Stan.Async, FireDAC.DApt, System.JSON;
 
 type
   TFrameImport = class(TFrame)
@@ -34,6 +34,7 @@ type
     dsQueryCurrEmailsFIRSTNAME: TWideStringField;
     dsQueryCurrEmailsLASTNAME: TWideStringField;
     dsQueryCurrEmailsCOMPANY: TWideStringField;
+    mtabEmailsConflicts: TBooleanField;
     procedure btnLoadNewEmailsClick(Sender: TObject);
     procedure DBGrid1DrawColumnCell(Sender: TObject; const Rect: TRect;
       DataCol: Integer; Column: TColumn; State: TGridDrawState);
@@ -42,9 +43,8 @@ type
       Shift: TShiftState; X, Y: Integer);
     procedure tmrFrameShowTimer(Sender: TObject);
   private
-    { Private declarations }
+    procedure myAddRowToImportTable(joEmailRow: TJSONObject);
   public
-    { Public declarations }
     constructor Create(AOwner: TComponent); override;
   end;
 
@@ -53,7 +53,7 @@ implementation
 {$R *.dfm}
 
 uses
-  System.JSON, System.IOUtils, UnitMockData, MainDataModule;
+  System.IOUtils, UnitMockData, MainDataModule;
 
 // ---------------------------------------------------------
 // TDBGrid with DBCheckBox. Solution copied form:
@@ -82,26 +82,7 @@ begin
     mtabEmailsImport.DisplayValues := ';';
     dsQueryCurrEmails.Open();
     for i := 0 to jData.Count - 1 do
-    begin
-      jObj := jData.Items[i] as TJSONObject;
-      mtabEmails.Append;
-      mtabEmailsImport.Value := True;
-      email := jObj.Values['email'].Value;
-      mtabEmailsEmail.Value := email;
-      if Assigned(jObj.Values['firstname']) then
-        mtabEmailsFirstName.Value := jObj.Values['firstname'].Value;
-      if Assigned(jObj.Values['lastname']) then
-        mtabEmailsLastName.Value := jObj.Values['lastname'].Value;
-      if Assigned(jObj.Values['company']) then
-        mtabEmailsCompany.Value := jObj.Values['company'].Value;
-      if dsQueryCurrEmails.LocateEx('email = ' + QuotedStr(email)) then
-      begin
-        mtabEmailsCurFirstName.Value := dsQueryCurrEmailsFIRSTNAME.Value;
-        mtabEmailsCurLastName.Value := dsQueryCurrEmailsLASTNAME.Value;
-        mtabEmailsCurCompany.Value := dsQueryCurrEmailsCOMPANY.Value;
-      end;
-      mtabEmails.Post;
-    end;
+      myAddRowToImportTable(jData.Items[i] as TJSONObject);
   end;
 end;
 
@@ -109,6 +90,30 @@ constructor TFrameImport.Create(AOwner: TComponent);
 begin
   inherited;
   // Mimic: Frame OnCreate Event
+end;
+
+procedure TFrameImport.myAddRowToImportTable(joEmailRow: TJSONObject);
+var
+  email: string;
+begin
+  mtabEmails.Append;
+  mtabEmailsImport.Value := True;
+  email := joEmailRow.Values['email'].Value;
+  mtabEmailsEmail.Value := email;
+  if Assigned(joEmailRow.Values['firstname']) then
+    mtabEmailsFirstName.Value := joEmailRow.Values['firstname'].Value;
+  if Assigned(joEmailRow.Values['lastname']) then
+    mtabEmailsLastName.Value := joEmailRow.Values['lastname'].Value;
+  if Assigned(joEmailRow.Values['company']) then
+    mtabEmailsCompany.Value := joEmailRow.Values['company'].Value;
+  if dsQueryCurrEmails.Locate('email', email) then
+  begin
+    mtabEmailsImport.Value := False;
+    mtabEmailsCurFirstName.Value := dsQueryCurrEmailsFIRSTNAME.Value;
+    mtabEmailsCurLastName.Value := dsQueryCurrEmailsLASTNAME.Value;
+    mtabEmailsCurCompany.Value := dsQueryCurrEmailsCOMPANY.Value;
+  end;
+  mtabEmails.Post;
 end;
 
 procedure TFrameImport.DBGrid1DrawColumnCell(Sender: TObject; const Rect: TRect;
@@ -165,41 +170,25 @@ var
   isDeveloperMode: Boolean;
   jData: TJSONArray;
   i: Integer;
-  jObj: TJSONObject;
-  email: string;
+  joEmailRow: TJSONObject;
 begin
   tmrFrameShow.Enabled := False;
   sProjFileName := ChangeFileExt(ExtractFileName(Application.ExeName), '.dpr');
+  {$IFDEF DEBUG}
   isDeveloperMode := FileExists('..\..\' + sProjFileName);
+  {$ELSE}
+  isDeveloperMode := False;
+  {$ENDIF}
   if isDeveloperMode and chkAutoLoadJSON.Checked then
   begin
     jData := TJSONObject.ParseJSONValue(sSampleImportEmailJSON) as TJSONArray;
+    { TODO : Powtórzony kod: COPY-PASTE }
     mtabEmails.Open;
     mtabEmails.EmptyDataSet;
     mtabEmailsImport.DisplayValues := ';';
     dsQueryCurrEmails.Open();
     for i := 0 to jData.Count - 1 do
-    begin
-      jObj := jData.Items[i] as TJSONObject;
-      mtabEmails.Append;
-      mtabEmailsImport.Value := True;
-      email := jObj.Values['email'].Value;
-      mtabEmailsEmail.Value := email;
-      if Assigned(jObj.Values['firstname']) then
-        mtabEmailsFirstName.Value := jObj.Values['firstname'].Value;
-      if Assigned(jObj.Values['lastname']) then
-        mtabEmailsLastName.Value := jObj.Values['lastname'].Value;
-      if Assigned(jObj.Values['company']) then
-        mtabEmailsCompany.Value := jObj.Values['company'].Value;
-      if dsQueryCurrEmails.Locate('email', email) then
-      begin
-        mtabEmailsImport.Value := False;
-        mtabEmailsCurFirstName.Value := dsQueryCurrEmailsFIRSTNAME.Value;
-        mtabEmailsCurLastName.Value := dsQueryCurrEmailsLASTNAME.Value;
-        mtabEmailsCurCompany.Value := dsQueryCurrEmailsCOMPANY.Value;
-      end;
-      mtabEmails.Post;
-    end;
+      myAddRowToImportTable(jData.Items[i] as TJSONObject);
   end;
 end;
 
