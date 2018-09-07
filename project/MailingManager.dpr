@@ -8,7 +8,8 @@ uses
   UnitMySQLCreateDB in 'UnitMySQLCreateDB.pas',
   UnitInterbaseCreateDB in 'UnitInterbaseCreateDB.pas',
   ImportFrameUnit in 'ImportFrameUnit.pas' {FrameImport: TFrame},
-  UnitMockData in 'UnitMockData.pas';
+  UnitMockData in 'UnitMockData.pas',
+  ResolveConflictsDialogUnit in 'ResolveConflictsDialogUnit.pas' {DialogResolveConflicts};
 
 {$R *.res}
 
@@ -18,5 +19,6 @@ begin
   Application.CreateForm(TFormMain, FormMain);
   Application.CreateForm(TMainDM, MainDM);
   Application.CreateForm(TFormDBScript, FormDBScript);
+  Application.CreateForm(TDialogResolveConflicts, DialogResolveConflicts);
   Application.Run;
 end.
