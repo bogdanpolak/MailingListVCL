@@ -42,6 +42,7 @@ object FrameImport: TFrameImport
     TitleFont.Name = 'Tahoma'
     TitleFont.Style = []
     OnDrawColumnCell = DBGrid1DrawColumnCell
+    OnDblClick = DBGrid1DblClick
     OnKeyPress = DBGrid1KeyPress
     OnMouseUp = DBGrid1MouseUp
     Columns = <
@@ -115,6 +116,15 @@ object FrameImport: TFrameImport
       TabOrder = 0
       Visible = False
     end
+  end
+  object btnImportSelected: TButton
+    Left = 195
+    Top = 8
+    Width = 158
+    Height = 25
+    Caption = 'Zaimportuj zaznaczone'
+    TabOrder = 3
+    OnClick = btnImportSelectedClick
   end
   object FileOpenDialog1: TFileOpenDialog
     FavoriteLinks = <>
@@ -222,5 +232,9 @@ object FrameImport: TFrameImport
       Origin = 'COMPANY'
       Size = 100
     end
+  end
+  object FDQuery1: TFDQuery
+    Left = 224
+    Top = 160
   end
 end

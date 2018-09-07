@@ -36,7 +36,11 @@ type
     dsQueryCurrEmailsCOMPANY: TWideStringField;
     mtabEmailsConflicts: TBooleanField;
     mtabEmailsDuplicated: TBooleanField;
+    btnImportSelected: TButton;
+    FDQuery1: TFDQuery;
+    procedure btnImportSelectedClick(Sender: TObject);
     procedure btnLoadNewEmailsClick(Sender: TObject);
+    procedure DBGrid1DblClick(Sender: TObject);
     procedure DBGrid1DrawColumnCell(Sender: TObject; const Rect: TRect;
       DataCol: Integer; Column: TColumn; State: TGridDrawState);
     procedure DBGrid1KeyPress(Sender: TObject; var Key: Char);
@@ -54,7 +58,7 @@ implementation
 {$R *.dfm}
 
 uses
-  System.IOUtils, UnitMockData, MainDataModule;
+  System.IOUtils, UnitMockData, MainDataModule, ResolveConflictsDialogUnit;
 
 // ---------------------------------------------------------
 // TDBGrid with DBCheckBox. Solution copied form:
@@ -91,6 +95,31 @@ constructor TFrameImport.Create(AOwner: TComponent);
 begin
   inherited;
   // Mimic: Frame OnCreate Event
+end;
+
+procedure TFrameImport.btnImportSelectedClick(Sender: TObject);
+begin
+  mtabEmails.First;
+  while not mtabEmails.Eof do
+  begin
+    if mtabEmailsDuplicated.Value then
+    begin
+
+      mtabEmailsEmail.Value
+
+      mtabEmailsFirstName.Value
+      mtabEmailsLastName.Value
+      mtabEmailsCompany.Value
+
+    end;
+
+    mtabEmails.Next;
+  end;
+end;
+
+procedure TFrameImport.DBGrid1DblClick(Sender: TObject);
+begin
+  ShowDialog_ResolveConflicts (self);
 end;
 
 procedure TFrameImport.myAddRowToImportTable(joEmailRow: TJSONObject);

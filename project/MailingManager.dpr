@@ -19,6 +19,5 @@ begin
   Application.CreateForm(TFormMain, FormMain);
   Application.CreateForm(TMainDM, MainDM);
   Application.CreateForm(TFormDBScript, FormDBScript);
-  Application.CreateForm(TDialogResolveConflicts, DialogResolveConflicts);
   Application.Run;
 end.
