@@ -163,6 +163,9 @@ object FrameImport: TFrameImport
       FieldName = 'Company'
       Size = 100
     end
+    object mtabEmailsDuplicated: TBooleanField
+      FieldName = 'Duplicated'
+    end
     object mtabEmailsConflicts: TBooleanField
       FieldName = 'Conflicts'
     end

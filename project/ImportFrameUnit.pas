@@ -35,6 +35,7 @@ type
     dsQueryCurrEmailsLASTNAME: TWideStringField;
     dsQueryCurrEmailsCOMPANY: TWideStringField;
     mtabEmailsConflicts: TBooleanField;
+    mtabEmailsDuplicated: TBooleanField;
     procedure btnLoadNewEmailsClick(Sender: TObject);
     procedure DBGrid1DrawColumnCell(Sender: TObject; const Rect: TRect;
       DataCol: Integer; Column: TColumn; State: TGridDrawState);
@@ -106,12 +107,18 @@ begin
     mtabEmailsLastName.Value := joEmailRow.Values['lastname'].Value;
   if Assigned(joEmailRow.Values['company']) then
     mtabEmailsCompany.Value := joEmailRow.Values['company'].Value;
-  if dsQueryCurrEmails.Locate('email', email) then
+  mtabEmailsDuplicated.Value := dsQueryCurrEmails.LocateEx('email like '+QuotedStr(email));
+  mtabEmailsImport.Value := not mtabEmailsDuplicated.Value;
+  mtabEmailsConflicts.Value := False;
+  if mtabEmailsDuplicated.Value then
   begin
-    mtabEmailsImport.Value := False;
     mtabEmailsCurFirstName.Value := dsQueryCurrEmailsFIRSTNAME.Value;
     mtabEmailsCurLastName.Value := dsQueryCurrEmailsLASTNAME.Value;
     mtabEmailsCurCompany.Value := dsQueryCurrEmailsCOMPANY.Value;
+    mtabEmailsConflicts.Value :=
+      (mtabEmailsFirstName.Value <> dsQueryCurrEmailsFIRSTNAME.Value) or
+      (mtabEmailsLastName.Value <> dsQueryCurrEmailsLASTNAME.Value) or
+      (mtabEmailsCompany.Value <> dsQueryCurrEmailsCOMPANY.Value);
   end;
   mtabEmails.Post;
 end;
@@ -121,10 +128,15 @@ procedure TFrameImport.DBGrid1DrawColumnCell(Sender: TObject; const Rect: TRect;
 var
   DrawRect: TRect;
 begin
-  if not mtabEmailsCurFirstName.IsNull then
+  if mtabEmailsConflicts.Value then
   begin
     DBGrid1.Canvas.Font.Style := [fsStrikeOut];
     DBGrid1.Canvas.Font.Color := RGB(130,60,0);
+  end
+  else if not mtabEmailsImport.Value then
+  begin
+    DBGrid1.Canvas.Font.Style := DBGrid1.Font.Style;
+    DBGrid1.Canvas.Font.Color := clGrayText;
   end
   else
   begin
