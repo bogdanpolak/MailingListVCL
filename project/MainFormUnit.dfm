@@ -27,7 +27,6 @@ object FormMain: TFormMain
     Align = alTop
     Caption = ' Zadania '
     TabOrder = 0
-    ExplicitWidth = 646
     object ScrollBox1: TScrollBox
       Left = 2
       Top = 15
@@ -37,7 +36,6 @@ object FormMain: TFormMain
       VertScrollBar.Tracking = True
       Align = alClient
       TabOrder = 0
-      ExplicitWidth = 642
       object FlowPanel1: TFlowPanel
         AlignWithMargins = True
         Left = 3
@@ -52,7 +50,6 @@ object FormMain: TFormMain
         ParentCtl3D = False
         TabOrder = 0
         OnResize = FlowPanel1Resize
-        ExplicitWidth = 632
         object btnCreateDatabaseStructures: TButton
           AlignWithMargins = True
           Left = 4
@@ -441,7 +438,6 @@ object FormMain: TFormMain
     LookAndFeel.ScrollButtons.Arrow.Disabled.OutlineAlpha = 200
     Align = alTop
     TabOrder = 1
-    ExplicitWidth = 646
   end
   object pnMain: TPanel
     AlignWithMargins = True
@@ -454,8 +450,6 @@ object FormMain: TFormMain
     BevelOuter = bvNone
     Caption = 'pnMain'
     TabOrder = 2
-    ExplicitWidth = 646
-    ExplicitHeight = 269
   end
   object tmrIdle200: TTimer
     Interval = 200
