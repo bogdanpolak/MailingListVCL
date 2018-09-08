@@ -31,7 +31,7 @@ const
     '  company VARCHAR(100),'+sLineBreak+
     '  registred SMALLINT DEFAULT 1,'+sLineBreak+
     '  confimed SMALLINT DEFAULT 0,'+sLineBreak+
-    '  reg_timestamp TIMESTAMP,'+sLineBreak+
+    '  create_timestamp TIMESTAMP,'+sLineBreak+
     '  confirm_timestamp TIMESTAMP,'+sLineBreak+
     '  unreg_timestamp TIMESTAMP,'+sLineBreak+
     '  PRIMARY KEY (contactid)'+sLineBreak+
@@ -39,18 +39,21 @@ const
     'CREATE GENERATOR GEN_MailingList_ID;'+sLineBreak+
     'CREATE GENERATOR GEN_Contact_ID;'+sLineBreak+
     'SET TERM ^ ;'+sLineBreak+
+    (* * * * * * * * * * * * * * * * * * * * * * * * * * * *)
     'CREATE TRIGGER TR_MailingList FOR MailingList'+sLineBreak+
     '  ACTIVE BEFORE INSERT POSITION 0 AS '+sLineBreak+
     'BEGIN'+sLineBreak+
     '  IF (NEW.listid IS NULL) THEN'+sLineBreak+
     '    NEW.listid = GEN_ID( GEN_MailingList_ID, 1);'+sLineBreak+
     'END^'+sLineBreak+
+    (* * * * * * * * * * * * * * * * * * * * * * * * * * * *)
     'CREATE TRIGGER TR_Contacts FOR Contacts'+sLineBreak+
     '  ACTIVE BEFORE INSERT POSITION 0 AS '+sLineBreak+
     'BEGIN'+sLineBreak+
     '  IF (NEW.contactid IS NULL) THEN'+sLineBreak+
-    '    NEW.emailid = GEN_ID( GEN_Contact_ID, 1);'+sLineBreak+
+    '    NEW.contactid = GEN_ID( GEN_Contact_ID, 1);'+sLineBreak+
     'END^'+sLineBreak+
+    (* * * * * * * * * * * * * * * * * * * * * * * * * * * *)
     'SET TERM ;^'+sLineBreak+
     'SET DROPnonexistent OFF;'+sLineBreak+
     'COMMIT;'+sLineBreak+
@@ -59,7 +62,7 @@ const
     '';
 
   IB_INSERT_CONTACTS_SQL = 'INSERT INTO Contacts'+
-    '(email, firstname, lastname, company, reg_timestamp)'+
+    '(email, firstname, lastname, company, create_timestamp)'+
     ' VALUES (:email, :firstname, :lastname, :company, :reg)';
 
   IB_INSERT_CONTCT2LIST_SQL = 'INSERT INTO Contact2List'+

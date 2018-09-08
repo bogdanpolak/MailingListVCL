@@ -61,14 +61,6 @@ implementation
 uses
   System.IOUtils, UnitMockData, MainDataModule, ResolveConflictsDialogUnit;
 
-// ---------------------------------------------------------
-// TDBGrid with DBCheckBox. Solution copied form:
-// https://www.thoughtco.com/place-a-checkbox-into-dbgrid-4077440
-// found in StackOverflow issue:
-// https://stackoverflow.com/questions/9019819/checkbox-in-a-dbgrid
-// 2017-10-16 (c) Zarko Gajic
-// ---------------------------------------------------------
-
 procedure TFrameImport.btnLoadNewEmailsClick(Sender: TObject);
 var
   fn: String;
@@ -86,6 +78,7 @@ begin
     mtabEmails.Open;
     mtabEmails.EmptyDataSet;
     mtabEmailsImport.DisplayValues := ';';
+    { TODO: Zapytanie ukryte w atrybucie *.SQL.Text - code review }
     dsQueryCurrEmails.Open();
     for i := 0 to jData.Count - 1 do
       myAddRowToImportTable(jData.Items[i] as TJSONObject);
@@ -103,6 +96,7 @@ var
   email: string;
   id: Integer;
 begin
+  { TODO: B³¹d: lista do importu nie zosta³a wczeœniej za³adowana }
   mtabEmails.First;
   while not mtabEmails.Eof do
   begin
@@ -111,26 +105,28 @@ begin
       email := mtabEmailsEmail.Value;
       if mtabEmailsDuplicated.Value then
       begin
-        FDQuery2.SQL.Text := 'SELECT emailid FROM MailingEmail WHERE email=''' + email + '''';
+        FDQuery2.SQL.Text := 'SELECT contactid FROM Contacts WHERE email=''' +
+          email + '''';
         FDQuery2.Open;
         if FDQuery2.Eof then
           raise Exception.Create
             ('Error! (FrameImport->btnImportSelected.OnClick) Email ' + email +
             ' not found during import');
         id := FDQuery2.Fields[0].AsInteger;
-        FDQuery2.SQL.Text := 'UPDATE MailingEmail' + ' SET firstname = ''' +
+        FDQuery2.SQL.Text := 'UPDATE Contacts' + ' SET firstname = ''' +
           mtabEmailsFirstName.Value + ''',lastname = ''' +
           mtabEmailsLastName.Value + ''',company = ''' + mtabEmailsCompany.Value
-          + ''' WHERE emailid = ' + IntToStr(id);
+          + ''' WHERE contactid = ' + IntToStr(id);
         FDQuery2.ExecSQL;
       end
       else
       begin
-        FDQuery2.SQL.Text := 'INSERT INTO MailingEmail' +
-          ' (email,firstname,lastname,company,listid)' + 'VALUES (''' + email + ''',' +
-          '''' + mtabEmailsFirstName.Value + ''', ' + '''' +
-          mtabEmailsLastName.Value + ''',' + '''' +
-          mtabEmailsCompany.Value + ''',2)';
+        { TODO: U¿yj sta³ej: UnitInterbaseCreateDB.IB_INSERT_CONTACTS_SQL }
+        FDQuery2.SQL.Text := 'INSERT INTO Contacts' +
+          ' (email, firstname, lastname, company, create_timestamp)' +
+          'VALUES (''' + email + ''',' + '''' + mtabEmailsFirstName.Value +
+          ''', ' + '''' + mtabEmailsLastName.Value + ''',' + '''' +
+          mtabEmailsCompany.Value + ''', ''' + DateTimeToStr(Now()) + ''')';
         FDQuery2.ExecSQL;
       end;
     end;
@@ -165,8 +161,9 @@ begin
     mtabEmailsLastName.Value := joEmailRow.Values['lastname'].Value;
   if Assigned(joEmailRow.Values['company']) then
     mtabEmailsCompany.Value := joEmailRow.Values['company'].Value;
-  mtabEmailsDuplicated.Value := dsQueryCurrEmails.LocateEx
-    ('email like ' + QuotedStr(email));
+  { TODO: Dataset ukryty w kodzie metody. Jak rozprê¿yæ? dsQueryCurrEmails }
+  { *** Metoda zale¿na od JSON-a oraz od DataSet-u. }
+  mtabEmailsDuplicated.Value := dsQueryCurrEmails.Locate('email', email, []);
   mtabEmailsImport.Value := not mtabEmailsDuplicated.Value;
   mtabEmailsConflicts.Value := False;
   if mtabEmailsDuplicated.Value then

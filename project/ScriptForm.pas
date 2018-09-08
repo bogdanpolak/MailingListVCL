@@ -106,6 +106,7 @@ begin
       FDQuery2.ParamByName('listid').Value := 2;
       FDQuery2.ExecSQL;
     end;
+    FDQuery1.Connection.Commit;
     { TODO : Zamieniæ na funckjê:
     ChangeWordByNumeralsPL (liczba, s³owo, formaMnoga, mnogaDopelniacz) }
     { *

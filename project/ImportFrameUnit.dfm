@@ -93,8 +93,8 @@ object FrameImport: TFrameImport
       end>
   end
   object grBoxFrameConfiguration: TGroupBox
-    Left = 304
-    Top = 112
+    Left = 392
+    Top = 88
     Width = 185
     Height = 73
     Caption = 'grBoxFrameConfiguration'
@@ -111,8 +111,6 @@ object FrameImport: TFrameImport
       Height = 17
       Align = alTop
       Caption = 'chkAutoLoadJSON'
-      Checked = True
-      State = cbChecked
       TabOrder = 0
       Visible = False
     end
@@ -208,7 +206,7 @@ object FrameImport: TFrameImport
     FetchOptions.AssignedValues = [evMode]
     FetchOptions.Mode = fmAll
     SQL.Strings = (
-      'select email,firstname,lastname,company from MailingEmail')
+      'select email,firstname,lastname,company from Contacts')
     Left = 224
     Top = 104
     object dsQueryCurrEmailsEMAIL: TWideStringField
