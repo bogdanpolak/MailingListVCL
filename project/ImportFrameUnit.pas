@@ -38,6 +38,7 @@ type
     mtabEmailsDuplicated: TBooleanField;
     btnImportSelected: TButton;
     FDQuery1: TFDQuery;
+    FDQuery2: TFDQuery;
     procedure btnImportSelectedClick(Sender: TObject);
     procedure btnLoadNewEmailsClick(Sender: TObject);
     procedure DBGrid1DblClick(Sender: TObject);
@@ -98,28 +99,56 @@ begin
 end;
 
 procedure TFrameImport.btnImportSelectedClick(Sender: TObject);
+var
+  email: string;
+  id: Integer;
 begin
   mtabEmails.First;
   while not mtabEmails.Eof do
   begin
-    if mtabEmailsDuplicated.Value then
+    if mtabEmailsImport.Value then
     begin
-
-      mtabEmailsEmail.Value
-
-      mtabEmailsFirstName.Value
-      mtabEmailsLastName.Value
-      mtabEmailsCompany.Value
-
+      email := mtabEmailsEmail.Value;
+      if mtabEmailsDuplicated.Value then
+      begin
+        FDQuery2.SQL.Text := 'SELECT emailid FROM MailingEmail WHERE email=''' + email + '''';
+        FDQuery2.Open;
+        if FDQuery2.Eof then
+          raise Exception.Create
+            ('Error! (FrameImport->btnImportSelected.OnClick) Email ' + email +
+            ' not found during import');
+        id := FDQuery2.Fields[0].AsInteger;
+        FDQuery2.SQL.Text := 'UPDATE MailingEmail' + ' SET firstname = ''' +
+          mtabEmailsFirstName.Value + ''',lastname = ''' +
+          mtabEmailsLastName.Value + ''',company = ''' + mtabEmailsCompany.Value
+          + ''' WHERE emailid = ' + IntToStr(id);
+        FDQuery2.ExecSQL;
+      end
+      else
+      begin
+        FDQuery2.SQL.Text := 'INSERT INTO MailingEmail' +
+          ' (email,firstname,lastname,company,listid)' + 'VALUES (''' + email + ''',' +
+          '''' + mtabEmailsFirstName.Value + ''', ' + '''' +
+          mtabEmailsLastName.Value + ''',' + '''' +
+          mtabEmailsCompany.Value + ''',2)';
+        FDQuery2.ExecSQL;
+      end;
     end;
-
     mtabEmails.Next;
+  end;
+  mtabEmails.First;
+  while not mtabEmails.Eof do
+  begin
+    if mtabEmailsImport.Value then
+      mtabEmails.Delete
+    else
+      mtabEmails.Next;
   end;
 end;
 
 procedure TFrameImport.DBGrid1DblClick(Sender: TObject);
 begin
-  ShowDialog_ResolveConflicts (self);
+  ShowDialog_ResolveConflicts(self);
 end;
 
 procedure TFrameImport.myAddRowToImportTable(joEmailRow: TJSONObject);
@@ -136,7 +165,8 @@ begin
     mtabEmailsLastName.Value := joEmailRow.Values['lastname'].Value;
   if Assigned(joEmailRow.Values['company']) then
     mtabEmailsCompany.Value := joEmailRow.Values['company'].Value;
-  mtabEmailsDuplicated.Value := dsQueryCurrEmails.LocateEx('email like '+QuotedStr(email));
+  mtabEmailsDuplicated.Value := dsQueryCurrEmails.LocateEx
+    ('email like ' + QuotedStr(email));
   mtabEmailsImport.Value := not mtabEmailsDuplicated.Value;
   mtabEmailsConflicts.Value := False;
   if mtabEmailsDuplicated.Value then
@@ -160,7 +190,7 @@ begin
   if mtabEmailsConflicts.Value then
   begin
     DBGrid1.Canvas.Font.Style := [fsStrikeOut];
-    DBGrid1.Canvas.Font.Color := RGB(130,60,0);
+    DBGrid1.Canvas.Font.Color := RGB(130, 60, 0);
   end
   else if not mtabEmailsImport.Value then
   begin
@@ -215,11 +245,11 @@ var
 begin
   tmrFrameShow.Enabled := False;
   sProjFileName := ChangeFileExt(ExtractFileName(Application.ExeName), '.dpr');
-  {$IFDEF DEBUG}
+{$IFDEF DEBUG}
   isDeveloperMode := FileExists('..\..\' + sProjFileName);
-  {$ELSE}
+{$ELSE}
   isDeveloperMode := False;
-  {$ENDIF}
+{$ENDIF}
   if isDeveloperMode and chkAutoLoadJSON.Checked then
   begin
     jData := TJSONObject.ParseJSONValue(sSampleImportEmailJSON) as TJSONArray;

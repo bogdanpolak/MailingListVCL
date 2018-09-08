@@ -237,4 +237,9 @@ object FrameImport: TFrameImport
     Left = 224
     Top = 160
   end
+  object FDQuery2: TFDQuery
+    Connection = MainDM.FDConnection1
+    Left = 224
+    Top = 208
+  end
 end
