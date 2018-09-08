@@ -1,7 +1,7 @@
 object FormMain: TFormMain
   Left = 0
   Top = 0
-  Caption = 'FormMain'
+  Caption = 'Mailing Manager'
   ClientHeight = 513
   ClientWidth = 728
   Color = clBtnFace

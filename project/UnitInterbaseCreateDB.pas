@@ -10,9 +10,14 @@ const
     'DROP GENERATOR GEN_MailingList_ID;'+sLineBreak+
     'DROP TRIGGER TR_Contacts;'+sLineBreak+
     'DROP GENERATOR GEN_Contact_ID;'+sLineBreak+
-    'DROP TABLE Contacts;'+sLineBreak+
+    'DROP TABLE DBInfo;'+sLineBreak+
     'DROP TABLE Contact2List;'+sLineBreak+
+    'DROP TABLE Contacts;'+sLineBreak+
     'DROP TABLE MailingList;'+sLineBreak+
+    'CREATE TABLE DBInfo ('+sLineBreak+
+    '  versionnr INTEGER NOT NULL,'+sLineBreak+
+    '  PRIMARY KEY (versionnr)'+sLineBreak+
+    ');'+sLineBreak+
     'CREATE TABLE MailingList ('+sLineBreak+
     '  listid INTEGER NOT NULL,'+sLineBreak+
     '  description VARCHAR(50) NOT NULL,'+sLineBreak+
@@ -57,8 +62,10 @@ const
     'SET TERM ;^'+sLineBreak+
     'SET DROPnonexistent OFF;'+sLineBreak+
     'COMMIT;'+sLineBreak+
+    'INSERT INTO DBInfo (versionnr) VALUES (1);'+sLineBreak+
     'INSERT INTO MailingList(description) VALUES (''Mailing g³ówny'');'+sLineBreak+
     'INSERT INTO MailingList(description) VALUES (''Lista testowa'');'+sLineBreak+
+    'COMMIT;'+sLineBreak+
     '';
 
   IB_INSERT_CONTACTS_SQL = 'INSERT INTO Contacts'+
