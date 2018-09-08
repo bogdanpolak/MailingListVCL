@@ -10,26 +10,33 @@ uses
 
 type
   TFormMain = class(TForm)
-    tmrIdle200: TTimer;
+    tmrIdle: TTimer;
     grboxCommands: TGroupBox;
     ChromeTabs1: TChromeTabs;
     pnMain: TPanel;
     FlowPanel1: TFlowPanel;
     btnCreateDatabaseStructures: TButton;
-    btnImportEmails: TButton;
-    Button2: TButton;
+    btnManageContacts: TButton;
+    btnImportContacts: TButton;
     Button3: TButton;
     ScrollBox1: TScrollBox;
     Button4: TButton;
     Button5: TButton;
+    grboxConfiguration: TGroupBox;
+    rbtnDialogCreateDB: TRadioButton;
+    rbtnFrameImportContacts: TRadioButton;
+    rbtFrameManageContacts: TRadioButton;
+    rbtnDisable: TRadioButton;
     procedure btnCreateDatabaseStructuresClick(Sender: TObject);
-    procedure btnImportEmailsClick(Sender: TObject);
+    procedure btnImportContactsClick(Sender: TObject);
+    procedure btnManageContactsClick(Sender: TObject);
     procedure ChromeTabs1ButtonCloseTabClick(Sender: TObject; ATab: TChromeTab;
       var Close: Boolean);
     procedure FlowPanel1Resize(Sender: TObject);
     procedure FormCreate(Sender: TObject);
-    procedure tmrIdle200Timer(Sender: TObject);
+    procedure tmrIdleTimer(Sender: TObject);
   private
+    isDeveloperMode: Boolean;
     { Private declarations }
   public
     { Public declarations }
@@ -49,18 +56,24 @@ begin
   FormDBScript.Show;
 end;
 
-procedure TFormMain.btnImportEmailsClick(Sender: TObject);
+procedure TFormMain.btnImportContactsClick(Sender: TObject);
 var
   frm: TFrameImport;
   tab: TChromeTab;
 begin
+  { TODO: Dodaæ kontrolê otiwrania tej samej zak³¹dki po raz drugi (wyj¹tek) }
   frm := TFrameImport.Create(pnMain);
   frm.Parent := pnMain;
   frm.Visible := True;
   frm.Align := alClient;
   tab := ChromeTabs1.Tabs.Add;
   tab.Data := frm;
-  tab.Caption := btnImportEmails.Caption;
+  tab.Caption := btnImportContacts.Caption;
+end;
+
+procedure TFormMain.btnManageContactsClick(Sender: TObject);
+begin
+  // Miejsce na  stworzenie i otwarcie ramki: FrameManageContacts
 end;
 
 procedure TFormMain.ChromeTabs1ButtonCloseTabClick(Sender: TObject;
@@ -86,19 +99,38 @@ begin
 end;
 
 procedure TFormMain.FormCreate(Sender: TObject);
+var
+  sProjFileName: string;
 begin
   FlowPanel1.Caption := '';
   pnMain.Caption := '';
+  { TODO: Powtórka: COPY-PASTE }
+  { TODO: Poprawiæ rozpoznawanie projektu: dpr w bie¿¹cym folderze }
+{$IFDEF DEBUG}
+  sProjFileName := ChangeFileExt(ExtractFileName(Application.ExeName), '.dpr');
+  isDeveloperMode := FileExists('..\..\' + sProjFileName);
+{$ELSE}
+  isDeveloperMode := False;
+{$ENDIF}
 end;
 
-procedure TFormMain.tmrIdle200Timer(Sender: TObject);
+procedure TFormMain.tmrIdleTimer(Sender: TObject);
 var
   tmr: TTimer;
 begin
   tmr := (Sender as TTimer);
-  if tmr.Tag=0 then
-    btnCreateDatabaseStructures.Click
-  else if not FormDBScript.Visible then Close;
+  if isDeveloperMode then
+  begin
+    if tmr.Tag = 0 then
+    begin
+      if rbtnDialogCreateDB.Checked then
+        btnCreateDatabaseStructures.Click;
+      if rbtnFrameImportContacts.Checked then
+        btnImportContacts.Click;
+      if rbtFrameManageContacts.Checked then
+        btnManageContacts.Click;
+    end;
+  end;
   tmr.Tag := tmr.Tag + 1;
 end;
 

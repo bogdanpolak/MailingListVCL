@@ -60,24 +60,25 @@ object FormMain: TFormMain
           TabOrder = 0
           OnClick = btnCreateDatabaseStructuresClick
         end
-        object btnImportEmails: TButton
+        object btnManageContacts: TButton
           AlignWithMargins = True
           Left = 210
           Top = 4
           Width = 200
           Height = 25
-          Caption = 'Import e-mali'
+          Caption = 'Zarz'#261'dzanie Kontaktami'
           TabOrder = 1
-          OnClick = btnImportEmailsClick
+          OnClick = btnManageContactsClick
         end
-        object Button2: TButton
+        object btnImportContacts: TButton
           AlignWithMargins = True
           Left = 416
           Top = 4
           Width = 200
           Height = 25
-          Caption = 'Button2'
+          Caption = 'Import Kontakt'#243'w'
           TabOrder = 2
+          OnClick = btnImportContactsClick
         end
         object Button3: TButton
           AlignWithMargins = True
@@ -451,9 +452,72 @@ object FormMain: TFormMain
     Caption = 'pnMain'
     TabOrder = 2
   end
-  object tmrIdle200: TTimer
-    Interval = 200
-    OnTimer = tmrIdle200Timer
+  object grboxConfiguration: TGroupBox
+    Left = 18
+    Top = 200
+    Width = 185
+    Height = 153
+    Caption = 'grboxAutoOpen'
+    Padding.Left = 6
+    Padding.Top = 4
+    Padding.Right = 6
+    TabOrder = 3
+    Visible = False
+    object rbtnDialogCreateDB: TRadioButton
+      AlignWithMargins = True
+      Left = 11
+      Top = 45
+      Width = 163
+      Height = 17
+      Align = alTop
+      Caption = 'rbtnDialogCreateDB'
+      TabOrder = 0
+      ExplicitLeft = 32
+      ExplicitTop = 25
+      ExplicitWidth = 113
+    end
+    object rbtnFrameImportContacts: TRadioButton
+      AlignWithMargins = True
+      Left = 11
+      Top = 68
+      Width = 163
+      Height = 17
+      Align = alTop
+      Caption = 'rbtnFrameImportContacts'
+      TabOrder = 1
+      ExplicitLeft = 16
+      ExplicitTop = 48
+      ExplicitWidth = 113
+    end
+    object rbtFrameManageContacts: TRadioButton
+      AlignWithMargins = True
+      Left = 11
+      Top = 91
+      Width = 163
+      Height = 17
+      Align = alTop
+      Caption = 'rbtFrameManageContacts'
+      Checked = True
+      TabOrder = 2
+      TabStop = True
+      ExplicitLeft = 9
+      ExplicitTop = 68
+    end
+    object rbtnDisable: TRadioButton
+      AlignWithMargins = True
+      Left = 11
+      Top = 22
+      Width = 163
+      Height = 17
+      Align = alTop
+      Caption = 'rbtnDisable'
+      TabOrder = 3
+      ExplicitLeft = 9
+    end
+  end
+  object tmrIdle: TTimer
+    Interval = 50
+    OnTimer = tmrIdleTimer
     Left = 192
     Top = 112
   end
