@@ -1,5 +1,7 @@
 program MailingManager;
 
+{$R *.dres}
+
 uses
   Vcl.Forms,
   MainFormUnit in 'MainFormUnit.pas' {FormMain},
@@ -10,7 +12,8 @@ uses
   ImportFrameUnit in 'ImportFrameUnit.pas' {FrameImport: TFrame},
   UnitMockData in 'UnitMockData.pas',
   ResolveConflictsDialogUnit in 'ResolveConflictsDialogUnit.pas' {DialogResolveConflicts},
-  ManageContactsFrameUnit in 'ManageContactsFrameUnit.pas' {FrameManageContacts: TFrame};
+  ManageContactsFrameUnit in 'ManageContactsFrameUnit.pas' {FrameManageContacts: TFrame},
+  WelcomeFrameUnit in 'WelcomeFrameUnit.pas' {FrameWelcome: TFrame};
 
 {$R *.res}
 

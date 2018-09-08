@@ -26,7 +26,7 @@ type
     rbtnDialogCreateDB: TRadioButton;
     rbtnFrameImportContacts: TRadioButton;
     rbtFrameManageContacts: TRadioButton;
-    rbtnDisable: TRadioButton;
+    rbtnWelcome: TRadioButton;
     grboxConfiguration: TGroupBox;
     edtAppVersion: TEdit;
     Label1: TLabel;
@@ -56,7 +56,7 @@ implementation
 
 uses
   FireDAC.Stan.Error, ScriptForm, ImportFrameUnit, ManageContactsFrameUnit,
-  MainDataModule;
+  MainDataModule, WelcomeFrameUnit;
 
 procedure TFormMain.btnCreateDatabaseStructuresClick(Sender: TObject);
 begin
@@ -140,12 +140,23 @@ var
   VersionNr: Integer;
   kind: TFDCommandExceptionKind;
   isFirstTime: Boolean;
+  tab: TChromeTab;
+  frm: TFrameWelcome;
 begin
   tmr1 := (Sender as TTimer);
   isFirstTime := (tmr1.Tag = 0);
   tmr1.Tag := tmr1.Tag + 1;
   if isFirstTime then
   begin
+    { TODO: Powtórka: COPY-PASTE }
+    frm := TFrameWelcome.Create(pnMain);
+    frm.Parent := pnMain;
+    frm.Visible := True;
+    frm.Align := alClient;
+    tab := ChromeTabs1.Tabs.Add;
+    tab.Data := frm;
+    // w poni¿ej linii  jest ró¿nica w porównaniu do innych kopii
+    tab.Caption := 'Ekran powitalny';
     { TODO: Verify AppVersion with resorces }
     // edtAppVersion.Text
     self.Caption := self.Caption + ' - ' + edtAppVersion.Text;

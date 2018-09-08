@@ -2,8 +2,8 @@ object FormMain: TFormMain
   Left = 0
   Top = 0
   Caption = 'Mailing Manager'
-  ClientHeight = 513
-  ClientWidth = 728
+  ClientHeight = 571
+  ClientWidth = 760
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -22,25 +22,27 @@ object FormMain: TFormMain
     AlignWithMargins = True
     Left = 7
     Top = 5
-    Width = 714
+    Width = 746
     Height = 124
     Align = alTop
     Caption = ' Zadania '
     TabOrder = 0
+    ExplicitWidth = 714
     object ScrollBox1: TScrollBox
       Left = 2
       Top = 15
-      Width = 710
+      Width = 742
       Height = 107
       VertScrollBar.Smooth = True
       VertScrollBar.Tracking = True
       Align = alClient
       TabOrder = 0
+      ExplicitWidth = 710
       object FlowPanel1: TFlowPanel
         AlignWithMargins = True
         Left = 3
         Top = 3
-        Width = 700
+        Width = 732
         Height = 97
         Align = alTop
         BevelOuter = bvNone
@@ -50,6 +52,7 @@ object FormMain: TFormMain
         ParentCtl3D = False
         TabOrder = 0
         OnResize = FlowPanel1Resize
+        ExplicitWidth = 700
         object btnCreateDatabaseStructures: TButton
           AlignWithMargins = True
           Left = 4
@@ -114,7 +117,7 @@ object FormMain: TFormMain
     AlignWithMargins = True
     Left = 7
     Top = 137
-    Width = 714
+    Width = 746
     Height = 30
     Margins.Top = 5
     Margins.Bottom = 0
@@ -439,18 +442,21 @@ object FormMain: TFormMain
     LookAndFeel.ScrollButtons.Arrow.Disabled.OutlineAlpha = 200
     Align = alTop
     TabOrder = 1
+    ExplicitWidth = 714
   end
   object pnMain: TPanel
     AlignWithMargins = True
     Left = 7
     Top = 167
-    Width = 714
-    Height = 341
+    Width = 746
+    Height = 399
     Margins.Top = 0
     Align = alClient
     BevelOuter = bvNone
     Caption = 'pnMain'
     TabOrder = 2
+    ExplicitWidth = 714
+    ExplicitHeight = 341
   end
   object grboxConfiguration: TGroupBox
     Left = 47
@@ -499,7 +505,6 @@ object FormMain: TFormMain
       Padding.Top = 4
       Padding.Right = 6
       TabOrder = 0
-      ExplicitLeft = 13
       object rbtnDialogCreateDB: TRadioButton
         AlignWithMargins = True
         Left = 11
@@ -509,7 +514,6 @@ object FormMain: TFormMain
         Align = alTop
         Caption = 'rbtnDialogCreateDB'
         TabOrder = 0
-        ExplicitWidth = 163
       end
       object rbtnFrameImportContacts: TRadioButton
         AlignWithMargins = True
@@ -520,7 +524,6 @@ object FormMain: TFormMain
         Align = alTop
         Caption = 'rbtnFrameImportContacts'
         TabOrder = 1
-        ExplicitWidth = 163
       end
       object rbtFrameManageContacts: TRadioButton
         AlignWithMargins = True
@@ -530,21 +533,19 @@ object FormMain: TFormMain
         Height = 17
         Align = alTop
         Caption = 'rbtFrameManageContacts'
-        Checked = True
         TabOrder = 2
-        TabStop = True
-        ExplicitWidth = 163
       end
-      object rbtnDisable: TRadioButton
+      object rbtnWelcome: TRadioButton
         AlignWithMargins = True
         Left = 11
         Top = 22
         Width = 158
         Height = 17
         Align = alTop
-        Caption = 'rbtnDisable'
+        Caption = 'rbtnWelcome'
+        Checked = True
         TabOrder = 3
-        ExplicitWidth = 163
+        TabStop = True
       end
     end
     object edtAppVersion: TEdit
