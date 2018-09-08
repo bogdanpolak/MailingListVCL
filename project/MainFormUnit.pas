@@ -97,7 +97,8 @@ var
 begin
   tmr := (Sender as TTimer);
   if tmr.Tag=0 then
-    btnImportEmails.Click;
+    btnCreateDatabaseStructures.Click
+  else if not FormDBScript.Visible then Close;
   tmr.Tag := tmr.Tag + 1;
 end;
 

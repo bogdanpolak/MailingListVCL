@@ -78,4 +78,9 @@ object FormDBScript: TFormDBScript
     Left = 248
     Top = 96
   end
+  object FDQuery2: TFDQuery
+    Connection = MainDM.FDConnection1
+    Left = 248
+    Top = 144
+  end
 end
