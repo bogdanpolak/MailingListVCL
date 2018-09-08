@@ -22,11 +22,16 @@ type
     ScrollBox1: TScrollBox;
     Button4: TButton;
     Button5: TButton;
-    grboxConfiguration: TGroupBox;
+    grboxAutoOpen: TGroupBox;
     rbtnDialogCreateDB: TRadioButton;
     rbtnFrameImportContacts: TRadioButton;
     rbtFrameManageContacts: TRadioButton;
     rbtnDisable: TRadioButton;
+    grboxConfiguration: TGroupBox;
+    edtAppVersion: TEdit;
+    Label1: TLabel;
+    Label2: TLabel;
+    edtDBVersion: TEdit;
     procedure btnCreateDatabaseStructuresClick(Sender: TObject);
     procedure btnImportContactsClick(Sender: TObject);
     procedure btnManageContactsClick(Sender: TObject);
@@ -49,7 +54,9 @@ implementation
 
 {$R *.dfm}
 
-uses ScriptForm, ImportFrameUnit, ManageContactsFrameUnit;
+uses
+  FireDAC.Stan.Error, ScriptForm, ImportFrameUnit, ManageContactsFrameUnit,
+  MainDataModule;
 
 procedure TFormMain.btnCreateDatabaseStructuresClick(Sender: TObject);
 begin
@@ -127,22 +134,62 @@ end;
 
 procedure TFormMain.tmrIdleTimer(Sender: TObject);
 var
-  tmr: TTimer;
+  tmr1: TTimer;
+  DatabaseNumber: Integer;
+  res: Variant;
+  VersionNr: Integer;
+  kind: TFDCommandExceptionKind;
+  isFirstTime: Boolean;
 begin
-  tmr := (Sender as TTimer);
-  if isDeveloperMode then
+  tmr1 := (Sender as TTimer);
+  isFirstTime := (tmr1.Tag = 0);
+  tmr1.Tag := tmr1.Tag + 1;
+  if isFirstTime then
   begin
-    if tmr.Tag = 0 then
+    { TODO: Verify AppVersion with resorces }
+    // edtAppVersion.Text
+    self.Caption := self.Caption + ' - ' + edtAppVersion.Text;
+    DatabaseNumber := StrToInt(edtDBVersion.Text);
+    { TODO: Wy³¹cz metodê: Po³aczenie z baz¹ i porównanie DatabaseNumber z VersionNr }
+    { TODO: Dodaj okno logowania i autentykacjê }
+    try
+      MainDM.FDConnection1.Open();
+    except
+      on E: EFDDBEngineException do
+      begin
+        if E.kind = ekObjNotExists then
+        begin
+          { TODO: Wy³¹cz jako sta³a resourcestring }
+          tmr1.Enabled := False;
+          { TODO: Zamieñ ShowMessage na informacje na ekranie powitalnym }
+          ShowMessage
+            ('Proszê najpierw uruchomiæ skrypt buduj¹cy strukturê bazy danych.');
+          tmr1.Enabled := True;
+        end;
+      end;
+    end;
+    res := MainDM.FDConnection1.ExecSQLScalar('SELECT versionnr FROM DBInfo');
+    VersionNr := res;
+    if VersionNr <> DatabaseNumber then
     begin
-      if rbtnDialogCreateDB.Checked then
-        btnCreateDatabaseStructures.Click;
-      if rbtnFrameImportContacts.Checked then
-        btnImportContacts.Click;
-      if rbtFrameManageContacts.Checked then
-        btnManageContacts.Click;
+      tmr1.Enabled := False;
+      { TODO: Zamieñ ShowMessage na informacje na ekranie powitalnym }
+      ShowMessage
+        (Format('B³êdna wersja bazy danych. Proszê zaktualizowaæ strukturê bazy. '
+        + 'Oczekiwana wersja bazy: %d, aktualna wersja bazy: %d',
+        [DatabaseNumber, VersionNr]));
+      tmr1.Enabled := True;
     end;
   end;
-  tmr.Tag := tmr.Tag + 1;
+  if isDeveloperMode and isFirstTime then
+  begin
+    if rbtnDialogCreateDB.Checked then
+      btnCreateDatabaseStructures.Click;
+    if rbtnFrameImportContacts.Checked then
+      btnImportContacts.Click;
+    if rbtFrameManageContacts.Checked then
+      btnManageContacts.Click;
+  end;
 end;
 
 end.

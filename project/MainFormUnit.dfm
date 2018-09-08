@@ -453,57 +453,123 @@ object FormMain: TFormMain
     TabOrder = 2
   end
   object grboxConfiguration: TGroupBox
-    Left = 18
-    Top = 200
-    Width = 185
-    Height = 153
-    Caption = 'grboxAutoOpen'
+    Left = 47
+    Top = 186
+    Width = 202
+    Height = 271
+    Caption = 'grboxConfiguration'
     Padding.Left = 6
-    Padding.Top = 4
+    Padding.Top = 6
     Padding.Right = 6
     TabOrder = 3
     Visible = False
-    object rbtnDialogCreateDB: TRadioButton
+    object Label1: TLabel
       AlignWithMargins = True
       Left = 11
-      Top = 45
-      Width = 163
-      Height = 17
+      Top = 24
+      Width = 180
+      Height = 13
+      Margins.Bottom = 0
       Align = alTop
-      Caption = 'rbtnDialogCreateDB'
+      Caption = 'Wersja aplikacji'
+      ExplicitWidth = 74
+    end
+    object Label2: TLabel
+      AlignWithMargins = True
+      Left = 11
+      Top = 70
+      Width = 180
+      Height = 13
+      Margins.Top = 6
+      Margins.Bottom = 0
+      Align = alTop
+      Caption = 'Wersja bazy danych'
+      ExplicitWidth = 98
+    end
+    object grboxAutoOpen: TGroupBox
+      AlignWithMargins = True
+      Left = 11
+      Top = 116
+      Width = 180
+      Height = 129
+      Margins.Top = 6
+      Align = alTop
+      Caption = 'grboxAutoOpen'
+      Padding.Left = 6
+      Padding.Top = 4
+      Padding.Right = 6
       TabOrder = 0
+      ExplicitLeft = 13
+      object rbtnDialogCreateDB: TRadioButton
+        AlignWithMargins = True
+        Left = 11
+        Top = 45
+        Width = 158
+        Height = 17
+        Align = alTop
+        Caption = 'rbtnDialogCreateDB'
+        TabOrder = 0
+        ExplicitWidth = 163
+      end
+      object rbtnFrameImportContacts: TRadioButton
+        AlignWithMargins = True
+        Left = 11
+        Top = 68
+        Width = 158
+        Height = 17
+        Align = alTop
+        Caption = 'rbtnFrameImportContacts'
+        TabOrder = 1
+        ExplicitWidth = 163
+      end
+      object rbtFrameManageContacts: TRadioButton
+        AlignWithMargins = True
+        Left = 11
+        Top = 91
+        Width = 158
+        Height = 17
+        Align = alTop
+        Caption = 'rbtFrameManageContacts'
+        Checked = True
+        TabOrder = 2
+        TabStop = True
+        ExplicitWidth = 163
+      end
+      object rbtnDisable: TRadioButton
+        AlignWithMargins = True
+        Left = 11
+        Top = 22
+        Width = 158
+        Height = 17
+        Align = alTop
+        Caption = 'rbtnDisable'
+        TabOrder = 3
+        ExplicitWidth = 163
+      end
     end
-    object rbtnFrameImportContacts: TRadioButton
+    object edtAppVersion: TEdit
       AlignWithMargins = True
       Left = 11
-      Top = 68
-      Width = 163
-      Height = 17
+      Top = 40
+      Width = 180
+      Height = 21
       Align = alTop
-      Caption = 'rbtnFrameImportContacts'
+      Alignment = taCenter
+      Color = clBtnFace
       TabOrder = 1
+      Text = '0.5.12'
     end
-    object rbtFrameManageContacts: TRadioButton
+    object edtDBVersion: TEdit
       AlignWithMargins = True
       Left = 11
-      Top = 91
-      Width = 163
-      Height = 17
+      Top = 86
+      Width = 180
+      Height = 21
       Align = alTop
-      Caption = 'rbtFrameManageContacts'
-      Checked = True
+      Alignment = taCenter
+      Color = clBtnFace
       TabOrder = 2
-      TabStop = True
-    end
-    object rbtnDisable: TRadioButton
-      AlignWithMargins = True
-      Left = 11
-      Top = 22
-      Width = 163
-      Height = 17
-      Align = alTop
-      Caption = 'rbtnDisable'
-      TabOrder = 3
+      Text = '1'
     end
   end
   object tmrIdle: TTimer
