@@ -49,7 +49,7 @@ implementation
 
 {$R *.dfm}
 
-uses ScriptForm, ImportFrameUnit;
+uses ScriptForm, ImportFrameUnit, ManageContactsFrameUnit;
 
 procedure TFormMain.btnCreateDatabaseStructuresClick(Sender: TObject);
 begin
@@ -68,12 +68,23 @@ begin
   frm.Align := alClient;
   tab := ChromeTabs1.Tabs.Add;
   tab.Data := frm;
-  tab.Caption := btnImportContacts.Caption;
+  tab.Caption := (Sender as TButton).Caption;
 end;
 
 procedure TFormMain.btnManageContactsClick(Sender: TObject);
+var
+  frm: TFrameManageContacts;
+  tab: TChromeTab;
 begin
   // Miejsce na  stworzenie i otwarcie ramki: FrameManageContacts
+  { TODO: Powtórka: COPY-PASTE }
+  frm := TFrameManageContacts.Create(pnMain);
+  frm.Parent := pnMain;
+  frm.Visible := True;
+  frm.Align := alClient;
+  tab := ChromeTabs1.Tabs.Add;
+  tab.Data := frm;
+  tab.Caption := (Sender as TButton).Caption;
 end;
 
 procedure TFormMain.ChromeTabs1ButtonCloseTabClick(Sender: TObject;

@@ -9,7 +9,8 @@ uses
   UnitInterbaseCreateDB in 'UnitInterbaseCreateDB.pas',
   ImportFrameUnit in 'ImportFrameUnit.pas' {FrameImport: TFrame},
   UnitMockData in 'UnitMockData.pas',
-  ResolveConflictsDialogUnit in 'ResolveConflictsDialogUnit.pas' {DialogResolveConflicts};
+  ResolveConflictsDialogUnit in 'ResolveConflictsDialogUnit.pas' {DialogResolveConflicts},
+  ManageContactsFrameUnit in 'ManageContactsFrameUnit.pas' {FrameManageContacts: TFrame};
 
 {$R *.res}
 
