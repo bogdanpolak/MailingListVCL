@@ -472,9 +472,6 @@ object FormMain: TFormMain
       Align = alTop
       Caption = 'rbtnDialogCreateDB'
       TabOrder = 0
-      ExplicitLeft = 32
-      ExplicitTop = 25
-      ExplicitWidth = 113
     end
     object rbtnFrameImportContacts: TRadioButton
       AlignWithMargins = True
@@ -485,9 +482,6 @@ object FormMain: TFormMain
       Align = alTop
       Caption = 'rbtnFrameImportContacts'
       TabOrder = 1
-      ExplicitLeft = 16
-      ExplicitTop = 48
-      ExplicitWidth = 113
     end
     object rbtFrameManageContacts: TRadioButton
       AlignWithMargins = True
@@ -500,8 +494,6 @@ object FormMain: TFormMain
       Checked = True
       TabOrder = 2
       TabStop = True
-      ExplicitLeft = 9
-      ExplicitTop = 68
     end
     object rbtnDisable: TRadioButton
       AlignWithMargins = True
@@ -512,7 +504,6 @@ object FormMain: TFormMain
       Align = alTop
       Caption = 'rbtnDisable'
       TabOrder = 3
-      ExplicitLeft = 9
     end
   end
   object tmrIdle: TTimer
