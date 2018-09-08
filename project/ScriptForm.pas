@@ -1,4 +1,5 @@
 unit ScriptForm;
+{ TODO : Poprawiæ nazwê unitu: DialogCreateDatabaseStructure }
 
 interface
 
@@ -87,6 +88,7 @@ begin
     { TODO : Zanieniæ: na Array DML }
     FDQuery1.SQL.Text := IB_INSERT_CONTACTS_SQL;
     FDQuery2.SQL.Text := IB_INSERT_CONTCT2LIST_SQL;
+    { TODO : Zamieniæ na ArrayDML }
     for i := 0 to NUMBER_OF_EMAILS - 1 do
     begin
       FDQuery1.ParamByName('email').AsString := EmailTableData[i].email;
@@ -104,6 +106,25 @@ begin
       FDQuery2.ParamByName('listid').Value := 2;
       FDQuery2.ExecSQL;
     end;
+    { TODO : Zamieniæ na funckjê:
+    ChangeWordByNumeralsPL (liczba, s³owo, formaMnoga, mnogaDopelniacz) }
+    { *
+      * Ÿród³o: https://polszczyzna.pl/5-zloty-czy-5-zlotych/
+      *
+      * Dla liczb z zakresu 5–14 lub gdy ostatnia cyfra liczby wynosi:
+      * 1, 5, 6, 7, 8, 9, 0 mówi i pisze siê „z³otych”
+      * (np. 18 z³otych, 85 z³otych).
+      * Te liczby ³¹cz¹ siê z dope³niaczem. Ostatnia cyfra 2, 3, 4 – mówi i
+      * pisze siê „z³ote” (np. 42 z³ote, 104 z³ote). Liczby te z kolei podaje
+      * siê w formie mianownika.
+      *
+      * Formê z³oty zastosujemy, gdy ³¹czy siê z liczebnikiem jeden, np.
+      * To kosztuje jeden z³oty. Inaczej bêdzie ju¿ w wypadku wyra¿eñ
+      * 21 z³, 61 z³, 151 z³, 1001 z³ itp., które równie¿ maj¹ ostatni cz³on
+      * jeden. Mówi siê zawsze dwadzieœcia jeden z³otych, szeœædziesi¹t jeden
+      * z³otych, sto piêædziesi¹t jeden z³otych, tysi¹c jeden z³otych
+      * (a nie: z³oty).
+      * }
     case NUMBER_OF_EMAILS of
       0:
         adr := 'adresów';
