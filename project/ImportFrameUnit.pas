@@ -244,8 +244,8 @@ var
   joEmailRow: TJSONObject;
 begin
   tmrFrameShow.Enabled := False;
-  sProjFileName := ChangeFileExt(ExtractFileName(Application.ExeName), '.dpr');
 {$IFDEF DEBUG}
+  sProjFileName := ChangeFileExt(ExtractFileName(Application.ExeName), '.dpr');
   isDeveloperMode := FileExists('..\..\' + sProjFileName);
 {$ELSE}
   isDeveloperMode := False;
