@@ -9,8 +9,11 @@ Projekt powstał na potrzeby warsztatu: "Nowoczesne programowanie w Delphi". Jes
 ### Więcej informacji o warsztatach
 
 * [Agenda warsztatu](./WorkshopAgenda.md)
-* [Konfiguracja stanowiska pracy](./Configuration.md)
 * Oryginalna strona rejestracji: [link do embarcadero.com.pl](http://embarcadero.com.pl/seminaria/2018-q3-modern-development-in-Delphi/)
+
+### Przygotowanie do warsztatów
+
+* [Konfiguracja stanowiska pracy](./Configuration.md)
 
 ### Hasła warsztatów
 
