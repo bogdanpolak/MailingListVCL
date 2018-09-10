@@ -24,12 +24,13 @@ object FrameWelcome: TFrameWelcome
     ParentFont = False
     ExplicitWidth = 236
   end
-  object Label2: TLabel
+  object lblAppVersion: TLabel
     AlignWithMargins = True
     Left = 11
-    Top = 59
+    Top = 56
     Width = 571
     Height = 16
+    Margins.Top = 0
     Align = alTop
     Alignment = taCenter
     Caption = 'wersja: ....'
@@ -39,37 +40,26 @@ object FrameWelcome: TFrameWelcome
     Font.Name = 'Tahoma'
     Font.Style = []
     ParentFont = False
+    ExplicitTop = 59
     ExplicitWidth = 64
   end
   object Image1: TImage
     AlignWithMargins = True
     Left = 11
-    Top = 109
+    Top = 90
     Width = 571
     Height = 276
-    Margins.Top = 0
+    Margins.Top = 15
     Align = alTop
+    Center = True
     ExplicitLeft = 0
     ExplicitTop = 85
     ExplicitWidth = 744
   end
-  object Label3: TLabel
-    AlignWithMargins = True
-    Left = 11
-    Top = 93
-    Width = 571
-    Height = 16
-    Margins.Top = 15
-    Margins.Bottom = 0
-    Align = alTop
-    Alignment = taCenter
-    Caption = 'Za'#322#261'duj grafik'#281' z zasob'#243'w (PngImage_1)'
-    Font.Charset = DEFAULT_CHARSET
-    Font.Color = clWindowText
-    Font.Height = -13
-    Font.Name = 'Tahoma'
-    Font.Style = []
-    ParentFont = False
-    ExplicitWidth = 235
+  object tmrFirstShow: TTimer
+    Interval = 1
+    OnTimer = tmrFirstShowTimer
+    Left = 24
+    Top = 16
   end
 end

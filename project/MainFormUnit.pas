@@ -186,6 +186,7 @@ var
   frm: TFrameWelcome;
   msg1: string;
 begin
+  { TODO: Przebudowaæ logikê metody. Jest zbyt skomplikowana i ma³o czytelna }
   tmr1 := (Sender as TTimer);
   isFirstTime := (tmr1.Tag = 0);
   tmr1.Tag := tmr1.Tag + 1;
@@ -193,6 +194,7 @@ begin
   begin
     { TODO: Powtórka: COPY-PASTE }
     frm := TFrameWelcome.Create(pnMain);
+    frm.AppVersion := edtAppVersion.Text;
     frm.Parent := pnMain;
     frm.Visible := True;
     frm.Align := alClient;
