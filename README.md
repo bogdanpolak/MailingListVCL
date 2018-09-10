@@ -14,8 +14,10 @@ Projekt powstał na potrzeby warsztatu: "Nowoczesne programowanie w Delphi". Jes
 
 ### Hasła warsztatów
 
-* Wyrzuć gryzonia
-* Zero tolerancji dla ```warning-ów```
+* Przestań być dinozaurem - nadeszła nowa epoka!
+* Nie jesteś sam! Programowanie to gra zespołowa.
+* Zero tolerancji dla ```warning-ów```!
+* Wyrzuć gryzonia!
 
 ### Materiały dla uczestników
 
