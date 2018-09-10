@@ -80,29 +80,29 @@ object FormMain: TFormMain
           TabOrder = 2
           OnClick = btnImportContactsClick
         end
-        object Button3: TButton
+        object btnListManager: TButton
           AlignWithMargins = True
           Left = 4
           Top = 35
           Width = 200
           Height = 25
-          Caption = 'Button3'
+          Caption = 'btnListManager'
           TabOrder = 3
         end
-        object Button4: TButton
+        object btnImportUnregistered: TButton
           AlignWithMargins = True
           Left = 210
           Top = 35
           Width = 200
           Height = 25
-          Caption = 'Button4'
+          Caption = 'btnImportUnregistered'
           TabOrder = 4
         end
         object Button5: TButton
           AlignWithMargins = True
           Left = 416
           Top = 35
-          Width = 200
+          Width = 89
           Height = 25
           Caption = 'Button5'
           TabOrder = 5

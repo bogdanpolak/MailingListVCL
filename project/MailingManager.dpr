@@ -13,7 +13,8 @@ uses
   UnitMockData in 'UnitMockData.pas',
   ResolveConflictsDialogUnit in 'ResolveConflictsDialogUnit.pas' {DialogResolveConflicts},
   ManageContactsFrameUnit in 'ManageContactsFrameUnit.pas' {FrameManageContacts: TFrame},
-  WelcomeFrameUnit in 'WelcomeFrameUnit.pas' {FrameWelcome: TFrame};
+  WelcomeFrameUnit in 'WelcomeFrameUnit.pas' {FrameWelcome: TFrame},
+  ManageContactsDataModule in 'ManageContactsDataModule.pas' {DataModuleManageContacts: TDataModule};
 
 {$R *.res}
 
@@ -23,5 +24,6 @@ begin
   Application.CreateForm(TFormMain, FormMain);
   Application.CreateForm(TMainDM, MainDM);
   Application.CreateForm(TFormDBScript, FormDBScript);
+  Application.CreateForm(TDataModuleManageContacts, DataModuleManageContacts);
   Application.Run;
 end.

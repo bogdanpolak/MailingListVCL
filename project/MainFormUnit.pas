@@ -18,9 +18,9 @@ type
     btnCreateDatabaseStructures: TButton;
     btnManageContacts: TButton;
     btnImportContacts: TButton;
-    Button3: TButton;
+    btnListManager: TButton;
     ScrollBox1: TScrollBox;
-    Button4: TButton;
+    btnImportUnregistered: TButton;
     Button5: TButton;
     grboxAutoOpen: TGroupBox;
     rbtnDialogCreateDB: TRadioButton;
