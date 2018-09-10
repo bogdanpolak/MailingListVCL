@@ -23,8 +23,6 @@ W przypadku takich narzędzi kluczowa jest możliwość zintegrowanie takich nar
     * [GExpert](http://www.gexperts.org)
 
 
-### Metryki Delphi - ```QA Metrics```
+### Audyty i Metryki
 
-Dokumentacja do metryk:
-
-C:\Program Files (x86)\Embarcadero\Studio\19.0\ObjRepos\en\QA\metric\docs\Delphi\
+[Artykuł na temat wybranych metryk](./AuditsAndMetrics.md)
