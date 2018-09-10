@@ -6,7 +6,7 @@ uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants,
   System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.ExtCtrls, Vcl.StdCtrls, ChromeTabs,
-  ChromeTabsClasses;
+  ChromeTabsClasses, ChromeTabsTypes;
 
 type
   TFormMain = class(TForm)
@@ -37,6 +37,8 @@ type
     procedure btnManageContactsClick(Sender: TObject);
     procedure ChromeTabs1ButtonCloseTabClick(Sender: TObject; ATab: TChromeTab;
       var Close: Boolean);
+    procedure ChromeTabs1Change(Sender: TObject; ATab: TChromeTab;
+      TabChangeType: TTabChangeType);
     procedure FlowPanel1Resize(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure tmrIdleTimer(Sender: TObject);
@@ -101,6 +103,24 @@ var
 begin
   obj := TObject(ATab.Data);
   (obj as TFrame).Free;
+end;
+
+procedure TFormMain.ChromeTabs1Change(Sender: TObject; ATab: TChromeTab;
+  TabChangeType: TTabChangeType);
+var
+  obj: TObject;
+begin
+  if Assigned(ATab) then
+  begin
+    obj := TObject(ATab.Data);
+    if (TabChangeType = tcActivated) and Assigned(obj) then
+    begin
+      if (pnMain.ControlCount=1) and (pnMain.Controls[0] is TFrame) then
+        (pnMain.Controls[0] as TFrame).Visible := False;
+      (obj as TFrame).Parent := pnMain;
+      (obj as TFrame).Visible := True;
+    end;
+  end;
 end;
 
 procedure TFormMain.FlowPanel1Resize(Sender: TObject);

@@ -27,7 +27,6 @@ object FormMain: TFormMain
     Align = alTop
     Caption = ' Zadania '
     TabOrder = 0
-    ExplicitWidth = 714
     object ScrollBox1: TScrollBox
       Left = 2
       Top = 15
@@ -37,7 +36,6 @@ object FormMain: TFormMain
       VertScrollBar.Tracking = True
       Align = alClient
       TabOrder = 0
-      ExplicitWidth = 710
       object FlowPanel1: TFlowPanel
         AlignWithMargins = True
         Left = 3
@@ -52,7 +50,6 @@ object FormMain: TFormMain
         ParentCtl3D = False
         TabOrder = 0
         OnResize = FlowPanel1Resize
-        ExplicitWidth = 700
         object btnCreateDatabaseStructures: TButton
           AlignWithMargins = True
           Left = 4
@@ -121,6 +118,7 @@ object FormMain: TFormMain
     Height = 30
     Margins.Top = 5
     Margins.Bottom = 0
+    OnChange = ChromeTabs1Change
     OnButtonCloseTabClick = ChromeTabs1ButtonCloseTabClick
     ActiveTabIndex = -1
     Options.Display.CloseButton.Offsets.Vertical = 6
@@ -442,7 +440,6 @@ object FormMain: TFormMain
     LookAndFeel.ScrollButtons.Arrow.Disabled.OutlineAlpha = 200
     Align = alTop
     TabOrder = 1
-    ExplicitWidth = 714
   end
   object pnMain: TPanel
     AlignWithMargins = True
@@ -455,8 +452,6 @@ object FormMain: TFormMain
     BevelOuter = bvNone
     Caption = 'pnMain'
     TabOrder = 2
-    ExplicitWidth = 714
-    ExplicitHeight = 341
   end
   object grboxConfiguration: TGroupBox
     Left = 47
