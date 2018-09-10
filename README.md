@@ -6,10 +6,9 @@ Mailing List is sample Delphi VCL (SQL client-server) project used for demo purp
 
 Projekt powstał na potrzeby warsztatu: "Nowoczesne programowanie w Delphi". Jest to wyjątkowo brzydki projekt i taki miał być cel jego powstania. W trakcie warszatów będzie on unowocześniany.
 
-### Więcej informacji o warsztatach
+### Agenda warsztatu
 
-* [Agenda warsztatu](./WorkshopAgenda.md)
-* Oryginalna strona rejestracji: [link do embarcadero.com.pl](http://embarcadero.com.pl/seminaria/2018-q3-modern-development-in-Delphi/)
+* [Agenda](./WorkshopAgenda.md)
 
 ### Przygotowanie do warsztatów
 
