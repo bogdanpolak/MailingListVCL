@@ -60,6 +60,15 @@ uses
   FireDAC.Stan.Error, ScriptForm, ImportFrameUnit, ManageContactsFrameUnit,
   MainDataModule, WelcomeFrameUnit;
 
+const
+  SQL_SELECT_DatabaseVersion = 'SELECT versionnr FROM DBInfo';
+
+resourcestring
+  SWelcomeScreen = 'Ekran powitalny';
+  SDatabaseRequireUpgrade =
+    'Proszê najpierw uruchomiæ skrypt buduj¹cy strukturê bazy danych.';
+
+
 procedure TFormMain.btnCreateDatabaseStructuresClick(Sender: TObject);
 begin
   FormDBScript.Show;
@@ -70,7 +79,7 @@ var
   frm: TFrameImport;
   tab: TChromeTab;
 begin
-  { TODO: Dodaæ kontrolê otiwrania tej samej zak³¹dki po raz drugi (wyj¹tek) }
+  { TODO: Dodaæ kontrolê otwierania tej samej zak³¹dki po raz drugi (wyj¹tek) }
   frm := TFrameImport.Create(pnMain);
   frm.Parent := pnMain;
   frm.Visible := True;
@@ -115,7 +124,7 @@ begin
     obj := TObject(ATab.Data);
     if (TabChangeType = tcActivated) and Assigned(obj) then
     begin
-      if (pnMain.ControlCount=1) and (pnMain.Controls[0] is TFrame) then
+      if (pnMain.ControlCount = 1) and (pnMain.Controls[0] is TFrame) then
         (pnMain.Controls[0] as TFrame).Visible := False;
       (obj as TFrame).Parent := pnMain;
       (obj as TFrame).Visible := True;
@@ -139,13 +148,15 @@ end;
 procedure TFormMain.FormCreate(Sender: TObject);
 var
   sProjFileName: string;
+  ext: string;
 begin
   FlowPanel1.Caption := '';
   pnMain.Caption := '';
   { TODO: Powtórka: COPY-PASTE }
   { TODO: Poprawiæ rozpoznawanie projektu: dpr w bie¿¹cym folderze }
 {$IFDEF DEBUG}
-  sProjFileName := ChangeFileExt(ExtractFileName(Application.ExeName), '.dpr');
+  ext := '.dpr'; // do not localize
+  sProjFileName := ChangeFileExt(ExtractFileName(Application.ExeName), ext);
   isDeveloperMode := FileExists('..\..\' + sProjFileName);
 {$ELSE}
   isDeveloperMode := False;
@@ -162,6 +173,7 @@ var
   isFirstTime: Boolean;
   tab: TChromeTab;
   frm: TFrameWelcome;
+  msg1: string;
 begin
   tmr1 := (Sender as TTimer);
   isFirstTime := (tmr1.Tag = 0);
@@ -176,7 +188,7 @@ begin
     tab := ChromeTabs1.Tabs.Add;
     tab.Data := frm;
     // w poni¿ej linii  jest ró¿nica w porównaniu do innych kopii
-    tab.Caption := 'Ekran powitalny';
+    tab.Caption := SWelcomeScreen;
     { TODO: Verify AppVersion with resorces }
     // edtAppVersion.Text
     self.Caption := self.Caption + ' - ' + edtAppVersion.Text;
@@ -190,25 +202,23 @@ begin
       begin
         if E.kind = ekObjNotExists then
         begin
-          { TODO: Wy³¹cz jako sta³a resourcestring }
           tmr1.Enabled := False;
-          { TODO: Zamieñ ShowMessage na informacje na ekranie powitalnym }
-          ShowMessage
-            ('Proszê najpierw uruchomiæ skrypt buduj¹cy strukturê bazy danych.');
+          { TODO: Zamieñ [ShowMessage] na informacje na ekranie powitalnym }
+          ShowMessage(SDatabaseRequireUpgrade);
           tmr1.Enabled := True;
         end;
       end;
     end;
-    res := MainDM.FDConnection1.ExecSQLScalar('SELECT versionnr FROM DBInfo');
+    res := MainDM.FDConnection1.ExecSQLScalar(SQL_SELECT_DatabaseVersion);
     VersionNr := res;
     if VersionNr <> DatabaseNumber then
     begin
       tmr1.Enabled := False;
+      { TODO: Wy³¹cz jako sta³a resourcestring }
       { TODO: Zamieñ ShowMessage na informacje na ekranie powitalnym }
-      ShowMessage
-        (Format('B³êdna wersja bazy danych. Proszê zaktualizowaæ strukturê bazy. '
-        + 'Oczekiwana wersja bazy: %d, aktualna wersja bazy: %d',
-        [DatabaseNumber, VersionNr]));
+      msg1 := 'B³êdna wersja bazy danych. Proszê zaktualizowaæ strukturê ' +
+        'bazy. Oczekiwana wersja bazy: %d, aktualna wersja bazy: %d';
+      ShowMessage(Format(msg1,[DatabaseNumber, VersionNr]));
       tmr1.Enabled := True;
     end;
   end;
@@ -224,3 +234,4 @@ begin
 end;
 
 end.
+
