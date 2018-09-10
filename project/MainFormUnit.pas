@@ -44,6 +44,7 @@ type
     procedure tmrIdleTimer(Sender: TObject);
   private
     isDeveloperMode: Boolean;
+    procedure HideAllChildFrames(AParenControl: TWinControl);
     { Private declarations }
   public
     { Public declarations }
@@ -74,12 +75,23 @@ begin
   FormDBScript.Show;
 end;
 
+procedure TFormMain.HideAllChildFrames(AParenControl: TWinControl);
+var
+  i: Integer;
+begin
+  for i := AParenControl.ControlCount - 1 downto 0 do
+    if AParenControl.Controls[i] is TFrame then
+      (AParenControl.Controls[i] as TFrame).Visible := False;
+end;
+
+
 procedure TFormMain.btnImportContactsClick(Sender: TObject);
 var
   frm: TFrameImport;
   tab: TChromeTab;
 begin
   { TODO: Dodaæ kontrolê otwierania tej samej zak³¹dki po raz drugi (wyj¹tek) }
+  HideAllChildFrames(pnMain);
   frm := TFrameImport.Create(pnMain);
   frm.Parent := pnMain;
   frm.Visible := True;
@@ -96,6 +108,7 @@ var
 begin
   // Miejsce na  stworzenie i otwarcie ramki: FrameManageContacts
   { TODO: Powtórka: COPY-PASTE }
+  HideAllChildFrames(pnMain);
   frm := TFrameManageContacts.Create(pnMain);
   frm.Parent := pnMain;
   frm.Visible := True;
@@ -124,9 +137,7 @@ begin
     obj := TObject(ATab.Data);
     if (TabChangeType = tcActivated) and Assigned(obj) then
     begin
-      if (pnMain.ControlCount = 1) and (pnMain.Controls[0] is TFrame) then
-        (pnMain.Controls[0] as TFrame).Visible := False;
-      (obj as TFrame).Parent := pnMain;
+      HideAllChildFrames(pnMain);
       (obj as TFrame).Visible := True;
     end;
   end;
