@@ -4,6 +4,15 @@
 
 Ogólny opis audytów i metryk: [Dokumentacja](http://docwiki.embarcadero.com/RADStudio/Tokyo/en/Source_Code_Audits_and_Metrics)
 
+### Uruchamianie metryk z AuditsCLI.EXE
+
+```
+
+AuditsCLI.exe --metrics --xml MailingManager.dproj
+
+```
+
+
 Szczegółowa list i opis metryk:
 
 ```
