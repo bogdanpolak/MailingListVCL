@@ -24,3 +24,7 @@ Projekt powstał na potrzeby warsztatu: "Nowoczesne programowanie w Delphi". Jes
 ### Materiały dla uczestników
 
 * [Narzędzia wspomagające programistę](./DelphiTools.md)
+
+* [Dobre praktyki programisty](./GoodPractices.md)
+
+* [Konwencja nazw identyfikatorów](./NamingConvetion.md)
