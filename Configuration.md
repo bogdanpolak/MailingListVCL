@@ -15,7 +15,7 @@
     5. Sprawdzenie czy baza jest Unicode-owa.
         * Uruchomienie skryptu, np. przez FireDAC Explorer:
         ```
-        CREATE TABLE AAA (F1 VARCHAR(50));
+        CREATE TABLE AAA (F1 VARCHAR(50) CHARACTER SET UTF8);
         COMMIT;
         INSERT INTO AAA VALUES ('Οὐχὶ ταὐτὰ παρίσταταί');
         COMMIT;
