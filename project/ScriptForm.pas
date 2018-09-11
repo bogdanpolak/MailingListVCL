@@ -85,10 +85,10 @@ begin
   begin
     Memo1.Lines.Add('- - - - - - - - - - - - - - - - -');
     Memo1.Lines.Add('Dodawanie kontaktów ...');
-    { TODO : Zanieniæ: na Array DML }
+    { TODO : Zanieniæ: na FireDAC Array DML. github: #5 }
     FDQuery1.SQL.Text := IB_INSERT_CONTACTS_SQL;
     FDQuery2.SQL.Text := IB_INSERT_CONTCT2LIST_SQL;
-    { TODO : Zamieniæ na ArrayDML }
+    { TODO : Zamieniæ na FireDAC ArrayDML }
     for i := 0 to NUMBER_OF_EMAILS - 1 do
     begin
       FDQuery1.ParamByName('email').AsString := EmailTableData[i].email;
@@ -107,8 +107,9 @@ begin
       FDQuery2.ExecSQL;
     end;
     FDQuery1.Connection.Commit;
-    { TODO : Zamieniæ na funckjê:
-    ChangeWordByNumeralsPL (liczba, s³owo, formaMnoga, mnogaDopelniacz) }
+    { TODO : Zamieniæ na funckjê: ChangeWordByNumeralsPL }
+    { TODO : U¿yæ metodyki TDD na zakodowanie tej funkcji }
+    { ChangeWordByNumeralsPL (liczba, s³owo, formaMnoga, mnogaDopelniacz) }
     { *
       * Ÿród³o: https://polszczyzna.pl/5-zloty-czy-5-zlotych/
       *
