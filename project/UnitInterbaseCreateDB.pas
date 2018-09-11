@@ -26,7 +26,7 @@ const
     ');'+sLineBreak+
     'CREATE TABLE MailingList ('+sLineBreak+
     '  listid INTEGER NOT NULL,'+sLineBreak+
-    '  description VARCHAR(50) NOT NULL,'+sLineBreak+
+    '  description VARCHAR(50) CHARACTER SET UTF8 NOT NULL,'+sLineBreak+
     '  PRIMARY KEY (listid)'+sLineBreak+
     ');'+sLineBreak+
     'CREATE TABLE Contact2List ('+sLineBreak+
@@ -36,10 +36,10 @@ const
     ');'+sLineBreak+
     'CREATE TABLE Contacts ('+sLineBreak+
     '  contactid INTEGER NOT NULL,'+sLineBreak+
-    '  email VARCHAR(100) NOT NULL,'+sLineBreak+
-    '  firstname VARCHAR(50),'+sLineBreak+
-    '  lastname VARCHAR(50),'+sLineBreak+
-    '  company VARCHAR(100),'+sLineBreak+
+    '  email VARCHAR(100) CHARACTER SET UTF8 NOT NULL,'+sLineBreak+
+    '  firstname VARCHAR(50) CHARACTER SET UTF8,'+sLineBreak+
+    '  lastname VARCHAR(50) CHARACTER SET UTF8,'+sLineBreak+
+    '  company VARCHAR(100) CHARACTER SET UTF8,'+sLineBreak+
     '  registred SMALLINT DEFAULT 1,'+sLineBreak+
     '  confimed SMALLINT DEFAULT 0,'+sLineBreak+
     '  create_timestamp TIMESTAMP,'+sLineBreak+
