@@ -96,7 +96,9 @@ var
   email: string;
   id: Integer;
 begin
-  { TODO: B³¹d: lista do importu nie zosta³a wczeœniej za³adowana }
+  { TODO: B³¹d: jeœli lista do importu nie zosta³a wczeœniej za³adowana }
+  { TODO: Zamiana zwyk³ych INSERT-ów i UPADTE-ów do bazy na ArrayDML }
+  // github: #5
   mtabEmails.First;
   while not mtabEmails.Eof do
   begin
