@@ -90,7 +90,10 @@ var
   frm: TFrameImport;
   tab: TChromeTab;
 begin
-  { TODO: Dodaæ kontrolê otwierania tej samej zak³¹dki po raz drugi (wyj¹tek) }
+  { TODO: Dodaæ kontrolê otwierania tej samej zak³adki po raz drugi }
+  // B³¹d zg³oszony. github #2
+  { TODO: Powtórka: COPY-PASTE }
+  { TODO : Wydziel metodê OpenFrameAsChromeTab (TFrame) }
   HideAllChildFrames(pnMain);
   frm := TFrameImport.Create(pnMain);
   frm.Parent := pnMain;
@@ -106,7 +109,6 @@ var
   frm: TFrameManageContacts;
   tab: TChromeTab;
 begin
-  // Miejsce na  stworzenie i otwarcie ramki: FrameManageContacts
   { TODO: Powtórka: COPY-PASTE }
   HideAllChildFrames(pnMain);
   frm := TFrameManageContacts.Create(pnMain);
@@ -202,12 +204,12 @@ begin
     tab.Data := frm;
     // w poni¿ej linii  jest ró¿nica w porównaniu do innych kopii
     tab.Caption := SWelcomeScreen;
-    { TODO: Verify AppVersion with resorces }
-    // edtAppVersion.Text
+    // -- koniec bloku powótki
     self.Caption := self.Caption + ' - ' + edtAppVersion.Text;
+    { DONE: SprawdŸ wersjê bazy danych czy pasuje do aplikacji }
     DatabaseNumber := StrToInt(edtDBVersion.Text);
-    { TODO: Wy³¹cz metodê: Po³aczenie z baz¹ i porównanie DatabaseNumber z VersionNr }
-    { TODO: Dodaj okno logowania i autentykacjê }
+    { TODO: Wydziel metodê: verifyDatabaseVersion(expectedVersionNr) }
+    // Po³¹czenie z baz¹ i porównanie DatabaseNumber z VersionNr
     try
       MainDM.FDConnection1.Open();
     except
