@@ -76,9 +76,15 @@ Czyli co jeszcze trzeba zrobić (lub sprawdzić) na początku warsztatów warszt
     * modyfikacja pliku pliku .gitconfig
         * Lokalizacja: C:\Users\{{użytkownik}}
         * dodanie poniższych aliasów:
-```
-[alias]
-	graph1 = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)' --all
-	graph2 = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset)%C(bold yellow)%d%C(reset)%n''          %C(white)%s%C(reset) %C(dim white)- %an%C(reset)' --all
-	lg = !"git graph1"
-```
+        ```
+        [alias]
+        	graph1 = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)' --all
+        	graph2 = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset)%C(bold yellow)%d%C(reset)%n''          %C(white)%s%C(reset) %C(dim white)- %an%C(reset)' --all
+        	lg = !"git graph1"
+        ```
+
+8. Otwarcie projektu w RAD Studio (Delphi)
+    * Ustawienie w ```MainDataModule.pas```:
+        *  ```FDConnection1.ConnectionDefName```:
+            * **IB_MailingDB** - dla bazy Interbase
+            * **FB_MailingDB** - dla bazy Firebird
