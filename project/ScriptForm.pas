@@ -85,7 +85,7 @@ begin
   begin
     Memo1.Lines.Add('- - - - - - - - - - - - - - - - -');
     Memo1.Lines.Add('Dodawanie kontaktów ...');
-    { TODO : Zanieniæ: na FireDAC Array DML. github: #5 }
+    { TODO : Zanieniæ: na FireDAC Array DML }
     FDQuery1.SQL.Text := IB_INSERT_CONTACTS_SQL;
     FDQuery2.SQL.Text := IB_INSERT_CONTCT2LIST_SQL;
     { TODO : Zamieniæ na FireDAC ArrayDML }
