@@ -13,6 +13,8 @@
         * Git Executable
         * Remote authentication data
         ![](./assets/opcje-IDE-dla-Gita.png)
+    * Instalacja ChromeTabs prze GetIt:
+    ![](./assets/getit-manager.png)
 3. Sklonowanie tego projekt (MailingListVCL)
     * ```git clone https://github.com/bogdanpolak/MailingListVCL.git```
 3. Konsola Windows - Linia poleceń CMD
