@@ -78,7 +78,9 @@ begin
     mtabEmails.Open;
     mtabEmails.EmptyDataSet;
     mtabEmailsImport.DisplayValues := ';';
-    { TODO: Zapytanie ukryte w atrybucie *.SQL.Text - code review }
+    //{ TODO: Zapytanie ukryte w atrybucie *.SQL.Text - code review }
+    // przypisano treœæ zapytania w kodzie
+    dsQueryCurrEmails.SQL.Text:='select email, firstname, lastname, company from Contacts ';
     dsQueryCurrEmails.Open();
     for i := 0 to jData.Count - 1 do
       myAddRowToImportTable(jData.Items[i] as TJSONObject);
