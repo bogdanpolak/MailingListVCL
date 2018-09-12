@@ -9,6 +9,8 @@ uses
   ChromeTabsClasses, ChromeTabsTypes;
 
 type
+  TFrameClass = class of TFrame;
+
   TFormMain = class(TForm)
     tmrIdle: TTimer;
     grboxCommands: TGroupBox;
@@ -45,6 +47,7 @@ type
   private
     isDeveloperMode: Boolean;
     procedure HideAllChildFrames(AParenControl: TWinControl);
+    function OpenFrameAsChromeTab(Frame:TFrameClass;Sender: TObject):TChromeTab;
     { Private declarations }
   public
     { Public declarations }
@@ -69,7 +72,6 @@ resourcestring
   SDatabaseRequireUpgrade =
     'Proszê najpierw uruchomiæ skrypt buduj¹cy strukturê bazy danych.';
 
-
 procedure TFormMain.btnCreateDatabaseStructuresClick(Sender: TObject);
 begin
   FormDBScript.Show;
@@ -84,40 +86,41 @@ begin
       (AParenControl.Controls[i] as TFrame).Visible := False;
 end;
 
-
-procedure TFormMain.btnImportContactsClick(Sender: TObject);
+function TFormMain.OpenFrameAsChromeTab(Frame: TFrameClass;Sender: TObject):TChromeTab;
 var
-  frm: TFrameImport;
-  tab: TChromeTab;
+  frm: TFrame;
 begin
+  Result := nil;
   { TODO: Dodaæ kontrolê otwierania tej samej zak³adki po raz drugi }
   // B³¹d zg³oszony. github #2
-  { TODO: Powtórka: COPY-PASTE }
-  { TODO : Wydziel metodê OpenFrameAsChromeTab (TFrame) }
+  { DONE: Powtórka: COPY-PASTE }
+  { DONE : Wydziel metodê OpenFrameAsChromeTab (TFrame) }
+
   HideAllChildFrames(pnMain);
-  frm := TFrameImport.Create(pnMain);
+
+  frm := Frame.Create(pnMain);
   frm.Parent := pnMain;
   frm.Visible := True;
   frm.Align := alClient;
-  tab := ChromeTabs1.Tabs.Add;
-  tab.Data := frm;
-  tab.Caption := (Sender as TButton).Caption;
+
+  Result := ChromeTabs1.Tabs.Add;
+  Result.Data := frm;
+
+  if (Sender is TButton) then
+     Result.Caption := (Sender as TButton).Caption;
+
+end;
+
+procedure TFormMain.btnImportContactsClick(Sender: TObject);
+begin
+  { DONE: Powtórka: COPY-PASTE }
+  OpenFrameAsChromeTab(TFrameImport,Sender);
 end;
 
 procedure TFormMain.btnManageContactsClick(Sender: TObject);
-var
-  frm: TFrameManageContacts;
-  tab: TChromeTab;
 begin
-  { TODO: Powtórka: COPY-PASTE }
-  HideAllChildFrames(pnMain);
-  frm := TFrameManageContacts.Create(pnMain);
-  frm.Parent := pnMain;
-  frm.Visible := True;
-  frm.Align := alClient;
-  tab := ChromeTabs1.Tabs.Add;
-  tab.Data := frm;
-  tab.Caption := (Sender as TButton).Caption;
+  { DONE: Powtórka: COPY-PASTE }
+  OpenFrameAsChromeTab(TFrameManageContacts,Sender);
 end;
 
 procedure TFormMain.ChromeTabs1ButtonCloseTabClick(Sender: TObject;
@@ -194,15 +197,8 @@ begin
   tmr1.Tag := tmr1.Tag + 1;
   if isFirstTime then
   begin
-    { TODO: Powtórka: COPY-PASTE }
-    frm := TFrameWelcome.Create(pnMain);
-    frm.AppVersion := edtAppVersion.Text;
-    frm.Parent := pnMain;
-    frm.Visible := True;
-    frm.Align := alClient;
-    tab := ChromeTabs1.Tabs.Add;
-    tab.Data := frm;
-    // w poni¿ej linii  jest ró¿nica w porównaniu do innych kopii
+    { DONE: Powtórka: COPY-PASTE }
+    tab := OpenFrameAsChromeTab(TFrameWelcome,Sender);
     tab.Caption := SWelcomeScreen;
     // -- koniec bloku powótki
     self.Caption := self.Caption + ' - ' + edtAppVersion.Text;
@@ -233,7 +229,7 @@ begin
       { TODO: Zamieñ ShowMessage na informacje na ekranie powitalnym }
       msg1 := 'B³êdna wersja bazy danych. Proszê zaktualizowaæ strukturê ' +
         'bazy. Oczekiwana wersja bazy: %d, aktualna wersja bazy: %d';
-      ShowMessage(Format(msg1,[DatabaseNumber, VersionNr]));
+      ShowMessage(Format(msg1, [DatabaseNumber, VersionNr]));
       tmr1.Enabled := True;
     end;
   end;
@@ -249,4 +245,3 @@ begin
 end;
 
 end.
-
