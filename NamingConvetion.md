@@ -6,7 +6,7 @@
 | klasa | TPizza | Duża litera T + opis obiektu z dużej litery |
 | metoda | changeState() | CamelCase z małej litery |
 | atrybuty klasy | FAppVersion | Duża litera F + opis atrybutu z dużej litery |
-| zmienne globalne | | |
+| zmienne globalne | locVariable| camelCase z 'loc' na początku |
 | zmienne lokalne | | |
 | parametry | | |
 
