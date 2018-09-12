@@ -99,48 +99,54 @@ begin
   { TODO: B³¹d: jeœli lista do importu nie zosta³a wczeœniej za³adowana }
   { TODO: Zamiana zwyk³ych INSERT-ów i UPADTE-ów do bazy na ArrayDML }
   // github: #5
-  mtabEmails.First;
-  while not mtabEmails.Eof do
-  begin
-    if mtabEmailsImport.Value then
-    begin
-      email := mtabEmailsEmail.Value;
-      if mtabEmailsDuplicated.Value then
+    try
+    mtabEmails.First;
+      while not mtabEmails.Eof do
       begin
-        FDQuery2.SQL.Text := 'SELECT contactid FROM Contacts WHERE email=''' +
-          email + '''';
-        FDQuery2.Open;
-        if FDQuery2.Eof then
-          raise Exception.Create
-            ('Error! (FrameImport->btnImportSelected.OnClick) Email ' + email +
-            ' not found during import');
-        id := FDQuery2.Fields[0].AsInteger;
-        FDQuery2.SQL.Text := 'UPDATE Contacts' + ' SET firstname = ''' +
-          mtabEmailsFirstName.Value + ''',lastname = ''' +
-          mtabEmailsLastName.Value + ''',company = ''' + mtabEmailsCompany.Value
-          + ''' WHERE contactid = ' + IntToStr(id);
-        FDQuery2.ExecSQL;
-      end
-      else
-      begin
-        { TODO: U¿yj sta³ej: UnitInterbaseCreateDB.IB_INSERT_CONTACTS_SQL }
-        FDQuery2.SQL.Text := 'INSERT INTO Contacts' +
-          ' (email, firstname, lastname, company, create_timestamp)' +
-          'VALUES (''' + email + ''',' + '''' + mtabEmailsFirstName.Value +
-          ''', ' + '''' + mtabEmailsLastName.Value + ''',' + '''' +
-          mtabEmailsCompany.Value + ''', ''' + DateTimeToStr(Now()) + ''')';
-        FDQuery2.ExecSQL;
+        if mtabEmailsImport.Value then
+        begin
+          email := mtabEmailsEmail.Value;
+          if mtabEmailsDuplicated.Value then
+          begin
+            FDQuery2.SQL.Text := 'SELECT contactid FROM Contacts WHERE email=''' +
+              email + '''';
+            FDQuery2.Open;
+            if FDQuery2.Eof then
+              raise Exception.Create
+                ('Error! (FrameImport->btnImportSelected.OnClick) Email ' + email +
+                ' not found during import');
+            id := FDQuery2.Fields[0].AsInteger;
+            FDQuery2.SQL.Text := 'UPDATE Contacts' + ' SET firstname = ''' +
+              mtabEmailsFirstName.Value + ''',lastname = ''' +
+              mtabEmailsLastName.Value + ''',company = ''' + mtabEmailsCompany.Value
+              + ''' WHERE contactid = ' + IntToStr(id);
+            FDQuery2.ExecSQL;
+          end
+          else
+          begin
+            { TODO: U¿yj sta³ej: UnitInterbaseCreateDB.IB_INSERT_CONTACTS_SQL }
+            FDQuery2.SQL.Text := 'INSERT INTO Contacts' +
+              ' (email, firstname, lastname, company, create_timestamp)' +
+              'VALUES (''' + email + ''',' + '''' + mtabEmailsFirstName.Value +
+              ''', ' + '''' + mtabEmailsLastName.Value + ''',' + '''' +
+              mtabEmailsCompany.Value + ''', ''' + DateTimeToStr(Now()) + ''')';
+            FDQuery2.ExecSQL;
+          end;
+        end;
+        mtabEmails.Next;
       end;
-    end;
-    mtabEmails.Next;
-  end;
-  mtabEmails.First;
-  while not mtabEmails.Eof do
-  begin
-    if mtabEmailsImport.Value then
-      mtabEmails.Delete
-    else
-      mtabEmails.Next;
+      mtabEmails.First;
+      while not mtabEmails.Eof do
+      begin
+        if mtabEmailsImport.Value then
+          mtabEmails.Delete
+        else
+          mtabEmails.Next;
+      end;
+  except on E: Exception do
+    { TODO: Brzydko pachnie! Wyciszam wszystkie wyj¹tki }
+    // Potrzebny jest refaktoring metody powy¿ej  aby przeanalizowaæ
+    ShowMessage('Teraz tego nie mogê zrobiæ! Zaimportuj najpier listê kontktów');
   end;
 end;
 
