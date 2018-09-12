@@ -205,8 +205,6 @@ object FrameImport: TFrameImport
     Connection = MainDM.FDConnection1
     FetchOptions.AssignedValues = [evMode]
     FetchOptions.Mode = fmAll
-    SQL.Strings = (
-      'select email,firstname,lastname,company from Contacts')
     Left = 224
     Top = 104
     object dsQueryCurrEmailsEMAIL: TWideStringField
