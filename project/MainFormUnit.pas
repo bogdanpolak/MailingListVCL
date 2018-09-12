@@ -47,7 +47,7 @@ type
   private
     isDeveloperMode: Boolean;
     procedure HideAllChildFrames(AParenControl: TWinControl);
-    function OpenFrameAsChromeTab(Frame:TFrameClass;Sender: TObject):TChromeTab;
+    function OpenFrameAsChromeTab(Frame:TFrameClass):TChromeTab;
     { Private declarations }
   public
     { Public declarations }
@@ -86,7 +86,7 @@ begin
       (AParenControl.Controls[i] as TFrame).Visible := False;
 end;
 
-function TFormMain.OpenFrameAsChromeTab(Frame: TFrameClass;Sender: TObject):TChromeTab;
+function TFormMain.OpenFrameAsChromeTab(Frame: TFrameClass):TChromeTab;
 var
   frm: TFrame;
 begin
@@ -105,22 +105,24 @@ begin
 
   Result := ChromeTabs1.Tabs.Add;
   Result.Data := frm;
-
-  if (Sender is TButton) then
-     Result.Caption := (Sender as TButton).Caption;
-
 end;
 
 procedure TFormMain.btnImportContactsClick(Sender: TObject);
+var
+  frm: TChromeTab;
 begin
   { DONE: Powtórka: COPY-PASTE }
-  OpenFrameAsChromeTab(TFrameImport,Sender);
+  frm := OpenFrameAsChromeTab(TFrameImport);
+  frm.Caption := (Sender as TButton).Caption;
 end;
 
 procedure TFormMain.btnManageContactsClick(Sender: TObject);
+var
+  frm: TChromeTab;
 begin
   { DONE: Powtórka: COPY-PASTE }
-  OpenFrameAsChromeTab(TFrameManageContacts,Sender);
+  frm := OpenFrameAsChromeTab(TFrameManageContacts);
+  frm.Caption := (Sender as TButton).Caption;
 end;
 
 procedure TFormMain.ChromeTabs1ButtonCloseTabClick(Sender: TObject;
@@ -198,7 +200,7 @@ begin
   if isFirstTime then
   begin
     { DONE: Powtórka: COPY-PASTE }
-    tab := OpenFrameAsChromeTab(TFrameWelcome,Sender);
+    tab := OpenFrameAsChromeTab(TFrameWelcome);
     tab.Caption := SWelcomeScreen;
     // -- koniec bloku powótki
     self.Caption := self.Caption + ' - ' + edtAppVersion.Text;
