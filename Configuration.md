@@ -17,7 +17,7 @@
         ```
         CREATE TABLE AAA (F1 VARCHAR(50) CHARACTER SET UTF8);
         COMMIT;
-        INSERT INTO AAA VALUES ('Οὐχὶ ταὐτὰ παρίσταταί');
+        INSERT INTO AAA VALUES ('Οὐχὶ ταὐτὰ παρίσταταί');
         COMMIT;
         SELECT * FROM AAA;
         DROP TABLE AAA;
@@ -36,8 +36,8 @@ Czyli co jeszcze trzeba zrobić (lub sprawdzić) na początku warsztatów warszt
 1. **Dostęp do Internetu**
     * Parametry WiFi:
         * [Golden Floor Tower - Warszawa] 
-            * sieć: ```..```  
-            * hasło: ```..```
+            * sieć: ```GOLDEN FLOOR```  
+            * hasło: ```-szkolenie-```
 
 2. **Ta instrukcja Configuration.md**
     * Zalogowanie się do swojego konta github.com
@@ -60,14 +60,10 @@ Czyli co jeszcze trzeba zrobić (lub sprawdzić) na początku warsztatów warszt
     	* ![](./assets/getit-manager.png)
 
 5. **Sklonowanie tego projektu**
-    * Otwarcie projektu:
-        * https://github.com/bogdanpolak/MailingListVCL
-    * Stworzenie klona w github:
-    ![github fork button](./assets/github-fork.png)
     * Uruchomienie linii poleceń Windows - **CMD.EXE**
     * Przejście do folderu w którym mają być źródła projektu
         * polecenia: ```cd``` i ```dir```
-    * ```git clone https://github.com/{{user}}/MailingListVCL.git```
+    * ```git clone https://github.com/bogdanpolak/MailingListVCL.git```
 
 6. **Konsola Windows**
     * Skopiowanie pliku OpenConsole.bat z podfolderu assets do folderu głównego projektu
