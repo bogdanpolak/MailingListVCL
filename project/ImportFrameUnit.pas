@@ -78,9 +78,10 @@ begin
     mtabEmails.Open;
     mtabEmails.EmptyDataSet;
     mtabEmailsImport.DisplayValues := ';';
-    //{ TODO: Zapytanie ukryte w atrybucie *.SQL.Text - code review }
+    // { TODO: Zapytanie ukryte w atrybucie *.SQL.Text - code review }
     // przypisano treœæ zapytania w kodzie
-    dsQueryCurrEmails.SQL.Text:='select email, firstname, lastname, company from Contacts ';
+    dsQueryCurrEmails.SQL.Text :=
+      'select email, firstname, lastname, company from Contacts ';
     dsQueryCurrEmails.Open();
     for i := 0 to jData.Count - 1 do
       myAddRowToImportTable(jData.Items[i] as TJSONObject);
@@ -101,54 +102,56 @@ begin
   { TODO: B³¹d: jeœli lista do importu nie zosta³a wczeœniej za³adowana }
   { TODO: Zamiana zwyk³ych INSERT-ów i UPADTE-ów do bazy na ArrayDML }
   // github: #5
-    try
+  try
     mtabEmails.First;
-      while not mtabEmails.Eof do
+    while not mtabEmails.Eof do
+    begin
+      if mtabEmailsImport.Value then
       begin
-        if mtabEmailsImport.Value then
+        email := mtabEmailsEmail.Value;
+        if mtabEmailsDuplicated.Value then
         begin
-          email := mtabEmailsEmail.Value;
-          if mtabEmailsDuplicated.Value then
-          begin
-            FDQuery2.SQL.Text := 'SELECT contactid FROM Contacts WHERE email=''' +
-              email + '''';
-            FDQuery2.Open;
-            if FDQuery2.Eof then
-              raise Exception.Create
-                ('Error! (FrameImport->btnImportSelected.OnClick) Email ' + email +
-                ' not found during import');
-            id := FDQuery2.Fields[0].AsInteger;
-            FDQuery2.SQL.Text := 'UPDATE Contacts' + ' SET firstname = ''' +
-              mtabEmailsFirstName.Value + ''',lastname = ''' +
-              mtabEmailsLastName.Value + ''',company = ''' + mtabEmailsCompany.Value
-              + ''' WHERE contactid = ' + IntToStr(id);
-            FDQuery2.ExecSQL;
-          end
-          else
-          begin
-            { TODO: U¿yj sta³ej: UnitInterbaseCreateDB.IB_INSERT_CONTACTS_SQL }
-            FDQuery2.SQL.Text := 'INSERT INTO Contacts' +
-              ' (email, firstname, lastname, company, create_timestamp)' +
-              'VALUES (''' + email + ''',' + '''' + mtabEmailsFirstName.Value +
-              ''', ' + '''' + mtabEmailsLastName.Value + ''',' + '''' +
-              mtabEmailsCompany.Value + ''', ''' + DateTimeToStr(Now()) + ''')';
-            FDQuery2.ExecSQL;
-          end;
-        end;
-        mtabEmails.Next;
-      end;
-      mtabEmails.First;
-      while not mtabEmails.Eof do
-      begin
-        if mtabEmailsImport.Value then
-          mtabEmails.Delete
+          FDQuery2.SQL.Text := 'SELECT contactid FROM Contacts WHERE email=''' +
+            email + '''';
+          FDQuery2.Open;
+          if FDQuery2.Eof then
+            raise Exception.Create
+              ('Error! (FrameImport->btnImportSelected.OnClick) Email ' + email
+              + ' not found during import');
+          id := FDQuery2.Fields[0].AsInteger;
+          FDQuery2.SQL.Text := 'UPDATE Contacts' + ' SET firstname = ''' +
+            mtabEmailsFirstName.Value + ''',lastname = ''' +
+            mtabEmailsLastName.Value + ''',company = ''' +
+            mtabEmailsCompany.Value + ''' WHERE contactid = ' + IntToStr(id);
+          FDQuery2.ExecSQL;
+        end
         else
-          mtabEmails.Next;
+        begin
+          { TODO: U¿yj sta³ej: UnitInterbaseCreateDB.IB_INSERT_CONTACTS_SQL }
+          FDQuery2.SQL.Text := 'INSERT INTO Contacts' +
+            ' (email, firstname, lastname, company, create_timestamp)' +
+            'VALUES (''' + email + ''',' + '''' + mtabEmailsFirstName.Value +
+            ''', ' + '''' + mtabEmailsLastName.Value + ''',' + '''' +
+            mtabEmailsCompany.Value + ''', ''' + DateTimeToStr(Now()) + ''')';
+          FDQuery2.ExecSQL;
+        end;
       end;
-  except on E: Exception do
-    { TODO: Brzydko pachnie! Wyciszam wszystkie wyj¹tki }
-    // Potrzebny jest refaktoring metody powy¿ej  aby przeanalizowaæ
-    ShowMessage('Teraz tego nie mogê zrobiæ! Zaimportuj najpier listê kontktów');
+      mtabEmails.Next;
+    end;
+    mtabEmails.First;
+    while not mtabEmails.Eof do
+    begin
+      if mtabEmailsImport.Value then
+        mtabEmails.Delete
+      else
+        mtabEmails.Next;
+    end;
+  except
+    on E: Exception do
+      { TODO: Brzydko pachnie! Wyciszam wszystkie wyj¹tki }
+      // Potrzebny jest refaktoring metody powy¿ej  aby przeanalizowaæ
+      ShowMessage
+        ('Teraz tego nie mogê zrobiæ! Zaimportuj najpier listê kontktów');
   end;
 end;
 
