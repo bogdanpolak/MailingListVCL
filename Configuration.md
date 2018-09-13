@@ -9,48 +9,36 @@
             * [serwer InterBase](https://www.reddit.com/user/BogdanPolakBSC/comments/9cymje/)
             * [serwer Firebird](https://www.reddit.com/user/BogdanPolakBSC/comments/9cyrh2/)
     3. Dodanie definicji połączenia FireDAC do stworzonej w kroku powyżej bazy.
-    4. *Opcjonalnie: instalacja MySQL (nie zostanie użyta w czasie warsztatów)*
-        * *Można wykorzystać jako ćwiczenie z FireDAC-a*
-        * *Uniwersalizacja platformy bazodanowej InterBase -> mySQL*
-    5. Sprawdzenie czy baza jest Unicode-owa.
-        * Uruchomienie skryptu, np. przez FireDAC Explorer:
-        ```
-        CREATE TABLE AAA (F1 VARCHAR(50) CHARACTER SET UTF8);
-	COMMIT;
-	SET TRANSACTION;
-	INSERT INTO AAA VALUES ('Οὐχὶ ταὐτὰ παρίσταταί');
-	COMMIT;
-	SET TRANSACTION;
-	SELECT * FROM AAA;
-	DROP TABLE AAA;
-        ```
-        * Na konsoli powinny pojawić się greckie słowa z tabeli AAA.
+        * IB_MailingDB 
+        * FB_MailingDB - Firebird
 * Konto na Github
     * Sprawdzenie dostępu do aktualnego konta 
     * Założenie nowego konta na GitHub: https://github.com/join (niezbędne do pracy w czasie warsztatów)
+    
 
-***
+### Dodatkowe kroki konfiguracyjne
 
-# Konfiguracja na starcie warsztatów
+1. Sprawdzenie czy połączenie jest Unicode-owe.
+    * Ustawienie ```CHARACTER SET = UTF8``` w połączeniach FireDAC oraz w konsoli administracyjnej
+    * Uruchomienie skryptu, np. przez FireDAC Explorer lub przez SQL Script w definicji połączenia FireDAC-a:
+        ```
+        CREATE TABLE AAA (F1 VARCHAR(50) CHARACTER SET UTF8);
+        COMMIT;
+        SET TRANSACTION;
+        INSERT INTO AAA VALUES ('Οὐχὶ ταὐτὰ παρίσταταί');
+        COMMIT;
+        SET TRANSACTION;
+        SELECT * FROM AAA;
+        DROP TABLE AAA;
+        ```
+    * Na konsoli powinny pojawić się greckie słowa z tabeli AAA.
 
-Czyli co jeszcze trzeba zrobić (lub sprawdzić) na początku warsztatów warsztatów.
-
-1. **Dostęp do Internetu**
-    * Parametry WiFi:
-        * [Golden Floor Tower - Warszawa] 
-            * sieć: ```GOLDEN FLOOR```  
-            * hasło: ```-szkolenie-```
-
-2. **Ta instrukcja Configuration.md**
-    * Zalogowanie się do swojego konta github.com
-    * Otwarcie tej instrukcji:
-    	* https://github.com/bogdanpolak/
-	* Repozytorium: MailingListVCL
-    	* Dokument: Configuration.md
-
-3. **Klient Git dla Windows - instalacja**
+2. **Klient Git dla Windows - instalacja**
     * Pobranie i instalacja Git dla Windows: https://git-scm.com/download/win
     * Zainstalowanie Manager'a autentykacji dla Git Windows: https://github.com/Microsoft/Git-Credential-Manager-for-Windows
+        * Przydatny wtedy gdy konsola Windows "zapomina" dane logowania dla git-a.
+        * Pobranie instlatora (EXE) ze strony: https://github.com/Microsoft/Git-Credential-Manager-for-Windows/releases/
+        * Uruchomienie
 
 4. **RAD Studio IDE**
     * Ustawienie opcji IDE:
@@ -67,10 +55,27 @@ Czyli co jeszcze trzeba zrobić (lub sprawdzić) na początku warsztatów warszt
         * polecenia: ```cd``` i ```dir```
     * ```git clone https://github.com/bogdanpolak/MailingListVCL.git```
 
-6. **Konsola Windows**
+6. Uruchomienie projektu w RAD Studio (Delphi)
+    * Ustawienie w ```MainDataModule.pas```:
+        *  ```FDConnection1.ConnectionDefName```:
+            * **IB_MailingDB** - dla bazy Interbase
+            * **FB_MailingDB** - dla bazy Firebird
+        * Po uruchomieniu:
+            * Button [Utwórz struktury w bazie danych] i w oknie [Uruchom skrypt]
+
+
+### Na warsztatach
+
+1. **Konsola Windows**
     * Skopiowanie pliku OpenConsole.bat z podfolderu assets do folderu głównego projektu
 
-7. **Dodanie aliasów git-a**
+2. **Dostęp do Internetu**
+    * Parametry WiFi:
+        * [Golden Floor Tower - Warszawa] 
+            * sieć: ```..```  
+            * hasło: ```..```
+
+3. **Dodanie aliasów git-a**
     * modyfikacja pliku pliku .gitconfig
         * Lokalizacja: C:\Users\{{użytkownik}}
         * dodanie poniższych aliasów:
@@ -80,9 +85,3 @@ Czyli co jeszcze trzeba zrobić (lub sprawdzić) na początku warsztatów warszt
         	graph2 = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset)%C(bold yellow)%d%C(reset)%n''          %C(white)%s%C(reset) %C(dim white)- %an%C(reset)' --all
         	lg = !"git graph1"
         ```
-
-8. Otwarcie projektu w RAD Studio (Delphi)
-    * Ustawienie w ```MainDataModule.pas```:
-        *  ```FDConnection1.ConnectionDefName```:
-            * **IB_MailingDB** - dla bazy Interbase
-            * **FB_MailingDB** - dla bazy Firebird
