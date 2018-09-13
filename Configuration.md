@@ -21,7 +21,7 @@
 1. Sprawdzenie czy połączenie jest Unicode-owe.
     * Ustawienie ```CHARACTER SET = UTF8``` w połączeniach FireDAC oraz w konsoli administracyjnej
     * Uruchomienie skryptu (menu [Tools] -> [FireDAC Explorer] lub [FireDAC Connection Editor] -> zakładka [SQL Script]:
-        * [FireDAc Explorer](http://docwiki.embarcadero.com/RADStudio/Tokyo/en/Setting_up_Connections_(FireDAC)#Using_the_FDExplorer_Utility)
+        * [FireDAC Explorer](http://docwiki.embarcadero.com/RADStudio/Tokyo/en/Setting_up_Connections_(FireDAC)#Using_the_FDExplorer_Utility)
         * [FireDAC Connection Editor](http://docwiki.embarcadero.com/RADStudio/Tokyo/en/Setting_up_Connections_(FireDAC)#Using_the_TFDConnection_Design-Time_Editor)
         ```
         SET AUTOCOMMIT ON
@@ -62,6 +62,8 @@
         * Po uruchomieniu:
             * Button [Utwórz struktury w bazie danych] i w oknie [Uruchom skrypt]
 
+
+***
 
 ### Na warsztatach
 
