@@ -20,14 +20,13 @@
 
 1. Sprawdzenie czy połączenie jest Unicode-owe.
     * Ustawienie ```CHARACTER SET = UTF8``` w połączeniach FireDAC oraz w konsoli administracyjnej
-    * Uruchomienie skryptu, np. przez FireDAC Explorer lub przez SQL Script w definicji połączenia FireDAC-a:
+    * Uruchomienie skryptu (menu [Tools] -> [FireDAC Explorer] lub [FireDAC Connection Editor] -> zakładka [SQL Script]:
+        * [FireDAc Explorer](http://docwiki.embarcadero.com/RADStudio/Tokyo/en/Setting_up_Connections_(FireDAC)#Using_the_FDExplorer_Utility)
+        * [FireDAC Connection Editor](http://docwiki.embarcadero.com/RADStudio/Tokyo/en/Setting_up_Connections_(FireDAC)#Using_the_TFDConnection_Design-Time_Editor)
         ```
+        SET AUTOCOMMIT ON
         CREATE TABLE AAA (F1 VARCHAR(50) CHARACTER SET UTF8);
-        COMMIT;
-        SET TRANSACTION;
         INSERT INTO AAA VALUES ('Οὐχὶ ταὐτὰ παρίσταταί');
-        COMMIT;
-        SET TRANSACTION;
         SELECT * FROM AAA;
         DROP TABLE AAA;
         ```
