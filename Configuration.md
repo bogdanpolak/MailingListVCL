@@ -43,10 +43,10 @@
     * Ustawienie opcji IDE:
         * Git Executable
         * Remote authentication data
-        ![](./assets/opcje-IDE-dla-Gita.png)
+        ![](./assets/images/opcje-IDE-dla-Gita.png)
     * Instalacja ChromeTabs przez GetIt:
         * menu: Tools -> GetIt Package Manager
-    	* ![](./assets/getit-manager.png)
+    	* ![](./assets/images/getit-manager.png)
 
 5. **Sklonowanie tego projektu**
     * Uruchomienie linii poleceń Windows - **CMD.EXE**

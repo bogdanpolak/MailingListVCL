@@ -14,11 +14,11 @@ W codziennym użyciu takich narzędzi kluczowa jest możliwość zintegrowania i
     * [Formatter.EXE, the Command Line Formatter](http://docwiki.embarcadero.com/RADStudio/Tokyo/en/Formatter.EXE,_the_Command_Line_Formatter)
 
 * Rozszerzenia IDE - dostarczane przez partnerów
-    * [TMS Software: FixInsight](https://www.tmssoftware.com/site/fixinsight.asp) ![HOT](./assets/hot21.png)
+    * [TMS Software: FixInsight](https://www.tmssoftware.com/site/fixinsight.asp) ![HOT](./assets/images/hot21.png)
         * FixInsight blog: [link](http://sourceoddity.com/blog/)
         * Nick Hodges blog: [review](http://www.codingindelphi.com/blog/review-fixinsight/)
         * Dostępna jest wersja CLI
-    * [DevJet: Documentation Insight](http://www.devjetsoftware.com/products/documentation-insight/) ![HOT](./assets/hot21.png)
+    * [DevJet: Documentation Insight](http://www.devjetsoftware.com/products/documentation-insight/) ![HOT](./assets/images/hot21.png)
         * Wersja CLI do automatycznego generowania dokumentacji technicznej projektu
     * [Parnassus Navigator](https://parnassus.co/delphi-tools/parnassus-navigator/)
     * [MMX Code Explorer](https://www.mmx-delphi.de)
