@@ -23,6 +23,8 @@ Projekt powstał na potrzeby warsztatu: "Nowoczesne programowanie w Delphi". Jes
 
 ### Materiały dla uczestników
 
+* [Nauka Git-a](./GitLearn.md)
+
 * [Narzędzia wspomagające programistę](./DelphiTools.md)
 
 * [Dobre praktyki programisty](./GoodPractices.md)
