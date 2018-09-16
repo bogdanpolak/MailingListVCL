@@ -30,10 +30,6 @@
     * Wspólne repozytorium
     * Przy całodziennym kodowaniu - min. 10 rewizji (commit-ów)
 
-### Zapachy kodu
-
-Nie programuj zawsze w ten sam sposób. Ucz się i eksperymentuj z nowymi sposobami kodowania.  Naucz się rozpoznawać zapachy kodu: kiedy śmierdzi, a kiedy ma miły zapach.
-
 ### DRY
 
 DRY - Don't Repeat Yourself
@@ -48,6 +44,15 @@ DRY - Don't Repeat Yourself
 * Separacja logiki
     * Wydzielaj logikę na zewnątrz (do klasy lub przynajmniej do funkcji)
     * Staraj się wstrzykiwać wszelkie zależności do klasy (Prawo Demeter)
+
+### Zapachy kodu
+
+Nie programuj zawsze w ten sam sposób. Ucz się i eksperymentuj z nowymi sposobami kodowania.  Naucz się rozpoznawać zapachy kodu: kiedy śmierdzi, a kiedy ma miły zapach.
+
+Polecam:
+* Książka: Refactoring - Improving the Design of Existing Code
+   * autorzy: Martin Fowler, Kent Beck, John Brant, William Opdyke, Don Roberts, Erich Gamma
+   * [Tłumaczenie na polski (Helion)](https://helion.pl/ksiazki/refaktoryzacja-ulepszanie-struktury-istniejacego-kodu-martin-fowler-kent-beck-john-brant-william-opdy,refukv.htm)
 
 ### Czysty kod wg wujka Bob-a
 
