@@ -56,6 +56,10 @@ Polecam:
 
 ### Czysty kod wg wujka Bob-a
 
+> Czysty kod w JavaScript
+> Tłumaczenie na polski wraz z ciekawymi przykładami
+> [Zobacz tutaj](https://github.com/greg-dev/clean-code-javascript-pl)
+
 | Klucz | Treść |
 | - | - |
 | Tytuł | Czysty kod. Podręcznik dobrego programisty |
