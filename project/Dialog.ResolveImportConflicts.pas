@@ -5,7 +5,7 @@ interface
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants,
   System.Classes, Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs,
-  Vcl.ExtCtrls, Vcl.DBCtrls, Vcl.StdCtrls, Vcl.Mask, Data.DB, ImportFrameUnit;
+  Vcl.ExtCtrls, Vcl.DBCtrls, Vcl.StdCtrls, Vcl.Mask, Data.DB;
 
 type
   TDialogResolveConflicts = class(TForm)
@@ -29,20 +29,22 @@ type
     { Public declarations }
   end;
 
-function ShowDialog_ResolveConflicts(FrameImport: TFrameImport): boolean;
+function ShowDialog_ResolveConflicts(FrameImportContacts: TFrame): boolean;
 
 implementation
 
 {$R *.dfm}
 
-function ShowDialog_ResolveConflicts(FrameImport: TFrameImport): boolean;
+uses Frame.ImportContacts;
+
+function ShowDialog_ResolveConflicts(FrameImportContacts: TFrame): boolean;
 var
   frm: TDialogResolveConflicts;
   mr: Integer;
 begin
   try
     frm := TDialogResolveConflicts.Create(Application);
-    frm.DataSource1.DataSet := FrameImport.mtabEmails;
+    frm.DataSource1.DataSet := (FrameImportContacts as TFrameImport).mtabEmails;
     mr := frm.ShowModal;
     Result := (mr = mrOK);
   finally

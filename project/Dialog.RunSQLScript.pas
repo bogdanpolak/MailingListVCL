@@ -1,4 +1,4 @@
-unit Dialog.RunSQLScript;
+﻿unit Dialog.RunSQLScript;
 { TODO : Poprawić nazwę unitu: DialogCreateDatabaseStructure }
 
 interface
@@ -38,7 +38,7 @@ implementation
 
 {$R *.dfm}
 
-uses ModuleMain, Interbase.SQL.Main;
+uses Module.Main, Interbase.SQL.Main;
 
 { TODO : Nowocześniejsza struktura danych lub wyrzucenie danych na zewnątrz }
 type

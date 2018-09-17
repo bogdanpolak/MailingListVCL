@@ -1,4 +1,4 @@
-unit Frame.ImportContacts;
+﻿unit Frame.ImportContacts;
 
 interface
 
@@ -59,7 +59,8 @@ implementation
 {$R *.dfm}
 
 uses
-  System.IOUtils, UnitMockData, MainDataModule, ResolveConflictsDialogUnit;
+  System.IOUtils, Dialog.ResolveImportConflicts, Mock.JSON.ImportContacts,
+  Module.Main;
 
 procedure TFrameImport.btnLoadNewEmailsClick(Sender: TObject);
 var

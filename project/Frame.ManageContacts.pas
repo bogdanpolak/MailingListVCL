@@ -26,7 +26,7 @@ implementation
 
 {$R *.dfm}
 
-uses ManageContactsDataModule;
+uses Module.ManageContacts;
 
 { TFrameManageContacts }
 

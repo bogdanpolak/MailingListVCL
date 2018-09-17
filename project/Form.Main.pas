@@ -1,3 +1,4 @@
+﻿{Testowy komentarz: zażółć gęślą jaźń}
 unit Form.Main;
 
 interface
@@ -62,7 +63,7 @@ implementation
 
 uses
   FireDAC.Stan.Error, Dialog.RunSQLScript, Frame.ImportContacts, 
-  Frame.ManageContacts, Frame.Welcome;
+  Frame.ManageContacts, Frame.Welcome, Module.Main;
 
 const
   SQL_SELECT_DatabaseVersion = 'SELECT versionnr FROM DBInfo';
