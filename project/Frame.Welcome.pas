@@ -1,4 +1,4 @@
-unit WelcomeFrameUnit;
+unit Frame.Welcome;
 
 interface
 

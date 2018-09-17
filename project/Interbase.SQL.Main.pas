@@ -1,4 +1,4 @@
-unit UnitInterbaseCreateDB;
+unit Interbase.SQL.Main;
 
 interface
 
@@ -69,14 +69,14 @@ const
     'SET DROPnonexistent OFF;'+sLineBreak+
     'COMMIT;'+sLineBreak+
     'INSERT INTO DBInfo (versionnr) VALUES (1);'+sLineBreak+
-    'INSERT INTO MailingList(description) VALUES (''Mailing g³ówny'');'+sLineBreak+
+    'INSERT INTO MailingList(description) VALUES (''Mailing gï¿½ï¿½wny'');'+sLineBreak+
     'INSERT INTO MailingList(description) VALUES (''Lista testowa'');'+sLineBreak+
-    // login: jan  has³o: jan01  text do sha256: jan,jan01
+    // login: jan  hasï¿½o: jan01  text do sha256: jan,jan01
     // wyliczanie hasha:
     // System.Hash.THashSHA2.GetHashString (username+','+password, TSHA2Version.SHA256): string;
     'INSERT INTO Users(login,accesshash) VALUES (''jan'','+
       '''083E7F0FA4F62A81CABC8D03CBA5E3096ED5A038CFFA181377F383329A00E21E'');'+sLineBreak+
-    // login: demo  has³o: demo  text do sha256: demo,demo
+    // login: demo  hasï¿½o: demo  text do sha256: demo,demo
     'INSERT INTO Users(login,accesshash) VALUES (''demo'','+
       '''DD3E4A89090BE0A261D91BC2A255D4F11CFA897AE98349F9BF0CCB1A0CC47FF5'');'+sLineBreak+
     'COMMIT;'+sLineBreak+

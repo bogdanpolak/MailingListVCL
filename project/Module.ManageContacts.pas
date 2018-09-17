@@ -1,4 +1,4 @@
-unit ManageContactsDataModule;
+unit Module.ManageContacts;
 
 interface
 

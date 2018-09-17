@@ -1,4 +1,4 @@
-unit ResolveConflictsDialogUnit;
+unit Dialog.ResolveImportConflicts;
 
 interface
 

@@ -1,4 +1,4 @@
-unit MainDataModule;
+unit Module.Main;
 
 interface
 
