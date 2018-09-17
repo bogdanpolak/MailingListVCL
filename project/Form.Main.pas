@@ -200,12 +200,12 @@ begin
   tmr1.Tag := tmr1.Tag + 1;
   if isFirstTime then
   begin
-    { DONE: Powt�rka: COPY-PASTE }
+    { DONE: Powtórka: COPY-PASTE }
     tab := OpenFrameAsChromeTab(TFrameWelcome);
     tab.Caption := SWelcomeScreen;
     // -- koniec bloku pow�tki
     self.Caption := self.Caption + ' - ' + edtAppVersion.Text;
-    { DONE: Sprawd� wersj� bazy danych czy pasuje do aplikacji }
+    { DONE: Sprawdź wersję bazy danych czy pasuje do aplikacji }
     DatabaseNumber := StrToInt(edtDBVersion.Text);
     { TODO: Wydziel metodę: verifyDatabaseVersion(expectedVersionNr) }
     // Połączenie z bazą i porównanie DatabaseNumber z VersionNr

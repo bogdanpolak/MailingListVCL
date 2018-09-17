@@ -107,25 +107,26 @@ begin
       FDQuery2.ExecSQL;
     end;
     FDQuery1.Connection.Commit;
-    { TODO : Zamieni� na funckj�: ChangeWordByNumeralsPL }
-    { TODO : U�y� metodyki TDD na zakodowanie tej funkcji }
-    { ChangeWordByNumeralsPL (liczba, s�owo, formaMnoga, mnogaDopelniacz) }
+    { TODO : Zamienić na funckję: ChangeWordByNumeralsPL }
+    { TODO : Użyć metodyki TDD na zakodowanie tej funkcji }
+    { ChangeWordByNumeralsPL (liczba, słowo, formaMnoga, mnogaDopelniacz) }
     { *
-      * �r�d�o: https://polszczyzna.pl/5-zloty-czy-5-zlotych/
+      * źródło: https://polszczyzna.pl/5-zloty-czy-5-zlotych/
       *
-      * Dla liczb z zakresu 5�14 lub gdy ostatnia cyfra liczby wynosi:
-      * 1, 5, 6, 7, 8, 9, 0 m�wi i pisze si� �z�otych�
-      * (np. 18 z�otych, 85 z�otych).
-      * Te liczby ��cz� si� z dope�niaczem. Ostatnia cyfra 2, 3, 4 � m�wi i
-      * pisze si� �z�ote� (np. 42 z�ote, 104 z�ote). Liczby te z kolei podaje
-      * si� w formie mianownika.
+      * Dla liczb z zakresu 5-14 lub gdy ostatnia cyfra liczby
+      * wynosi 1, 5, 6, 7, 8, 9, 0 mówi i pisze się „złotych”
+      * (np. 18 złotych, 85 złotych). Te liczby łączą się z dopełniaczem.
       *
-      * Form� z�oty zastosujemy, gdy ��czy si� z liczebnikiem jeden, np.
-      * To kosztuje jeden z�oty. Inaczej b�dzie ju� w wypadku wyra�e�
-      * 21 z�, 61 z�, 151 z�, 1001 z� itp., kt�re r�wnie� maj� ostatni cz�on
-      * jeden. M�wi si� zawsze dwadzie�cia jeden z�otych, sze��dziesi�t jeden
-      * z�otych, sto pi��dziesi�t jeden z�otych, tysi�c jeden z�otych
-      * (a nie: z�oty).
+      * Ostatnia cyfra 2, 3, 4 – mówi i pisze się „złote”
+      * (np. 42 złote, 104 złote). Liczby te z kolei podaje się w formie
+      * mianownika.
+      *
+      * Formę złoty zastosujemy, gdy łączy się z liczebnikiem jeden,
+      * np. To kosztuje jeden złoty. Inaczej będzie już w wypadku
+      * wyrażeń 21 zł, 61 zł, 151 zł, 1001 zł itp., które również mają
+      * ostatni człon jeden. Mówi się zawsze dwadzieścia jeden złotych,
+      * sześćdziesiąt jeden złotych, sto pięćdziesiąt jeden złotych,
+      * tysiąc jeden złotych (a nie: złoty).
       * }
     case NUMBER_OF_EMAILS of
       0:
