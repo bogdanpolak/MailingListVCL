@@ -100,8 +100,8 @@ var
   email: string;
   id: Integer;
 begin
-  { TODO: B��d: je�li lista do importu nie zosta�a wcze�niej za�adowana }
-  { TODO: Zamiana zwyk�ych INSERT-�w i UPADTE-�w do bazy na ArrayDML }
+  { TODO: Błąd: jeśli lista do importu nie została wcześniej załadowana }
+  { TODO: Zamiana zwykłych INSERT-ów i UPADTE-ów do bazy na ArrayDML }
   // github: #5
   try
     mtabEmails.First;
@@ -128,7 +128,7 @@ begin
         end
         else
         begin
-          { TODO: U�yj sta�ej: UnitInterbaseCreateDB.IB_INSERT_CONTACTS_SQL }
+          { TODO: Użyj stałej: UnitInterbaseCreateDB.IB_INSERT_CONTACTS_SQL }
           FDQuery2.SQL.Text := 'INSERT INTO Contacts' +
             ' (email, firstname, lastname, company, create_timestamp)' +
             'VALUES (''' + email + ''',' + '''' + mtabEmailsFirstName.Value +
@@ -149,10 +149,10 @@ begin
     end;
   except
     on E: Exception do
-      { TODO: Brzydko pachnie! Wyciszam wszystkie wyj�tki }
+      { TODO: Brzydko pachnie! Wyciszam wszystkie wyjątki }
       // Potrzebny jest refaktoring metody powy�ej  aby przeanalizowa�
       ShowMessage
-        ('Teraz tego nie mog� zrobi�! Zaimportuj najpier list� kontkt�w');
+        ('Teraz tego nie mogę zrobić! Zaimportuj najpier listę kontktów');
   end;
 end;
 
@@ -175,8 +175,8 @@ begin
     mtabEmailsLastName.Value := joEmailRow.Values['lastname'].Value;
   if Assigned(joEmailRow.Values['company']) then
     mtabEmailsCompany.Value := joEmailRow.Values['company'].Value;
-  { TODO: Dataset ukryty w kodzie metody. Jak rozpr�y�? dsQueryCurrEmails }
-  { *** Metoda zale�na od JSON-a oraz od DataSet-u. }
+  { TODO: Dataset dsQueryCurrEmails ukryty w kodzie metody. Wyłączyć }
+  { *** Metoda zależna od JSON-a oraz od DataSet-u. }
   mtabEmailsDuplicated.Value := dsQueryCurrEmails.Locate('email', email, []);
   mtabEmailsImport.Value := not mtabEmailsDuplicated.Value;
   mtabEmailsConflicts.Value := False;
@@ -264,7 +264,7 @@ begin
   if isDeveloperMode and chkAutoLoadJSON.Checked then
   begin
     jData := TJSONObject.ParseJSONValue(sSampleImportEmailJSON) as TJSONArray;
-    { TODO : Powt�rzony kod: COPY-PASTE }
+    { TODO : Powtórzony kod: COPY-PASTE }
     mtabEmails.Open;
     mtabEmails.EmptyDataSet;
     mtabEmailsImport.DisplayValues := ';';

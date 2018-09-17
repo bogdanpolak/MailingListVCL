@@ -54,7 +54,7 @@ const
   NUMBER_OF_EMAILS = 5;
   EmailTableData: array [0 .. NUMBER_OF_EMAILS - 1] of TEmailRec =
     ((email: 'bogdan.polak.no.spam@bsc.com.pl'; firstName: 'Bogdan';
-    { TODO : Poprawi�: Formatowanie daty i czasu zale�ne od ustawie� regionalnych }
+    { TODO : Poprawić: Formatowanie daty i czasu zależne od ustawień regionalnych }
     lastName: 'Polak'; comapny: 'BSC Polska'; regDate: '15.08.2018 19:30'),
     (email: 'jan.kowalski@gmail.pl'; firstName: 'Jan';
     lastName: 'Kowalski'; comapny: 'Motife Sp. z o.o.'; regDate: ''),
