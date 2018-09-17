@@ -92,10 +92,10 @@ var
   frm: TFrame;
 begin
   Result := nil;
-  { TODO: Doda� kontrol� otwierania tej samej zak�adki po raz drugi }
-  // B��d zg�oszony. github #2
-  { DONE: Powt�rka: COPY-PASTE }
-  { DONE : Wydziel metod� OpenFrameAsChromeTab (TFrame) }
+  { TODO: Dodać kontrolę otwierania tej samej zakładki po raz drugi }
+  // Błąd zgłoszony. github #2
+  { DONE: Powtórka: COPY-PASTE }
+  { DONE : Wydziel metodę OpenFrameAsChromeTab (TFrame) }
 
   HideAllChildFrames(pnMain);
 
@@ -112,7 +112,7 @@ procedure TFormMain.btnImportContactsClick(Sender: TObject);
 var
   frm: TChromeTab;
 begin
-  { DONE: Powt�rka: COPY-PASTE }
+  { DONE: Powtórka: COPY-PASTE }
   frm := OpenFrameAsChromeTab(TFrameImport);
   frm.Caption := (Sender as TButton).Caption;
 end;
@@ -121,7 +121,7 @@ procedure TFormMain.btnManageContactsClick(Sender: TObject);
 var
   frm: TChromeTab;
 begin
-  { DONE: Powt�rka: COPY-PASTE }
+  { DONE: Powtórka: COPY-PASTE }
   frm := OpenFrameAsChromeTab(TFrameManageContacts);
   frm.Caption := (Sender as TButton).Caption;
 end;
@@ -171,8 +171,8 @@ var
 begin
   FlowPanel1.Caption := '';
   pnMain.Caption := '';
-  { TODO: Powt�rka: COPY-PASTE }
-  { TODO: Poprawi� rozpoznawanie projektu: dpr w bie��cym folderze }
+  { TODO: Powtórka: COPY-PASTE }
+  { TODO: Poprawić rozpoznawanie projektu: dpr w bieżącym folderze }
 {$IFDEF DEBUG}
   ext := '.dpr'; // do not localize
   sProjFileName := ChangeFileExt(ExtractFileName(Application.ExeName), ext);
@@ -194,7 +194,7 @@ var
   frm: TFrameWelcome;
   msg1: string;
 begin
-  { TODO: Przebudowa� logik� metody. Jest zbyt skomplikowana i ma�o czytelna }
+  { TODO: Przebudować logikę metody. Jest zbyt skomplikowana i mało czytelna }
   tmr1 := (Sender as TTimer);
   isFirstTime := (tmr1.Tag = 0);
   tmr1.Tag := tmr1.Tag + 1;
@@ -207,8 +207,8 @@ begin
     self.Caption := self.Caption + ' - ' + edtAppVersion.Text;
     { DONE: Sprawd� wersj� bazy danych czy pasuje do aplikacji }
     DatabaseNumber := StrToInt(edtDBVersion.Text);
-    { TODO: Wydziel metod�: verifyDatabaseVersion(expectedVersionNr) }
-    // Po��czenie z baz� i por�wnanie DatabaseNumber z VersionNr
+    { TODO: Wydziel metodę: verifyDatabaseVersion(expectedVersionNr) }
+    // Połączenie z bazą i porównanie DatabaseNumber z VersionNr
     try
       MainDM.FDConnection1.Open();
     except
@@ -217,7 +217,7 @@ begin
         if E.kind = ekObjNotExists then
         begin
           tmr1.Enabled := False;
-          { TODO: Zamie� [ShowMessage] na informacje na ekranie powitalnym }
+          { TODO: Zamieć [ShowMessage] na informacje na ekranie powitalnym }
           ShowMessage(SDatabaseRequireUpgrade);
           tmr1.Enabled := True;
         end;
@@ -228,9 +228,9 @@ begin
     if VersionNr <> DatabaseNumber then
     begin
       tmr1.Enabled := False;
-      { TODO: Wy��cz jako sta�a resourcestring }
-      { TODO: Zamie� ShowMessage na informacje na ekranie powitalnym }
-      msg1 := 'B��dna wersja bazy danych. Prosz� zaktualizowa� struktur� ' +
+      { TODO: Wyłącz jako stała resourcestring }
+      { TODO: Zamieć ShowMessage na informacje na ekranie powitalnym }
+      msg1 := 'Błędna wersja bazy danych. Proszę zaktualizować strukturę ' +
         'bazy. Oczekiwana wersja bazy: %d, aktualna wersja bazy: %d';
       ShowMessage(Format(msg1, [DatabaseNumber, VersionNr]));
       tmr1.Enabled := True;

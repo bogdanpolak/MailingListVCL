@@ -80,7 +80,7 @@ begin
     mtabEmails.EmptyDataSet;
     mtabEmailsImport.DisplayValues := ';';
     // { TODO: Zapytanie ukryte w atrybucie *.SQL.Text - code review }
-    // przypisano tre�� zapytania w kodzie
+    // przypisano treść zapytania w kodzie
     dsQueryCurrEmails.SQL.Text :=
       'select email, firstname, lastname, company from Contacts ';
     dsQueryCurrEmails.Open();
@@ -150,9 +150,9 @@ begin
   except
     on E: Exception do
       { TODO: Brzydko pachnie! Wyciszam wszystkie wyjątki }
-      // Potrzebny jest refaktoring metody powy�ej  aby przeanalizowa�
+      // Potrzebny jest refaktoring metody powyżej  aby przeanalizować
       ShowMessage
-        ('Teraz tego nie mogę zrobić! Zaimportuj najpier listę kontktów');
+        ('Teraz tego nie mogę zrobić! Zaimportuj najpierw listę kontktów');
   end;
 end;
 

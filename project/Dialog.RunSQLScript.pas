@@ -85,10 +85,10 @@ begin
   begin
     Memo1.Lines.Add('- - - - - - - - - - - - - - - - -');
     Memo1.Lines.Add('Dodawanie kontakt�w ...');
-    { TODO : Zanieni�: na FireDAC Array DML }
+    { TODO : Zanienić: na FireDAC Array DML }
     FDQuery1.SQL.Text := IB_INSERT_CONTACTS_SQL;
     FDQuery2.SQL.Text := IB_INSERT_CONTCT2LIST_SQL;
-    { TODO : Zamieni� na FireDAC ArrayDML }
+    { TODO : Zamienić na FireDAC ArrayDML }
     for i := 0 to NUMBER_OF_EMAILS - 1 do
     begin
       FDQuery1.ParamByName('email').AsString := EmailTableData[i].email;
