@@ -152,7 +152,7 @@ begin
       { TODO: Brzydko pachnie! Wyciszam wszystkie wyjątki }
       // Potrzebny jest refaktoring metody powyżej  aby przeanalizować
       ShowMessage
-        ('Teraz tego nie mogę zrobić! Zaimportuj najpierw listę kontktów');
+        ('Teraz tego nie mogę zrobić! Zaimportuj najpierw listę kontaktów');
   end;
 end;
 
