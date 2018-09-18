@@ -72,7 +72,7 @@
 
 2. **Dostęp do Internetu**
     * Parametry WiFi:
-        * [Golden Floor Tower - Warszawa] 
+        * [Park Hotel Diament Katowice](http://www.hotelediament.pl/hotele/park-hotel-diament-katowice/) 
             * sieć: ```..```  
             * hasło: ```..```
 
