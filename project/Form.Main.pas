@@ -71,7 +71,7 @@ const
 resourcestring
   SWelcomeScreen = 'Ekran powitalny';
   SDatabaseRequireUpgrade =
-    'Prosz� najpierw uruchomi� skrypt buduj�cy struktur� bazy danych.';
+    'Proszę najpierw uruchomić skrypt budujący struktury bazy danych.';
 
 procedure TFormMain.btnCreateDatabaseStructuresClick(Sender: TObject);
 begin
@@ -203,7 +203,7 @@ begin
     { DONE: Powtórka: COPY-PASTE }
     tab := OpenFrameAsChromeTab(TFrameWelcome);
     tab.Caption := SWelcomeScreen;
-    // -- koniec bloku pow�tki
+    // -- koniec bloku powtóki
     self.Caption := self.Caption + ' - ' + edtAppVersion.Text;
     { DONE: Sprawdź wersję bazy danych czy pasuje do aplikacji }
     DatabaseNumber := StrToInt(edtDBVersion.Text);

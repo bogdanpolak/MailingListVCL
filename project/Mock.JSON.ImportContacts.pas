@@ -1,4 +1,4 @@
-unit Mock.JSON.ImportContacts;
+﻿unit Mock.JSON.ImportContacts;
 
 interface
 
@@ -13,11 +13,11 @@ const
     '{"email":"marysia@nowafirma.olsztyn.pl","firstname":"Magdalena", "lastname":"Magdecka","company":"Nowa Firma Olsztyn"},'+
     '{"email":"beata.borkowska@wp.pl"},'+
     '{"email":"ajankowska@pekao.com.pl","firstname":"Agniszka", "lastname":"Jankowska","company":"Bank Pekao SA Warszawa"},'+
-    '{"email":"dominik.domaga�a@imgw.org.pl"},'+
-    '{"email":"zuzanna.zar�bska@gmail.com"},'+
+    '{"email":"dominik.domagala@imgw.org.pl"},'+
+    '{"email":"zuzanna.zarebska@gmail.com"},'+
     '{"email":"janusz2874@poczta.onet.pl"},'+
     '{"email":"dupa@dupa.pl"},'+
-    '{"email":"staszek.sobieraj@empik.com","firstname":"Stanis�aw", "lastname":"Sobieraj","company":"Empik sp. z o.o." }'+
+    '{"email":"staszek.sobieraj@empik.com","firstname":"Stanisław", "lastname":"Sobieraj","company":"Empik sp. z o.o." }'+
   ']';
 
 implementation

@@ -59,7 +59,7 @@ const
     (email: 'jan.kowalski@gmail.pl'; firstName: 'Jan';
     lastName: 'Kowalski'; comapny: 'Motife Sp. z o.o.'; regDate: ''),
     (email: 'jarzabek@poczta.onet.pl'; firstName: 'Kazimierz';
-    lastName: 'Jarz�b'; comapny: 'SuperComp SA'; regDate: ''),
+    lastName: 'Jarząb'; comapny: 'SuperComp SA'; regDate: ''),
     (email: 'adam.adamowski.waswaw@marriot.com'; firstName: 'Adam';
     lastName: 'Adamowski'; comapny: 'Marriott Hotel Warszawa'; regDate: ''),
     (email: 'ajankowska@pekao.com.pl'; firstName: 'Anna';
@@ -84,7 +84,7 @@ begin
   if isExecutedWithoutErros then
   begin
     Memo1.Lines.Add('- - - - - - - - - - - - - - - - -');
-    Memo1.Lines.Add('Dodawanie kontakt�w ...');
+    Memo1.Lines.Add('Dodawanie kontaktów ...');
     { TODO : Zanienić: na FireDAC Array DML }
     FDQuery1.SQL.Text := IB_INSERT_CONTACTS_SQL;
     FDQuery2.SQL.Text := IB_INSERT_CONTCT2LIST_SQL;
@@ -130,7 +130,7 @@ begin
       * }
     case NUMBER_OF_EMAILS of
       0:
-        adr := 'adres�w';
+        adr := 'adresów';
       1:
         adr := 'adres';
       2 .. 4:
