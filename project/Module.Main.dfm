@@ -4,7 +4,7 @@ object MainDM: TMainDM
   Width = 371
   object FDConnection1: TFDConnection
     Params.Strings = (
-      'ConnectionDef=IB_MailingDB')
+      'ConnectionDef=FB_MailingDB')
     Left = 40
     Top = 16
   end
