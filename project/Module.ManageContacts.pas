@@ -1,4 +1,4 @@
-unit ManageContactsDataModule;
+unit Module.ManageContacts;
 
 interface
 
@@ -20,7 +20,7 @@ implementation
 
 {%CLASSGROUP 'Vcl.Controls.TControl'}
 
-uses MainDataModule;
+uses Module.Main;
 
 {$R *.dfm}
 

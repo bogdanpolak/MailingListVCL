@@ -1,4 +1,4 @@
-unit ManageContactsFrameUnit;
+unit Frame.ManageContacts;
 
 interface
 
@@ -26,7 +26,7 @@ implementation
 
 {$R *.dfm}
 
-uses ManageContactsDataModule;
+uses Module.ManageContacts;
 
 { TFrameManageContacts }
 

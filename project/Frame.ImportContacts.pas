@@ -1,4 +1,4 @@
-unit ImportFrameUnit;
+ï»¿unit Frame.ImportContacts;
 
 interface
 
@@ -59,7 +59,8 @@ implementation
 {$R *.dfm}
 
 uses
-  System.IOUtils, UnitMockData, MainDataModule, ResolveConflictsDialogUnit;
+  System.IOUtils, Dialog.ResolveImportConflicts, Mock.JSON.ImportContacts,
+  Module.Main;
 
 procedure TFrameImport.btnLoadNewEmailsClick(Sender: TObject);
 var
@@ -79,7 +80,7 @@ begin
     mtabEmails.EmptyDataSet;
     mtabEmailsImport.DisplayValues := ';';
     // { TODO: Zapytanie ukryte w atrybucie *.SQL.Text - code review }
-    // przypisano treœæ zapytania w kodzie
+    // przypisano treÅ›Ä‡ zapytania w kodzie
     dsQueryCurrEmails.SQL.Text :=
       'select email, firstname, lastname, company from Contacts ';
     dsQueryCurrEmails.Open();
@@ -99,8 +100,8 @@ var
   email: string;
   id: Integer;
 begin
-  { TODO: B³¹d: jeœli lista do importu nie zosta³a wczeœniej za³adowana }
-  { TODO: Zamiana zwyk³ych INSERT-ów i UPADTE-ów do bazy na ArrayDML }
+  { TODO: BÅ‚Ä…d: jeÅ›li lista do importu nie zostaÅ‚a wczeÅ›niej zaÅ‚adowana }
+  { TODO: Zamiana zwykÅ‚ych INSERT-Ã³w i UPADTE-Ã³w do bazy na ArrayDML }
   // github: #5
   try
     mtabEmails.First;
@@ -127,7 +128,7 @@ begin
         end
         else
         begin
-          { TODO: U¿yj sta³ej: UnitInterbaseCreateDB.IB_INSERT_CONTACTS_SQL }
+          { TODO: UÅ¼yj staÅ‚ej: UnitInterbaseCreateDB.IB_INSERT_CONTACTS_SQL }
           FDQuery2.SQL.Text := 'INSERT INTO Contacts' +
             ' (email, firstname, lastname, company, create_timestamp)' +
             'VALUES (''' + email + ''',' + '''' + mtabEmailsFirstName.Value +
@@ -148,10 +149,10 @@ begin
     end;
   except
     on E: Exception do
-      { TODO: Brzydko pachnie! Wyciszam wszystkie wyj¹tki }
-      // Potrzebny jest refaktoring metody powy¿ej  aby przeanalizowaæ
+      { TODO: Brzydko pachnie! Wyciszam wszystkie wyjÄ…tki }
+      // Potrzebny jest refaktoring metody powyÅ¼ej  aby przeanalizowaÄ‡
       ShowMessage
-        ('Teraz tego nie mogê zrobiæ! Zaimportuj najpier listê kontktów');
+        ('Teraz tego nie mogÄ™ zrobiÄ‡! Zaimportuj najpierw listÄ™ kontaktÃ³w');
   end;
 end;
 
@@ -174,8 +175,8 @@ begin
     mtabEmailsLastName.Value := joEmailRow.Values['lastname'].Value;
   if Assigned(joEmailRow.Values['company']) then
     mtabEmailsCompany.Value := joEmailRow.Values['company'].Value;
-  { TODO: Dataset ukryty w kodzie metody. Jak rozprê¿yæ? dsQueryCurrEmails }
-  { *** Metoda zale¿na od JSON-a oraz od DataSet-u. }
+  { TODO: Dataset dsQueryCurrEmails ukryty w kodzie metody. WyÅ‚Ä…czyÄ‡ }
+  { *** Metoda zaleÅ¼na od JSON-a oraz od DataSet-u. }
   mtabEmailsDuplicated.Value := dsQueryCurrEmails.Locate('email', email, []);
   mtabEmailsImport.Value := not mtabEmailsDuplicated.Value;
   mtabEmailsConflicts.Value := False;
@@ -263,7 +264,7 @@ begin
   if isDeveloperMode and chkAutoLoadJSON.Checked then
   begin
     jData := TJSONObject.ParseJSONValue(sSampleImportEmailJSON) as TJSONArray;
-    { TODO : Powtórzony kod: COPY-PASTE }
+    { TODO : PowtÃ³rzony kod: COPY-PASTE }
     mtabEmails.Open;
     mtabEmails.EmptyDataSet;
     mtabEmailsImport.DisplayValues := ';';

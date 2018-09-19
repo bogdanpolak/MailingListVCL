@@ -6,17 +6,17 @@ program MailingManager;
 
 uses
   Vcl.Forms,
-  MainFormUnit in 'MainFormUnit.pas' {FormMain},
-  MainDataModule in 'MainDataModule.pas' {MainDM: TDataModule},
-  ScriptForm in 'ScriptForm.pas' {FormDBScript},
-  UnitMySQLCreateDB in 'UnitMySQLCreateDB.pas',
-  UnitInterbaseCreateDB in 'UnitInterbaseCreateDB.pas',
-  ImportFrameUnit in 'ImportFrameUnit.pas' {FrameImport: TFrame},
-  UnitMockData in 'UnitMockData.pas',
-  ResolveConflictsDialogUnit in 'ResolveConflictsDialogUnit.pas' {DialogResolveConflicts},
-  ManageContactsFrameUnit in 'ManageContactsFrameUnit.pas' {FrameManageContacts: TFrame},
-  WelcomeFrameUnit in 'WelcomeFrameUnit.pas' {FrameWelcome: TFrame},
-  ManageContactsDataModule in 'ManageContactsDataModule.pas' {DataModuleManageContacts: TDataModule};
+  Form.Main in 'Form.Main.pas' {FormMain},
+  Module.Main in 'Module.Main.pas' {MainDM: TDataModule},
+  Module.ManageContacts in 'Module.ManageContacts.pas' {DataModuleManageContacts: TDataModule},
+  Dialog.RunSQLScript in 'Dialog.RunSQLScript.pas' {FormDBScript},
+  MySQL.SQL.Main in 'MySQL.SQL.Main.pas',
+  Interbase.SQL.Main in 'Interbase.SQL.Main.pas',
+  Frame.ImportContacts in 'Frame.ImportContacts.pas' {FrameImport: TFrame},
+  Mock.JSON.ImportContacts in 'Mock.JSON.ImportContacts.pas',
+  Dialog.ResolveImportConflicts in 'Dialog.ResolveImportConflicts.pas' {DialogResolveConflicts},
+  Frame.ManageContacts in 'Frame.ManageContacts.pas' {FrameManageContacts: TFrame},
+  Frame.Welcome in 'Frame.Welcome.pas' {FrameWelcome: TFrame};
 
 {$R *.res}
 

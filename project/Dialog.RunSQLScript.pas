@@ -1,5 +1,5 @@
-unit ScriptForm;
-{ TODO : Poprawiæ nazwê unitu: DialogCreateDatabaseStructure }
+ï»¿unit Dialog.RunSQLScript;
+{ TODO : PoprawiÄ‡ nazwÄ™ unitu: DialogCreateDatabaseStructure }
 
 interface
 
@@ -38,9 +38,9 @@ implementation
 
 {$R *.dfm}
 
-uses MainDataModule, UnitInterbaseCreateDB;
+uses Module.Main, Interbase.SQL.Main;
 
-{ TODO : Nowczeœniejsza struktura danych lub wyrzucenie danych na zwn¹trz }
+{ TODO : NowoczeÅ›niejsza struktura danych lub wyrzucenie danych na zewnÄ…trz }
 type
   TEmailRec = record
     email: string;
@@ -54,12 +54,12 @@ const
   NUMBER_OF_EMAILS = 5;
   EmailTableData: array [0 .. NUMBER_OF_EMAILS - 1] of TEmailRec =
     ((email: 'bogdan.polak.no.spam@bsc.com.pl'; firstName: 'Bogdan';
-    { TODO : Poprawiæ: Formatowanie daty i czasu zale¿ne od ustawieñ regionalnych }
+    { TODO : PoprawiÄ‡: Formatowanie daty i czasu zaleÅ¼ne od ustawieÅ„ regionalnych }
     lastName: 'Polak'; comapny: 'BSC Polska'; regDate: '15.08.2018 19:30'),
     (email: 'jan.kowalski@gmail.pl'; firstName: 'Jan';
     lastName: 'Kowalski'; comapny: 'Motife Sp. z o.o.'; regDate: ''),
     (email: 'jarzabek@poczta.onet.pl'; firstName: 'Kazimierz';
-    lastName: 'Jarz¹b'; comapny: 'SuperComp SA'; regDate: ''),
+    lastName: 'JarzÄ…b'; comapny: 'SuperComp SA'; regDate: ''),
     (email: 'adam.adamowski.waswaw@marriot.com'; firstName: 'Adam';
     lastName: 'Adamowski'; comapny: 'Marriott Hotel Warszawa'; regDate: ''),
     (email: 'ajankowska@pekao.com.pl'; firstName: 'Anna';
@@ -84,11 +84,11 @@ begin
   if isExecutedWithoutErros then
   begin
     Memo1.Lines.Add('- - - - - - - - - - - - - - - - -');
-    Memo1.Lines.Add('Dodawanie kontaktów ...');
-    { TODO : Zanieniæ: na FireDAC Array DML }
+    Memo1.Lines.Add('Dodawanie kontaktÃ³w ...');
+    { TODO : ZanieniÄ‡: na FireDAC Array DML }
     FDQuery1.SQL.Text := IB_INSERT_CONTACTS_SQL;
     FDQuery2.SQL.Text := IB_INSERT_CONTCT2LIST_SQL;
-    { TODO : Zamieniæ na FireDAC ArrayDML }
+    { TODO : ZamieniÄ‡ na FireDAC ArrayDML }
     for i := 0 to NUMBER_OF_EMAILS - 1 do
     begin
       FDQuery1.ParamByName('email').AsString := EmailTableData[i].email;
@@ -107,29 +107,30 @@ begin
       FDQuery2.ExecSQL;
     end;
     FDQuery1.Connection.Commit;
-    { TODO : Zamieniæ na funckjê: ChangeWordByNumeralsPL }
-    { TODO : U¿yæ metodyki TDD na zakodowanie tej funkcji }
-    { ChangeWordByNumeralsPL (liczba, s³owo, formaMnoga, mnogaDopelniacz) }
+    { TODO : ZamieniÄ‡ na funckjÄ™: ChangeWordByNumeralsPL }
+    { TODO : UÅ¼yÄ‡ metodyki TDD na zakodowanie tej funkcji }
+    { ChangeWordByNumeralsPL (liczba, sÅ‚owo, formaMnoga, mnogaDopelniacz) }
     { *
-      * Ÿród³o: https://polszczyzna.pl/5-zloty-czy-5-zlotych/
+      * ÅºrÃ³dÅ‚o: https://polszczyzna.pl/5-zloty-czy-5-zlotych/
       *
-      * Dla liczb z zakresu 5–14 lub gdy ostatnia cyfra liczby wynosi:
-      * 1, 5, 6, 7, 8, 9, 0 mówi i pisze siê „z³otych”
-      * (np. 18 z³otych, 85 z³otych).
-      * Te liczby ³¹cz¹ siê z dope³niaczem. Ostatnia cyfra 2, 3, 4 – mówi i
-      * pisze siê „z³ote” (np. 42 z³ote, 104 z³ote). Liczby te z kolei podaje
-      * siê w formie mianownika.
+      * Dla liczb z zakresu 5-14 lub gdy ostatnia cyfra liczby
+      * wynosi 1, 5, 6, 7, 8, 9, 0 mÃ³wi i pisze siÄ™ â€zÅ‚otychâ€
+      * (np. 18 zÅ‚otych, 85 zÅ‚otych). Te liczby Å‚Ä…czÄ… siÄ™ z dopeÅ‚niaczem.
       *
-      * Formê z³oty zastosujemy, gdy ³¹czy siê z liczebnikiem jeden, np.
-      * To kosztuje jeden z³oty. Inaczej bêdzie ju¿ w wypadku wyra¿eñ
-      * 21 z³, 61 z³, 151 z³, 1001 z³ itp., które równie¿ maj¹ ostatni cz³on
-      * jeden. Mówi siê zawsze dwadzieœcia jeden z³otych, szeœædziesi¹t jeden
-      * z³otych, sto piêædziesi¹t jeden z³otych, tysi¹c jeden z³otych
-      * (a nie: z³oty).
+      * Ostatnia cyfra 2, 3, 4 â€“ mÃ³wi i pisze siÄ™ â€zÅ‚oteâ€
+      * (np. 42 zÅ‚ote, 104 zÅ‚ote). Liczby te z kolei podaje siÄ™ w formie
+      * mianownika.
+      *
+      * FormÄ™ zÅ‚oty zastosujemy, gdy Å‚Ä…czy siÄ™ z liczebnikiem jeden,
+      * np. To kosztuje jeden zÅ‚oty. Inaczej bÄ™dzie juÅ¼ w wypadku
+      * wyraÅ¼eÅ„ 21 zÅ‚, 61 zÅ‚, 151 zÅ‚, 1001 zÅ‚ itp., ktÃ³re rÃ³wnieÅ¼ majÄ…
+      * ostatni czÅ‚on jeden. MÃ³wi siÄ™ zawsze dwadzieÅ›cia jeden zÅ‚otych,
+      * szeÅ›Ä‡dziesiÄ…t jeden zÅ‚otych, sto piÄ™Ä‡dziesiÄ…t jeden zÅ‚otych,
+      * tysiÄ…c jeden zÅ‚otych (a nie: zÅ‚oty).
       * }
     case NUMBER_OF_EMAILS of
       0:
-        adr := 'adresów';
+        adr := 'adresÃ³w';
       1:
         adr := 'adres';
       2 .. 4:

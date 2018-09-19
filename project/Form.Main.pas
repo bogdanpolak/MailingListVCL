@@ -1,4 +1,5 @@
-unit MainFormUnit;
+ï»¿{Testowy komentarz: zaÅ¼Ã³Å‚Ä‡ gÄ™Å›lÄ… jaÅºÅ„}
+unit Form.Main;
 
 interface
 
@@ -61,8 +62,8 @@ implementation
 {$R *.dfm}
 
 uses
-  FireDAC.Stan.Error, ScriptForm, ImportFrameUnit, ManageContactsFrameUnit,
-  MainDataModule, WelcomeFrameUnit;
+  FireDAC.Stan.Error, Dialog.RunSQLScript, Frame.ImportContacts, 
+  Frame.ManageContacts, Frame.Welcome, Module.Main;
 
 const
   SQL_SELECT_DatabaseVersion = 'SELECT versionnr FROM DBInfo';
@@ -70,7 +71,7 @@ const
 resourcestring
   SWelcomeScreen = 'Ekran powitalny';
   SDatabaseRequireUpgrade =
-    'Proszê najpierw uruchomiæ skrypt buduj¹cy strukturê bazy danych.';
+    'ProszÄ™ najpierw uruchomiÄ‡ skrypt budujÄ…cy struktury bazy danych.';
 
 procedure TFormMain.btnCreateDatabaseStructuresClick(Sender: TObject);
 begin
@@ -91,10 +92,10 @@ var
   frm: TFrame;
 begin
   Result := nil;
-  { TODO: Dodaæ kontrolê otwierania tej samej zak³adki po raz drugi }
-  // B³¹d zg³oszony. github #2
-  { DONE: Powtórka: COPY-PASTE }
-  { DONE : Wydziel metodê OpenFrameAsChromeTab (TFrame) }
+  { TODO: DodaÄ‡ kontrolÄ™ otwierania tej samej zakÅ‚adki po raz drugi }
+  // BÅ‚Ä…d zgÅ‚oszony. github #2
+  { DONE: PowtÃ³rka: COPY-PASTE }
+  { DONE : Wydziel metodÄ™ OpenFrameAsChromeTab (TFrame) }
 
   HideAllChildFrames(pnMain);
 
@@ -111,7 +112,7 @@ procedure TFormMain.btnImportContactsClick(Sender: TObject);
 var
   frm: TChromeTab;
 begin
-  { DONE: Powtórka: COPY-PASTE }
+  { DONE: PowtÃ³rka: COPY-PASTE }
   frm := OpenFrameAsChromeTab(TFrameImport);
   frm.Caption := (Sender as TButton).Caption;
 end;
@@ -120,7 +121,7 @@ procedure TFormMain.btnManageContactsClick(Sender: TObject);
 var
   frm: TChromeTab;
 begin
-  { DONE: Powtórka: COPY-PASTE }
+  { DONE: PowtÃ³rka: COPY-PASTE }
   frm := OpenFrameAsChromeTab(TFrameManageContacts);
   frm.Caption := (Sender as TButton).Caption;
 end;
@@ -170,8 +171,8 @@ var
 begin
   FlowPanel1.Caption := '';
   pnMain.Caption := '';
-  { TODO: Powtórka: COPY-PASTE }
-  { TODO: Poprawiæ rozpoznawanie projektu: dpr w bie¿¹cym folderze }
+  { TODO: PowtÃ³rka: COPY-PASTE }
+  { TODO: PoprawiÄ‡ rozpoznawanie projektu: dpr w bieÅ¼Ä…cym folderze }
 {$IFDEF DEBUG}
   ext := '.dpr'; // do not localize
   sProjFileName := ChangeFileExt(ExtractFileName(Application.ExeName), ext);
@@ -193,21 +194,21 @@ var
   frm: TFrameWelcome;
   msg1: string;
 begin
-  { TODO: Przebudowaæ logikê metody. Jest zbyt skomplikowana i ma³o czytelna }
+  { TODO: PrzebudowaÄ‡ logikÄ™ metody. Jest zbyt skomplikowana i maÅ‚o czytelna }
   tmr1 := (Sender as TTimer);
   isFirstTime := (tmr1.Tag = 0);
   tmr1.Tag := tmr1.Tag + 1;
   if isFirstTime then
   begin
-    { DONE: Powtórka: COPY-PASTE }
+    { DONE: PowtÃ³rka: COPY-PASTE }
     tab := OpenFrameAsChromeTab(TFrameWelcome);
     tab.Caption := SWelcomeScreen;
-    // -- koniec bloku powótki
+    // -- koniec bloku powtÃ³ki
     self.Caption := self.Caption + ' - ' + edtAppVersion.Text;
-    { DONE: SprawdŸ wersjê bazy danych czy pasuje do aplikacji }
+    { DONE: SprawdÅº wersjÄ™ bazy danych czy pasuje do aplikacji }
     DatabaseNumber := StrToInt(edtDBVersion.Text);
-    { TODO: Wydziel metodê: verifyDatabaseVersion(expectedVersionNr) }
-    // Po³¹czenie z baz¹ i porównanie DatabaseNumber z VersionNr
+    { TODO: Wydziel metodÄ™: verifyDatabaseVersion(expectedVersionNr) }
+    // PoÅ‚Ä…czenie z bazÄ… i porÃ³wnanie DatabaseNumber z VersionNr
     try
       MainDM.FDConnection1.Open();
     except
@@ -216,7 +217,7 @@ begin
         if E.kind = ekObjNotExists then
         begin
           tmr1.Enabled := False;
-          { TODO: Zamieñ [ShowMessage] na informacje na ekranie powitalnym }
+          { TODO: ZamieÄ‡ [ShowMessage] na informacje na ekranie powitalnym }
           ShowMessage(SDatabaseRequireUpgrade);
           tmr1.Enabled := True;
         end;
@@ -227,9 +228,9 @@ begin
     if VersionNr <> DatabaseNumber then
     begin
       tmr1.Enabled := False;
-      { TODO: Wy³¹cz jako sta³a resourcestring }
-      { TODO: Zamieñ ShowMessage na informacje na ekranie powitalnym }
-      msg1 := 'B³êdna wersja bazy danych. Proszê zaktualizowaæ strukturê ' +
+      { TODO: WyÅ‚Ä…cz jako staÅ‚a resourcestring }
+      { TODO: ZamieÄ‡ ShowMessage na informacje na ekranie powitalnym }
+      msg1 := 'BÅ‚Ä™dna wersja bazy danych. ProszÄ™ zaktualizowaÄ‡ strukturÄ™ ' +
         'bazy. Oczekiwana wersja bazy: %d, aktualna wersja bazy: %d';
       ShowMessage(Format(msg1, [DatabaseNumber, VersionNr]));
       tmr1.Enabled := True;

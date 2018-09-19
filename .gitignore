@@ -15,7 +15,8 @@
 # ########## Resource file
 # (*.rc, *.res) Compiled and uncompiled resource files
 # *.rc
-# *.res
+
+*.res
 
 # ########## Delphi binary files
 # (*.dll) A dynamically linked library file
