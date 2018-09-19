@@ -51,6 +51,7 @@ type
     function OpenFrameAsChromeTab(Frame:TFrameClass):TChromeTab;
     { Private declarations }
   public
+    function checkDeveloperMode: boolean;
     { Public declarations }
   end;
 
@@ -126,6 +127,24 @@ begin
   frm.Caption := (Sender as TButton).Caption;
 end;
 
+function TFormMain.checkDeveloperMode: boolean;
+var
+  sProjFileName: string;
+  ext: string;
+begin
+  FlowPanel1.Caption := '';
+  pnMain.Caption := '';
+  { DONE: Poprawić c }
+{$IFDEF DEBUG}
+  ext := '.dpr'; // do not localize
+  sProjFileName := ChangeFileExt(ExtractFileName(Application.ExeName), ext);
+  Result := FileExists(sProjFileName);
+{$ELSE}
+  Result := False;
+{$ENDIF}
+
+end;
+
 procedure TFormMain.ChromeTabs1ButtonCloseTabClick(Sender: TObject;
   ATab: TChromeTab; var Close: Boolean);
 var
@@ -173,13 +192,7 @@ begin
   pnMain.Caption := '';
   { TODO: Powtórka: COPY-PASTE }
   { TODO: Poprawić rozpoznawanie projektu: dpr w bieżącym folderze }
-{$IFDEF DEBUG}
-  ext := '.dpr'; // do not localize
-  sProjFileName := ChangeFileExt(ExtractFileName(Application.ExeName), ext);
-  isDeveloperMode := FileExists('..\..\' + sProjFileName);
-{$ELSE}
-  isDeveloperMode := False;
-{$ENDIF}
+  isDeveloperMode := checkDeveloperMode;
 end;
 
 procedure TFormMain.tmrIdleTimer(Sender: TObject);
