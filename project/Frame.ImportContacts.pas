@@ -39,6 +39,7 @@ type
     btnImportSelected: TButton;
     FDQuery1: TFDQuery;
     FDQuery2: TFDQuery;
+    FDQueryIns: TFDQuery;
     procedure btnImportSelectedClick(Sender: TObject);
     procedure btnLoadNewEmailsClick(Sender: TObject);
     procedure DBGrid1DblClick(Sender: TObject);
@@ -60,7 +61,7 @@ implementation
 
 uses
   System.IOUtils, Dialog.ResolveImportConflicts, Mock.JSON.ImportContacts,
-  Module.Main;
+  Module.Main, Interbase.SQL.Main;
 
 procedure TFrameImport.btnLoadNewEmailsClick(Sender: TObject);
 var
@@ -99,11 +100,27 @@ procedure TFrameImport.btnImportSelectedClick(Sender: TObject);
 var
   email: string;
   id: Integer;
+  IleIns: Integer;
 begin
   { TODO: Błąd: jeśli lista do importu nie została wcześniej załadowana }
   { TODO: Zamiana zwykłych INSERT-ów i UPADTE-ów do bazy na ArrayDML }
   // github: #5
   try
+    with FDQueryIns do
+    begin
+      SQL.Text := IB_INSERT_CONTACTS_SQL;
+      Params[0].DataType := ftString;
+      Params[1].Size := 100;
+      Params[1].DataType := ftString;
+      Params[1].Size := 50;
+      Params[2].DataType := ftString;
+      Params[2].Size := 50;
+      Params[3].DataType := ftString;
+      Params[3].Size := 50;
+      Params[4].DataType := ftDateTime;
+      Params.ArraySize := mtabEmails.RecordCount;
+    end;
+    IleIns := 0;
     mtabEmails.First;
     while not mtabEmails.Eof do
     begin
@@ -129,16 +146,23 @@ begin
         else
         begin
           { TODO: Użyj stałej: UnitInterbaseCreateDB.IB_INSERT_CONTACTS_SQL }
-          FDQuery2.SQL.Text := 'INSERT INTO Contacts' +
-            ' (email, firstname, lastname, company, create_timestamp)' +
-            'VALUES (''' + email + ''',' + '''' + mtabEmailsFirstName.Value +
-            ''', ' + '''' + mtabEmailsLastName.Value + ''',' + '''' +
-            mtabEmailsCompany.Value + ''', ''' + DateTimeToStr(Now()) + ''')';
-          FDQuery2.ExecSQL;
+          // FDQuery2.SQL.Text := 'INSERT INTO Contacts' +
+          // ' (email, firstname, lastname, company, create_timestamp)' +
+          // 'VALUES (''' + email + ''',' + '''' + mtabEmailsFirstName.Value +
+          // ''', ' + '''' + mtabEmailsLastName.Value + ''',' + '''' +
+          // mtabEmailsCompany.Value + ''', ''' + DateTimeToStr(Now()) + ''')';
+          // FDQuery2.ExecSQL;
+          FDQueryIns.Params[0].AsStrings[IleIns] := email;
+          FDQueryIns.Params[1].AsStrings[IleIns] := mtabEmailsFirstName.Value;
+          FDQueryIns.Params[2].AsStrings[IleIns] := mtabEmailsLastName.Value;
+          FDQueryIns.Params[3].AsStrings[IleIns] := mtabEmailsCompany.Value;
+          FDQueryIns.Params[4].AsDateTimes[IleIns] := Now();
+          Inc(IleIns);
         end;
       end;
       mtabEmails.Next;
     end;
+    FDQueryIns.Execute(IleIns,0);
     mtabEmails.First;
     while not mtabEmails.Eof do
     begin
