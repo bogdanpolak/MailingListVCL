@@ -1,4 +1,4 @@
-﻿{Testowy komentarz: zażółć gęślą jaźń}
+﻿{ Testowy komentarz: zażółć gęślą jaźń }
 unit Form.Main;
 
 interface
@@ -13,7 +13,7 @@ type
   TFrameClass = class of TFrame;
 
   TFormMain = class(TForm)
-    tmrIdle: TTimer;
+    tmrFirstShow: TTimer;
     grboxCommands: TGroupBox;
     ChromeTabs1: TChromeTabs;
     pnMain: TPanel;
@@ -44,11 +44,13 @@ type
       TabChangeType: TTabChangeType);
     procedure FlowPanel1Resize(Sender: TObject);
     procedure FormCreate(Sender: TObject);
-    procedure tmrIdleTimer(Sender: TObject);
+    procedure tmrFirstShowTimer(Sender: TObject);
   private
     isDeveloperMode: Boolean;
     procedure HideAllChildFrames(AParenControl: TWinControl);
-    function OpenFrameAsChromeTab(Frame:TFrameClass):TChromeTab;
+    function OpenFrameAsChromeTab(Frame: TFrameClass): TChromeTab;
+    procedure eventOnFormFirstShow;
+    procedure verifyDatabaseVersion(expectedVersionNr: Integer);
     { Private declarations }
   public
     { Public declarations }
@@ -62,7 +64,7 @@ implementation
 {$R *.dfm}
 
 uses
-  FireDAC.Stan.Error, Dialog.RunSQLScript, Frame.ImportContacts, 
+  FireDAC.Stan.Error, Dialog.RunSQLScript, Frame.ImportContacts,
   Frame.ManageContacts, Frame.Welcome, Module.Main;
 
 const
@@ -87,7 +89,7 @@ begin
       (AParenControl.Controls[i] as TFrame).Visible := False;
 end;
 
-function TFormMain.OpenFrameAsChromeTab(Frame: TFrameClass):TChromeTab;
+function TFormMain.OpenFrameAsChromeTab(Frame: TFrameClass): TChromeTab;
 var
   frm: TFrame;
 begin
@@ -106,6 +108,58 @@ begin
 
   Result := ChromeTabs1.Tabs.Add;
   Result.Data := frm;
+end;
+
+procedure TFormMain.eventOnFormFirstShow;
+var
+  tab: TChromeTab;
+  expectedDatabaseNumber: Integer;
+  expectedVersionNr: Integer;
+begin
+  { TODO: Przebudować logikę metody. Jest zbyt skomplikowana i mało czytelna }
+  tab := OpenFrameAsChromeTab(TFrameWelcome);
+  tab.Caption := SWelcomeScreen;
+  self.Caption := self.Caption + ' - ' + edtAppVersion.Text;
+  expectedDatabaseNumber := StrToInt(edtDBVersion.Text);
+  verifyDatabaseVersion(expectedDatabaseNumber);
+  if isDeveloperMode then
+  begin
+    if rbtnDialogCreateDB.Checked then
+      btnCreateDatabaseStructures.Click;
+    if rbtnFrameImportContacts.Checked then
+      btnImportContacts.Click;
+    if rbtFrameManageContacts.Checked then
+      btnManageContacts.Click;
+  end;
+end;
+
+procedure TFormMain.verifyDatabaseVersion(expectedVersionNr: Integer);
+var
+  res: Variant;
+  VersionNr: Integer;
+  msg1: string;
+begin
+  try
+    MainDM.FDConnection1.Open;
+  except
+    on E: EFDDBEngineException do
+    begin
+      if E.kind = ekObjNotExists then
+      begin
+        { TODO: Zamieć [ShowMessage] na informacje na ekranie powitalnym }
+        ShowMessage(SDatabaseRequireUpgrade);
+      end;
+    end;
+  end;
+  res := MainDM.FDConnection1.ExecSQLScalar(SQL_SELECT_DatabaseVersion);
+  VersionNr := res;
+  if VersionNr <> expectedVersionNr then
+  begin
+    { TODO: Wyłącz jako stała resourcestring }
+    { TODO: Zamieć ShowMessage na informacje na ekranie powitalnym }
+    msg1 := 'Błędna wersja bazy danych. Proszę zaktualizować strukturę ' + 'bazy. Oczekiwana wersja bazy: %d, aktualna wersja bazy: %d';
+    ShowMessage(Format(msg1, [expectedVersionNr, VersionNr]));
+  end;
 end;
 
 procedure TFormMain.btnImportContactsClick(Sender: TObject);
@@ -182,69 +236,10 @@ begin
 {$ENDIF}
 end;
 
-procedure TFormMain.tmrIdleTimer(Sender: TObject);
-var
-  tmr1: TTimer;
-  DatabaseNumber: Integer;
-  res: Variant;
-  VersionNr: Integer;
-  kind: TFDCommandExceptionKind;
-  isFirstTime: Boolean;
-  tab: TChromeTab;
-  frm: TFrameWelcome;
-  msg1: string;
+procedure TFormMain.tmrFirstShowTimer(Sender: TObject);
 begin
-  { TODO: Przebudować logikę metody. Jest zbyt skomplikowana i mało czytelna }
-  tmr1 := (Sender as TTimer);
-  isFirstTime := (tmr1.Tag = 0);
-  tmr1.Tag := tmr1.Tag + 1;
-  if isFirstTime then
-  begin
-    { DONE: Powtórka: COPY-PASTE }
-    tab := OpenFrameAsChromeTab(TFrameWelcome);
-    tab.Caption := SWelcomeScreen;
-    // -- koniec bloku powtóki
-    self.Caption := self.Caption + ' - ' + edtAppVersion.Text;
-    { DONE: Sprawdź wersję bazy danych czy pasuje do aplikacji }
-    DatabaseNumber := StrToInt(edtDBVersion.Text);
-    { TODO: Wydziel metodę: verifyDatabaseVersion(expectedVersionNr) }
-    // Połączenie z bazą i porównanie DatabaseNumber z VersionNr
-    try
-      MainDM.FDConnection1.Open();
-    except
-      on E: EFDDBEngineException do
-      begin
-        if E.kind = ekObjNotExists then
-        begin
-          tmr1.Enabled := False;
-          { TODO: Zamieć [ShowMessage] na informacje na ekranie powitalnym }
-          ShowMessage(SDatabaseRequireUpgrade);
-          tmr1.Enabled := True;
-        end;
-      end;
-    end;
-    res := MainDM.FDConnection1.ExecSQLScalar(SQL_SELECT_DatabaseVersion);
-    VersionNr := res;
-    if VersionNr <> DatabaseNumber then
-    begin
-      tmr1.Enabled := False;
-      { TODO: Wyłącz jako stała resourcestring }
-      { TODO: Zamieć ShowMessage na informacje na ekranie powitalnym }
-      msg1 := 'Błędna wersja bazy danych. Proszę zaktualizować strukturę ' +
-        'bazy. Oczekiwana wersja bazy: %d, aktualna wersja bazy: %d';
-      ShowMessage(Format(msg1, [DatabaseNumber, VersionNr]));
-      tmr1.Enabled := True;
-    end;
-  end;
-  if isDeveloperMode and isFirstTime then
-  begin
-    if rbtnDialogCreateDB.Checked then
-      btnCreateDatabaseStructures.Click;
-    if rbtnFrameImportContacts.Checked then
-      btnImportContacts.Click;
-    if rbtFrameManageContacts.Checked then
-      btnManageContacts.Click;
-  end;
+  tmrFirstShow.Enabled := False;
+  eventOnFormFirstShow;
 end;
 
 end.

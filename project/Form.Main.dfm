@@ -565,12 +565,12 @@ object FormMain: TFormMain
       Alignment = taCenter
       Color = clBtnFace
       TabOrder = 2
-      Text = '1'
+      Text = '2'
     end
   end
-  object tmrIdle: TTimer
-    Interval = 50
-    OnTimer = tmrIdleTimer
+  object tmrFirstShow: TTimer
+    Interval = 1
+    OnTimer = tmrFirstShowTimer
     Left = 192
     Top = 112
   end
