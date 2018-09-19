@@ -65,12 +65,17 @@ const
     (email: 'ajankowska@pekao.com.pl'; firstName: 'Anna';
     lastName: 'Jankowska'; comapny: 'Bank Pekao SA Warszawa'; regDate: ''));
 
+//  a: TEmailRec = (email: 'bogdan.polak.no.spam@bsc.com.pl');
+//  EmailTableData2: TArray<TEmailRec> = [];
+//  EmailTableData3: array of TEmailRec =  [];
+
 procedure TFormDBScript.BitBtn1Click(Sender: TObject);
 var
   isExecutedWithoutErros: Boolean;
   sc: TFDSQLScript;
   i: integer;
   adr: string;
+  FS: TFormatSettings;
 begin
   Memo1.Lines.Clear;
   FDScript1.SQLScripts.Clear;
@@ -83,6 +88,10 @@ begin
   end;
   if isExecutedWithoutErros then
   begin
+    FS := TFormatSettings.Create('pl-PL');
+    FS.DateSeparator := '.';
+    FS.ShortDateFormat := 'dd.MM.yyyy';
+
     Memo1.Lines.Add('- - - - - - - - - - - - - - - - -');
     Memo1.Lines.Add('Dodawanie kontaktów ...');
     { TODO : Zanienić: na FireDAC Array DML }
@@ -99,7 +108,7 @@ begin
         FDQuery1.ParamByName('reg').AsDateTime := Now()
       else
         FDQuery1.ParamByName('reg').AsDateTime :=
-          StrToDateTime(EmailTableData[i].regDate);
+          StrToDateTime(EmailTableData[i].regDate, FS);
       FDQuery1.ExecSQL;
       // ----
       FDQuery2.ParamByName('contactid').Value := i+1;
