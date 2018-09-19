@@ -164,11 +164,12 @@ end;
 
 procedure TFormMain.btnImportContactsClick(Sender: TObject);
 var
-  frm: TChromeTab;
+   frm: TChromeTab;
 begin
-  { DONE: Powtórka: COPY-PASTE }
-  frm := OpenFrameAsChromeTab(TFrameImport);
-  frm.Caption := (Sender as TButton).Caption;
+   { DONE: Powtórka: COPY-PASTE }
+   frm := OpenFrameAsChromeTab(TFrameImport);
+   frm.Caption := (Sender as TButton).Caption;
+   btnImportContacts.Enabled := False;
 end;
 
 procedure TFormMain.btnManageContactsClick(Sender: TObject);
@@ -185,6 +186,9 @@ procedure TFormMain.ChromeTabs1ButtonCloseTabClick(Sender: TObject;
 var
   obj: TObject;
 begin
+   if ATab.Caption = btnImportContacts.Caption then
+      btnImportContacts.Enabled := True;
+
   obj := TObject(ATab.Data);
   (obj as TFrame).Free;
 end;
