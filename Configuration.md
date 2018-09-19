@@ -73,8 +73,8 @@
 2. **Dostęp do Internetu**
     * Parametry WiFi:
         * [Park Hotel Diament Katowice](http://www.hotelediament.pl/hotele/park-hotel-diament-katowice/) 
-            * sieć: ```..```  
-            * hasło: ```..```
+            * sieć: ```DIAMENT```  
+            * hasło: ```park2000```
 
 3. **Dodanie aliasów git-a**
     * modyfikacja pliku pliku .gitconfig
