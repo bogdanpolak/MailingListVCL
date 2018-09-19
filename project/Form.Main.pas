@@ -132,9 +132,7 @@ var
   sProjFileName: string;
   ext: string;
 begin
-  FlowPanel1.Caption := '';
-  pnMain.Caption := '';
-  { DONE: Poprawić c }
+  { DONE: Poprawić rozpoznawanie projektu: dpr w bieżącym folderze }
 {$IFDEF DEBUG}
   ext := '.dpr'; // do not localize
   sProjFileName := ChangeFileExt(ExtractFileName(Application.ExeName), ext);
