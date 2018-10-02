@@ -24,7 +24,7 @@ type
     procedure BitBtn1Click(Sender: TObject);
     procedure FDScript1ConsolePut(AEngine: TFDScript; const AMessage: string;
       AKind: TFDScriptOutputKind);
-    procedure FormCreate(Sender: TObject);
+    procedure FormShow(Sender: TObject);
   private
     { Private declarations }
   public
@@ -67,6 +67,9 @@ const
 
 procedure TFormDBScript.BitBtn1Click(Sender: TObject);
 var
+  isMSSQL: Boolean;
+  isORACLE: Boolean;
+  isMySQL: Boolean;
   isExecutedWithoutErros: Boolean;
   sc: TFDSQLScript;
   i: integer;
@@ -148,7 +151,7 @@ begin
   Memo1.Lines.Add(AMessage);
 end;
 
-procedure TFormDBScript.FormCreate(Sender: TObject);
+procedure TFormDBScript.FormShow(Sender: TObject);
 var
   isMSSQL: Boolean;
   isORACLE: Boolean;

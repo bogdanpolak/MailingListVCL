@@ -11,7 +11,7 @@ object FormDBScript: TFormDBScript
   Font.Name = 'Tahoma'
   Font.Style = []
   OldCreateOrder = False
-  OnCreate = FormCreate
+  OnShow = FormShow
   DesignSize = (
     592
     370)
