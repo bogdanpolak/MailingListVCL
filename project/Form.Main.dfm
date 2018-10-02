@@ -566,7 +566,6 @@ object FormMain: TFormMain
       Color = clBtnFace
       TabOrder = 2
       Text = '1'
-      ExplicitLeft = 9
     end
   end
   object tmrFirstShow: TTimer

@@ -47,6 +47,7 @@ type
     procedure tmrFirstShowTimer(Sender: TObject);
   private
     isDeveloperMode: Boolean;
+    isDatabaseOK: Boolean;
     procedure HideAllChildFrames(AParenControl: TWinControl);
     function OpenFrameAsChromeTab(Frame: TFrameClass): TChromeTab;
     procedure eventOnFormFirstShow;
@@ -65,15 +66,20 @@ implementation
 
 uses
   FireDAC.Stan.Error, Dialog.RunSQLScript, Frame.ImportContacts,
-  Frame.ManageContacts, Frame.Welcome, Module.Main;
+  Frame.ManageContacts, Frame.Welcome, Module.Main, System.StrUtils;
 
 const
   SQL_SELECT_DatabaseVersion = 'SELECT versionnr FROM DBInfo';
 
 resourcestring
   SWelcomeScreen = 'Ekran powitalny';
-  SDatabaseRequireUpgrade =
-    'Proszę najpierw uruchomić skrypt budujący struktury bazy danych.';
+  SDBServerGone = 'Nie można nawiazać połączenia z serwerem bazy danych.';
+  SDBConnectionUserPwdInvalid = 'Błędna konfiguracja połączenia z bazą danych.'
+    + ' Dane użytkownika aplikacyjnego są nie poprawne.';
+  SDBConnectionError = 'Nie można nawiazać połączenia z bazą danych';
+  SDBRequireCreate = 'Baza danych jest pusta.' +
+    ' Proszę najpierw uruchomić skrypt budujący strukturę.';
+  SDBErrorSelect = 'Nie można wykonać polecenia SELECT w bazie danych.';
 
 procedure TFormMain.btnCreateDatabaseStructuresClick(Sender: TObject);
 begin
@@ -139,25 +145,44 @@ var
   VersionNr: Integer;
   msg1: string;
 begin
+  isDatabaseOK := False;
   try
     MainDM.FDConnection1.Open;
   except
     on E: EFDDBEngineException do
     begin
-      if E.kind = ekObjNotExists then
-      begin
-        { TODO: Zamieć [ShowMessage] na informacje na ekranie powitalnym }
-        ShowMessage(SDatabaseRequireUpgrade);
+      case E.kind of
+        ekUserPwdInvalid:
+          msg1 := SDBConnectionUserPwdInvalid;
+        ekServerGone:
+          msg1 := SDBServerGone;
+      else
+        msg1 := SDBConnectionError
       end;
+      { TODO: Zamieć [ShowMessage] na informacje na ekranie powitalnym }
+      ShowMessage(msg1);
+      exit;
     end;
   end;
-  res := MainDM.FDConnection1.ExecSQLScalar(SQL_SELECT_DatabaseVersion);
+  try
+    res := MainDM.FDConnection1.ExecSQLScalar(SQL_SELECT_DatabaseVersion);
+  except
+    on E: EFDDBEngineException do
+    begin
+      msg1 := IfThen(E.kind = ekObjNotExists, SDBRequireCreate, SDBErrorSelect);
+      { TODO: Zamieć [ShowMessage] na informacje na ekranie powitalnym }
+      ShowMessage(msg1);
+      exit;
+    end;
+  end;
   VersionNr := res;
-  if VersionNr <> expectedVersionNr then
-  begin
+  if VersionNr = expectedVersionNr then
+    isDatabaseOK := True
+  else begin
     { TODO: Wyłącz jako stała resourcestring }
     { TODO: Zamieć ShowMessage na informacje na ekranie powitalnym }
-    msg1 := 'Błędna wersja bazy danych. Proszę zaktualizować strukturę ' + 'bazy. Oczekiwana wersja bazy: %d, aktualna wersja bazy: %d';
+    msg1 := 'Błędna wersja bazy danych. Proszę zaktualizować strukturę ' +
+      'bazy. Oczekiwana wersja bazy: %d, aktualna wersja bazy: %d';
     ShowMessage(Format(msg1, [expectedVersionNr, VersionNr]));
   end;
 end;
