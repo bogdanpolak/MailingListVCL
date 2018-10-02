@@ -54,6 +54,7 @@ type
     procedure verifyDatabaseVersion(expectedVersionNr: Integer);
     { Private declarations }
   public
+    function checkDeveloperMode: boolean;
     { Public declarations }
   end;
 
@@ -189,11 +190,12 @@ end;
 
 procedure TFormMain.btnImportContactsClick(Sender: TObject);
 var
-  frm: TChromeTab;
+   frm: TChromeTab;
 begin
-  { DONE: Powtórka: COPY-PASTE }
-  frm := OpenFrameAsChromeTab(TFrameImport);
-  frm.Caption := (Sender as TButton).Caption;
+   { DONE: Powtórka: COPY-PASTE }
+   frm := OpenFrameAsChromeTab(TFrameImport);
+   frm.Caption := (Sender as TButton).Caption;
+   btnImportContacts.Enabled := False;
 end;
 
 procedure TFormMain.btnManageContactsClick(Sender: TObject);
@@ -205,11 +207,30 @@ begin
   frm.Caption := (Sender as TButton).Caption;
 end;
 
+function TFormMain.checkDeveloperMode: boolean;
+var
+  sProjFileName: string;
+  ext: string;
+begin
+  { DONE: Poprawić rozpoznawanie projektu: dpr w bieżącym folderze }
+{$IFDEF DEBUG}
+  ext := '.dpr'; // do not localize
+  sProjFileName := ChangeFileExt(ExtractFileName(Application.ExeName), ext);
+  Result := FileExists(sProjFileName);
+{$ELSE}
+  Result := False;
+{$ENDIF}
+
+end;
+
 procedure TFormMain.ChromeTabs1ButtonCloseTabClick(Sender: TObject;
   ATab: TChromeTab; var Close: Boolean);
 var
   obj: TObject;
 begin
+   if ATab.Caption = btnImportContacts.Caption then
+      btnImportContacts.Enabled := True;
+
   obj := TObject(ATab.Data);
   (obj as TFrame).Free;
 end;
@@ -252,13 +273,7 @@ begin
   pnMain.Caption := '';
   { TODO: Powtórka: COPY-PASTE }
   { TODO: Poprawić rozpoznawanie projektu: dpr w bieżącym folderze }
-{$IFDEF DEBUG}
-  ext := '.dpr'; // do not localize
-  sProjFileName := ChangeFileExt(ExtractFileName(Application.ExeName), ext);
-  isDeveloperMode := FileExists('..\..\' + sProjFileName);
-{$ELSE}
-  isDeveloperMode := False;
-{$ENDIF}
+  isDeveloperMode := checkDeveloperMode;
 end;
 
 procedure TFormMain.tmrFirstShowTimer(Sender: TObject);
