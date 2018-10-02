@@ -2,7 +2,7 @@ object FormMain: TFormMain
   Left = 0
   Top = 0
   Caption = 'Mailing Manager'
-  ClientHeight = 571
+  ClientHeight = 678
   ClientWidth = 760
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -446,12 +446,13 @@ object FormMain: TFormMain
     Left = 7
     Top = 167
     Width = 746
-    Height = 399
+    Height = 506
     Margins.Top = 0
     Align = alClient
     BevelOuter = bvNone
     Caption = 'pnMain'
     TabOrder = 2
+    ExplicitHeight = 399
   end
   object grboxConfiguration: TGroupBox
     Left = 47
@@ -565,7 +566,7 @@ object FormMain: TFormMain
       Alignment = taCenter
       Color = clBtnFace
       TabOrder = 2
-      Text = '1'
+      Text = '0'
     end
   end
   object tmrFirstShow: TTimer

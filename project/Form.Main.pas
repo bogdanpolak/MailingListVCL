@@ -7,7 +7,7 @@ uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants,
   System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.ExtCtrls, Vcl.StdCtrls, ChromeTabs,
-  ChromeTabsClasses, ChromeTabsTypes;
+  ChromeTabsClasses, ChromeTabsTypes, Frame.Welcome;
 
 type
   TFrameClass = class of TFrame;
@@ -52,6 +52,8 @@ type
     function OpenFrameAsChromeTab(Frame: TFrameClass): TChromeTab;
     procedure eventOnFormFirstShow;
     procedure verifyDatabaseVersion(expectedVersionNr: Integer);
+    function FindWelcomeFrame: TFrameWelcome;
+    procedure LogAppMessage(const AMessage: string);
     { Private declarations }
   public
     function checkDeveloperMode: Boolean;
@@ -68,7 +70,7 @@ implementation
 uses
   FireDAC.Stan.Error, System.StrUtils, FireDAC.Comp.Client,
   Dialog.RunSQLScript, Frame.ImportContacts, Frame.ManageContacts,
-  Frame.Welcome, Module.Main, Utils.CipherAES128, Vcl.Clipbrd;
+  Module.Main, Utils.CipherAES128, Vcl.Clipbrd;
 
 const
   SQL_SELECT_DatabaseVersion = 'SELECT versionnr FROM DBInfo';
@@ -85,6 +87,8 @@ resourcestring
   SDBRequireCreate = 'Baza danych jest pusta.' +
     ' Proszę najpierw uruchomić skrypt budujący strukturę.';
   SDBErrorSelect = 'Nie można wykonać polecenia SELECT w bazie danych.';
+  StrNotSupportedDBVersion = 'Błędna wersja bazy danych. Proszę zaktualizowa' +
+  'ć strukturę bazy.';
 
 procedure TFormMain.btnCreateDatabaseStructuresClick(Sender: TObject);
 begin
@@ -98,6 +102,15 @@ begin
   for i := AParenControl.ControlCount - 1 downto 0 do
     if AParenControl.Controls[i] is TFrame then
       (AParenControl.Controls[i] as TFrame).Visible := False;
+end;
+
+procedure TFormMain.LogAppMessage(const AMessage: string);
+var
+  frm: TFrameWelcome;
+begin
+  frm := FindWelcomeFrame;
+  if Assigned(frm) then
+    frm.AppMessageAdd(AMessage);
 end;
 
 function TFormMain.OpenFrameAsChromeTab(Frame: TFrameClass): TChromeTab;
@@ -157,7 +170,7 @@ begin
   try
     UserName := FDManager.ConnectionDefs.ConnectionDefByName
       (MainDM.FDConnection1.ConnectionDefName).Params.UserName;
-    password := AES128_Decrypt(SecurePassword,SecureKey);
+    password := '1'+AES128_Decrypt(SecurePassword,SecureKey);
     MainDM.FDConnection1.Open (UserName, password);
   except
     on E: EFDDBEngineException do
@@ -170,8 +183,7 @@ begin
       else
         msg1 := SDBConnectionError
       end;
-      { TODO: Zamieć [ShowMessage] na informacje na ekranie powitalnym }
-      ShowMessage(msg1);
+      FindWelcomeFrame.AppMessageAdd(msg1);
       exit;
     end;
   end;
@@ -181,8 +193,7 @@ begin
     on E: EFDDBEngineException do
     begin
       msg1 := IfThen(E.kind = ekObjNotExists, SDBRequireCreate, SDBErrorSelect);
-      { TODO: Zamieć [ShowMessage] na informacje na ekranie powitalnym }
-      ShowMessage(msg1);
+      FindWelcomeFrame.AppMessageAdd(msg1);
       exit;
     end;
   end;
@@ -191,11 +202,9 @@ begin
     isDatabaseOK := True
   else
   begin
-    { TODO: Wyłącz jako stała resourcestring }
-    { TODO: Zamieć ShowMessage na informacje na ekranie powitalnym }
-    msg1 := 'Błędna wersja bazy danych. Proszę zaktualizować strukturę ' +
-      'bazy. Oczekiwana wersja bazy: %d, aktualna wersja bazy: %d';
-    ShowMessage(Format(msg1, [expectedVersionNr, VersionNr]));
+    self.LogAppMessage(StrNotSupportedDBVersion);
+    self.LogAppMessage('   * Oczekiwana wersja bazy: '+ expectedVersionNr.ToString);
+    self.LogAppMessage('   * Aktualna wersja bazy: '+ VersionNr.ToString);
   end;
 end;
 
@@ -258,6 +267,21 @@ begin
       HideAllChildFrames(pnMain);
       (obj as TFrame).Visible := True;
     end;
+  end;
+end;
+
+function TFormMain.FindWelcomeFrame: TFrameWelcome;
+var
+  i: Integer;
+  tab: TChromeTab;
+  frm: TFrame;
+begin
+  Result := nil;
+  for i :=0 to ChromeTabs1.Tabs.Count-1 do
+  begin
+    frm := TFrame(ChromeTabs1.Tabs[i].Data);
+    if frm is TFrameWelcome then
+      Result := frm as TFrameWelcome;
   end;
 end;
 

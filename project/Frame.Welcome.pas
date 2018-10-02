@@ -13,17 +13,28 @@ type
     lblAppVersion: TLabel;
     Image1: TImage;
     tmrFirstShow: TTimer;
+    lbxAppLog: TListBox;
+    Label2: TLabel;
     procedure tmrFirstShowTimer(Sender: TObject);
   private
     FAppVersion: String;
     { Private declarations }
   public
     property AppVersion: String read FAppVersion write FAppVersion;
+    procedure AppMessageAdd(const s:string);
   end;
 
 implementation
 
 {$R *.dfm}
+
+uses
+  Clipbrd;
+
+procedure TFrameWelcome.AppMessageAdd(const s: string);
+begin
+  self.lbxAppLog.Items.Add(s);
+end;
 
 procedure TFrameWelcome.tmrFirstShowTimer(Sender: TObject);
 var

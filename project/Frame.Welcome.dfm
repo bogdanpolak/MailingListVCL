@@ -2,7 +2,7 @@ object FrameWelcome: TFrameWelcome
   Left = 0
   Top = 0
   Width = 593
-  Height = 480
+  Height = 533
   Padding.Left = 8
   Padding.Top = 10
   Padding.Right = 8
@@ -40,7 +40,6 @@ object FrameWelcome: TFrameWelcome
     Font.Name = 'Tahoma'
     Font.Style = []
     ParentFont = False
-    ExplicitTop = 59
     ExplicitWidth = 64
   end
   object Image1: TImage
@@ -55,6 +54,29 @@ object FrameWelcome: TFrameWelcome
     ExplicitLeft = 0
     ExplicitTop = 85
     ExplicitWidth = 744
+  end
+  object Label2: TLabel
+    AlignWithMargins = True
+    Left = 11
+    Top = 375
+    Width = 571
+    Height = 13
+    Margins.Top = 6
+    Margins.Bottom = 0
+    Align = alTop
+    Caption = 'Informacje programu:'
+    ExplicitWidth = 105
+  end
+  object lbxAppLog: TListBox
+    AlignWithMargins = True
+    Left = 11
+    Top = 391
+    Width = 571
+    Height = 133
+    Align = alTop
+    Color = clBtnFace
+    ItemHeight = 13
+    TabOrder = 0
   end
   object tmrFirstShow: TTimer
     Interval = 1
