@@ -54,7 +54,7 @@ type
     procedure verifyDatabaseVersion(expectedVersionNr: Integer);
     { Private declarations }
   public
-    function checkDeveloperMode: boolean;
+    function checkDeveloperMode: Boolean;
     { Public declarations }
   end;
 
@@ -66,11 +66,15 @@ implementation
 {$R *.dfm}
 
 uses
-  FireDAC.Stan.Error, Dialog.RunSQLScript, Frame.ImportContacts,
-  Frame.ManageContacts, Frame.Welcome, Module.Main, System.StrUtils;
+  FireDAC.Stan.Error, System.StrUtils, FireDAC.Comp.Client,
+  Dialog.RunSQLScript, Frame.ImportContacts, Frame.ManageContacts,
+  Frame.Welcome, Module.Main, Utils.CipherAES128, Vcl.Clipbrd;
 
 const
   SQL_SELECT_DatabaseVersion = 'SELECT versionnr FROM DBInfo';
+  SecureKey = 'delphi-is-the-best';
+  // SecurePassword = AES 128 ('masterkey',SecureKey)
+  SecurePassword = 'hC52IiCv4zYQY2PKLlSvBaOXc14X41Mc1rcVS6kyr3M=';
 
 resourcestring
   SWelcomeScreen = 'Ekran powitalny';
@@ -145,10 +149,16 @@ var
   res: Variant;
   VersionNr: Integer;
   msg1: string;
+  UserName: string;
+  data: string;
+  password: string;
 begin
   isDatabaseOK := False;
   try
-    MainDM.FDConnection1.Open;
+    UserName := FDManager.ConnectionDefs.ConnectionDefByName
+      (MainDM.FDConnection1.ConnectionDefName).Params.UserName;
+    password := AES128_Decrypt(SecurePassword,SecureKey);
+    MainDM.FDConnection1.Open (UserName, password);
   except
     on E: EFDDBEngineException do
     begin
@@ -179,7 +189,8 @@ begin
   VersionNr := res;
   if VersionNr = expectedVersionNr then
     isDatabaseOK := True
-  else begin
+  else
+  begin
     { TODO: Wyłącz jako stała resourcestring }
     { TODO: Zamieć ShowMessage na informacje na ekranie powitalnym }
     msg1 := 'Błędna wersja bazy danych. Proszę zaktualizować strukturę ' +
@@ -190,12 +201,12 @@ end;
 
 procedure TFormMain.btnImportContactsClick(Sender: TObject);
 var
-   frm: TChromeTab;
+  frm: TChromeTab;
 begin
-   { DONE: Powtórka: COPY-PASTE }
-   frm := OpenFrameAsChromeTab(TFrameImport);
-   frm.Caption := (Sender as TButton).Caption;
-   btnImportContacts.Enabled := False;
+  { DONE: Powtórka: COPY-PASTE }
+  frm := OpenFrameAsChromeTab(TFrameImport);
+  frm.Caption := (Sender as TButton).Caption;
+  btnImportContacts.Enabled := False;
 end;
 
 procedure TFormMain.btnManageContactsClick(Sender: TObject);
@@ -207,7 +218,7 @@ begin
   frm.Caption := (Sender as TButton).Caption;
 end;
 
-function TFormMain.checkDeveloperMode: boolean;
+function TFormMain.checkDeveloperMode: Boolean;
 var
   sProjFileName: string;
   ext: string;
@@ -220,7 +231,6 @@ begin
 {$ELSE}
   Result := False;
 {$ENDIF}
-
 end;
 
 procedure TFormMain.ChromeTabs1ButtonCloseTabClick(Sender: TObject;
@@ -228,8 +238,8 @@ procedure TFormMain.ChromeTabs1ButtonCloseTabClick(Sender: TObject;
 var
   obj: TObject;
 begin
-   if ATab.Caption = btnImportContacts.Caption then
-      btnImportContacts.Enabled := True;
+  if ATab.Caption = btnImportContacts.Caption then
+    btnImportContacts.Enabled := True;
 
   obj := TObject(ATab.Data);
   (obj as TFrame).Free;

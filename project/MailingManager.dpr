@@ -2,6 +2,8 @@ program MailingManager;
 
 
 
+
+
 {$R *.dres}
 
 uses
@@ -16,7 +18,8 @@ uses
   Mock.JSON.ImportContacts in 'Mock.JSON.ImportContacts.pas',
   Dialog.ResolveImportConflicts in 'Dialog.ResolveImportConflicts.pas' {DialogResolveConflicts},
   Frame.ManageContacts in 'Frame.ManageContacts.pas' {FrameManageContacts: TFrame},
-  Frame.Welcome in 'Frame.Welcome.pas' {FrameWelcome: TFrame};
+  Frame.Welcome in 'Frame.Welcome.pas' {FrameWelcome: TFrame},
+  Utils.CipherAES128 in 'Utils.CipherAES128.pas';
 
 {$R *.res}
 
