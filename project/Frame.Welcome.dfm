@@ -47,35 +47,39 @@ object FrameWelcome: TFrameWelcome
     Left = 11
     Top = 90
     Width = 571
-    Height = 276
+    Height = 160
     Margins.Top = 15
     Align = alTop
     Center = True
-    ExplicitLeft = 0
-    ExplicitTop = 85
-    ExplicitWidth = 744
   end
   object Label2: TLabel
     AlignWithMargins = True
     Left = 11
-    Top = 375
+    Top = 259
     Width = 571
     Height = 13
     Margins.Top = 6
     Margins.Bottom = 0
     Align = alTop
     Caption = 'Informacje programu:'
+    ExplicitTop = 375
     ExplicitWidth = 105
   end
   object lbxAppLog: TListBox
     AlignWithMargins = True
     Left = 11
-    Top = 391
+    Top = 275
     Width = 571
     Height = 133
     Align = alTop
-    Color = clBtnFace
-    ItemHeight = 13
+    BevelKind = bkFlat
+    BorderStyle = bsNone
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -13
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    ParentFont = False
     TabOrder = 0
   end
   object tmrFirstShow: TTimer
