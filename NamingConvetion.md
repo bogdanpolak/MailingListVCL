@@ -14,17 +14,17 @@
 
 | Rodzaj identyfikatora | Przykład | Konwencja |
 | - | - | - |
-| moduł tylko z kodem | Model.Customer.pas | Nazwa wieloczłonowa: [więcej informacji](#Nazywanie-Modułów)  |
-| klasa | TPizza | [CamelCase](##Camel-Case), duża litera T na początku  |
-| metoda | changeState() | [CamelCase](#Camel-Case) z małej litery |
-| atrybuty klasy | FAppVersion | [CamelCase](#Camel-Case), duża litera F na początku |
-| zmienne globalne | Form1 | **Uwaga!** Należy unikać globalnych zmiennych. ([wyjaśnienie-1](#Odnośniki))  |
-| zmienne lokalne | FirstName | [CamelCase](#Camel-Case) z dużej litery |
-| parametry | FirstName | [CamelCase](#Camel-Case) z dużej litery |
+| moduł tylko z kodem | Model.Customer.pas | Nazwa wieloczłonowa: [więcej informacji](#nazywanie-modułów)  |
+| klasa | TPizza | [CamelCase](#camel-case), duża litera T na początku  |
+| metoda | changeState() | [CamelCase](#camel-case) z małej litery |
+| atrybuty klasy | FAppVersion | [CamelCase](#camel-case), duża litera F na początku |
+| zmienne globalne | Form1 | **Uwaga!** Należy unikać globalnych zmiennych. ([wyjaśnienie-1](#odnośniki))  |
+| zmienne lokalne | FirstName | [CamelCase](#camel-case) z dużej litery |
+| parametry | FirstName | [CamelCase](#camel-case) z dużej litery |
 
 ## Nazywanie Modułów
 
-Moduły należy nazywać zgodnie z następującymi nazwami Nazwa wieloczłonowa informująca o funkcji, naśladująca przestrzenie nazw. Nazwa każdego członu z dużej litery. Nazwy [CamelCase](#Camel-Case). 
+Moduły należy nazywać zgodnie z następującymi nazwami Nazwa wieloczłonowa informująca o funkcji, naśladująca przestrzenie nazw. Nazwa każdego członu z dużej litery. Nazwy [CamelCase](#camel-case). 
 
 Nazwa każdego członu z dużej litery. W razie potrzeby członów w nazwie może być więcej. Zalecenie dla większych projektów: warto odwzorować strukturę podkatalogów pokrywającą przestrzenie nazw.
 
