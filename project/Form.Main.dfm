@@ -452,7 +452,6 @@ object FormMain: TFormMain
     BevelOuter = bvNone
     Caption = 'pnMain'
     TabOrder = 2
-    ExplicitHeight = 399
   end
   object grboxConfiguration: TGroupBox
     Left = 47
@@ -566,7 +565,7 @@ object FormMain: TFormMain
       Alignment = taCenter
       Color = clBtnFace
       TabOrder = 2
-      Text = '0'
+      Text = '1'
     end
   end
   object tmrFirstShow: TTimer

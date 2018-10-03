@@ -170,7 +170,7 @@ begin
   try
     UserName := FDManager.ConnectionDefs.ConnectionDefByName
       (MainDM.FDConnection1.ConnectionDefName).Params.UserName;
-    password := '1'+AES128_Decrypt(SecurePassword,SecureKey);
+    password := AES128_Decrypt(SecurePassword,SecureKey);
     MainDM.FDConnection1.Open (UserName, password);
   except
     on E: EFDDBEngineException do
@@ -193,6 +193,8 @@ begin
     on E: EFDDBEngineException do
     begin
       msg1 := IfThen(E.kind = ekObjNotExists, SDBRequireCreate, SDBErrorSelect);
+      FindWelcomeFrame.AppMessageAdd(msg1);
+      msg1 := E.Message;
       FindWelcomeFrame.AppMessageAdd(msg1);
       exit;
     end;

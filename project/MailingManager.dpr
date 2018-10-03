@@ -4,6 +4,8 @@ program MailingManager;
 
 
 
+
+
 {$R *.dres}
 
 uses
