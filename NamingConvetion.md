@@ -15,7 +15,7 @@
 | Rodzaj identyfikatora | Przykład | Konwencja |
 | - | - | - |
 | moduł tylko z kodem | Model.Customer.pas | Nazwa wieloczłonowa: [więcej informacji](#Nazywanie-Modułów)  |
-| klasa | TPizza | [CamelCase](#Camel-Case), duża litera T na początku  |
+| klasa | TPizza | [CamelCase](##Camel-Case), duża litera T na początku  |
 | metoda | changeState() | [CamelCase](#Camel-Case) z małej litery |
 | atrybuty klasy | FAppVersion | [CamelCase](#Camel-Case), duża litera F na początku |
 | zmienne globalne | Form1 | **Uwaga!** Należy unikać globalnych zmiennych. ([wyjaśnienie-1](#Odnośniki))  |
