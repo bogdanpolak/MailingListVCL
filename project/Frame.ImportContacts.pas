@@ -59,7 +59,7 @@ implementation
 {$R *.dfm}
 
 uses
-  System.IOUtils, Dialog.ResolveImportConflicts, Mock.JSON.ImportContacts,
+  System.IOUtils, Dialog.ResolveImportConflicts, Consts.ContactsJson,
   Data.Main;
 
 procedure TFrameImport.btnLoadNewEmailsClick(Sender: TObject);

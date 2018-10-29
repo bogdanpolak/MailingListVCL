@@ -1,4 +1,4 @@
-﻿unit Mock.JSON.ImportContacts;
+﻿unit Consts.ContactsJson;
 
 interface
 

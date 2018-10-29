@@ -17,13 +17,11 @@ type
     grboxCommands: TGroupBox;
     ChromeTabs1: TChromeTabs;
     pnMain: TPanel;
-    btnCreateDatabaseStructures: TButton;
     btnManageContacts: TButton;
     btnImportContacts: TButton;
     btnListManager: TButton;
     btnImportUnregistered: TButton;
     grboxAutoOpen: TGroupBox;
-    rbtnDialogCreateDB: TRadioButton;
     rbtnFrameImportContacts: TRadioButton;
     rbtFrameManageContacts: TRadioButton;
     rbtnWelcome: TRadioButton;
@@ -32,7 +30,6 @@ type
     Label1: TLabel;
     Label2: TLabel;
     edtDBVersion: TEdit;
-    procedure btnCreateDatabaseStructuresClick(Sender: TObject);
     procedure btnImportContactsClick(Sender: TObject);
     procedure btnManageContactsClick(Sender: TObject);
     procedure ChromeTabs1ButtonCloseTabClick(Sender: TObject; ATab: TChromeTab;
@@ -58,8 +55,9 @@ implementation
 {$R *.dfm}
 
 uses
-  FireDAC.Stan.Error, Dialog.RunSQLScript, Frame.ImportContacts, 
-  Frame.ManageContacts, Frame.Welcome, Data.Main;
+  FireDAC.Stan.Error,
+  Data.Main, Frame.ImportContacts, Frame.Welcome,
+  Frame.ManageContacts;
 
 const
   SQL_SELECT_DatabaseVersion = 'SELECT versionnr FROM DBInfo';
@@ -68,11 +66,6 @@ resourcestring
   SWelcomeScreen = 'Ekran powitalny';
   SDatabaseRequireUpgrade =
     'Proszę najpierw uruchomić skrypt budujący struktury bazy danych.';
-
-procedure TFormMain.btnCreateDatabaseStructuresClick(Sender: TObject);
-begin
-  FormDBScript.Show;
-end;
 
 procedure TFormMain.HideAllChildFrames(AParenControl: TWinControl);
 var
@@ -220,8 +213,6 @@ begin
   end;
   if isDeveloperMode and isFirstTime then
   begin
-    if rbtnDialogCreateDB.Checked then
-      btnCreateDatabaseStructures.Click;
     if rbtnFrameImportContacts.Checked then
       btnImportContacts.Click;
     if rbtFrameManageContacts.Checked then

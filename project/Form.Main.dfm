@@ -2,8 +2,8 @@ object FormMain: TFormMain
   Left = 0
   Top = 0
   Caption = 'Mailing Manager'
-  ClientHeight = 571
-  ClientWidth = 760
+  ClientHeight = 533
+  ClientWidth = 882
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -23,101 +23,72 @@ object FormMain: TFormMain
     Left = 7
     Top = 5
     Width = 198
-    Height = 561
+    Height = 523
     Align = alLeft
     Caption = ' Zadania '
     TabOrder = 0
-    ExplicitTop = 40
-    ExplicitHeight = 526
-    object btnCreateDatabaseStructures: TButton
+    ExplicitHeight = 561
+    object btnImportContacts: TButton
       AlignWithMargins = True
       Left = 5
       Top = 18
       Width = 188
       Height = 25
       Align = alTop
-      Caption = 'Utw'#243'rz struktury w bazie danych'
-      TabOrder = 0
-      OnClick = btnCreateDatabaseStructuresClick
-      ExplicitLeft = 20
-      ExplicitTop = 20
-      ExplicitWidth = 200
-    end
-    object btnImportContacts: TButton
-      AlignWithMargins = True
-      Left = 5
-      Top = 49
-      Width = 188
-      Height = 25
-      Align = alTop
       Caption = 'Import Kontakt'#243'w'
-      TabOrder = 1
+      TabOrder = 0
       OnClick = btnImportContactsClick
-      ExplicitLeft = 20
-      ExplicitTop = 51
-      ExplicitWidth = 200
     end
     object btnImportUnregistered: TButton
-      AlignWithMargins = True
-      Left = 5
-      Top = 142
-      Width = 188
-      Height = 25
-      Align = alTop
-      Caption = 'btnImportUnregistered'
-      TabOrder = 2
-      ExplicitLeft = 20
-      ExplicitTop = 144
-      ExplicitWidth = 200
-    end
-    object btnListManager: TButton
       AlignWithMargins = True
       Left = 5
       Top = 111
       Width = 188
       Height = 25
       Align = alTop
-      Caption = 'btnListManager'
-      TabOrder = 3
-      ExplicitLeft = 20
-      ExplicitTop = 113
-      ExplicitWidth = 200
+      Caption = 'btnImportUnregistered'
+      TabOrder = 1
     end
-    object btnManageContacts: TButton
+    object btnListManager: TButton
       AlignWithMargins = True
       Left = 5
       Top = 80
       Width = 188
       Height = 25
       Align = alTop
+      Caption = 'btnListManager'
+      TabOrder = 2
+    end
+    object btnManageContacts: TButton
+      AlignWithMargins = True
+      Left = 5
+      Top = 49
+      Width = 188
+      Height = 25
+      Align = alTop
       Caption = 'Zarz'#261'dzanie Kontaktami'
-      TabOrder = 4
+      TabOrder = 3
       OnClick = btnManageContactsClick
-      ExplicitLeft = 20
-      ExplicitTop = 82
-      ExplicitWidth = 200
     end
   end
   object pnMain: TPanel
     AlignWithMargins = True
     Left = 211
     Top = 2
-    Width = 542
-    Height = 564
+    Width = 664
+    Height = 526
     Margins.Top = 0
     Align = alClient
     BevelOuter = bvNone
     Caption = 'pnMain'
     TabOrder = 1
-    ExplicitLeft = 7
-    ExplicitTop = 167
-    ExplicitWidth = 746
-    ExplicitHeight = 399
+    ExplicitWidth = 542
+    ExplicitHeight = 564
     object ChromeTabs1: TChromeTabs
       AlignWithMargins = True
       Left = 3
       Top = 5
-      Width = 536
+      Width = 658
       Height = 30
       Margins.Top = 5
       Margins.Bottom = 0
@@ -443,14 +414,12 @@ object FormMain: TFormMain
       LookAndFeel.ScrollButtons.Arrow.Disabled.OutlineAlpha = 200
       Align = alTop
       TabOrder = 0
-      ExplicitLeft = 7
-      ExplicitTop = 7
-      ExplicitWidth = 746
+      ExplicitWidth = 536
     end
   end
   object grboxConfiguration: TGroupBox
     Left = 241
-    Top = 250
+    Top = 186
     Width = 202
     Height = 271
     Caption = 'grboxConfiguration'
@@ -495,35 +464,25 @@ object FormMain: TFormMain
       Padding.Top = 4
       Padding.Right = 6
       TabOrder = 0
-      object rbtnDialogCreateDB: TRadioButton
+      object rbtnFrameImportContacts: TRadioButton
         AlignWithMargins = True
         Left = 11
         Top = 45
         Width = 158
         Height = 17
         Align = alTop
-        Caption = 'rbtnDialogCreateDB'
+        Caption = 'rbtnFrameImportContacts'
         TabOrder = 0
       end
-      object rbtnFrameImportContacts: TRadioButton
+      object rbtFrameManageContacts: TRadioButton
         AlignWithMargins = True
         Left = 11
         Top = 68
         Width = 158
         Height = 17
         Align = alTop
-        Caption = 'rbtnFrameImportContacts'
-        TabOrder = 1
-      end
-      object rbtFrameManageContacts: TRadioButton
-        AlignWithMargins = True
-        Left = 11
-        Top = 91
-        Width = 158
-        Height = 17
-        Align = alTop
         Caption = 'rbtFrameManageContacts'
-        TabOrder = 2
+        TabOrder = 1
       end
       object rbtnWelcome: TRadioButton
         AlignWithMargins = True
@@ -534,7 +493,7 @@ object FormMain: TFormMain
         Align = alTop
         Caption = 'rbtnWelcome'
         Checked = True
-        TabOrder = 3
+        TabOrder = 2
         TabStop = True
       end
     end
