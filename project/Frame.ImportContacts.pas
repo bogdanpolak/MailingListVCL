@@ -60,7 +60,7 @@ implementation
 
 uses
   System.IOUtils, Dialog.ResolveImportConflicts, Mock.JSON.ImportContacts,
-  Module.Main;
+  Data.Main;
 
 procedure TFrameImport.btnLoadNewEmailsClick(Sender: TObject);
 var

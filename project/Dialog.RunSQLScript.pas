@@ -38,7 +38,7 @@ implementation
 
 {$R *.dfm}
 
-uses Module.Main, Interbase.SQL.Main;
+uses Data.Main, Interbase.SQL.Main;
 
 { TODO : Nowocześniejsza struktura danych lub wyrzucenie danych na zewnątrz }
 type
@@ -71,6 +71,7 @@ var
   sc: TFDSQLScript;
   i: integer;
   adr: string;
+  ALocale: TFormatSettings;
 begin
   Memo1.Lines.Clear;
   FDScript1.SQLScripts.Clear;
@@ -89,6 +90,9 @@ begin
     FDQuery1.SQL.Text := IB_INSERT_CONTACTS_SQL;
     FDQuery2.SQL.Text := IB_INSERT_CONTCT2LIST_SQL;
     { TODO : Zamienić na FireDAC ArrayDML }
+    ALocale := TFormatSettings.Create;
+    ALocale.ShortDateFormat := 'dd mm yyyy';
+    ALocale.DateSeparator := '.';
     for i := 0 to NUMBER_OF_EMAILS - 1 do
     begin
       FDQuery1.ParamByName('email').AsString := EmailTableData[i].email;
@@ -99,7 +103,7 @@ begin
         FDQuery1.ParamByName('reg').AsDateTime := Now()
       else
         FDQuery1.ParamByName('reg').AsDateTime :=
-          StrToDateTime(EmailTableData[i].regDate);
+          StrToDateTime(EmailTableData[i].regDate,ALocale);
       FDQuery1.ExecSQL;
       // ----
       FDQuery2.ParamByName('contactid').Value := i+1;

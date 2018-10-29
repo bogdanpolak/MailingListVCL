@@ -17,14 +17,11 @@ type
     grboxCommands: TGroupBox;
     ChromeTabs1: TChromeTabs;
     pnMain: TPanel;
-    FlowPanel1: TFlowPanel;
     btnCreateDatabaseStructures: TButton;
     btnManageContacts: TButton;
     btnImportContacts: TButton;
     btnListManager: TButton;
-    ScrollBox1: TScrollBox;
     btnImportUnregistered: TButton;
-    Button5: TButton;
     grboxAutoOpen: TGroupBox;
     rbtnDialogCreateDB: TRadioButton;
     rbtnFrameImportContacts: TRadioButton;
@@ -42,7 +39,6 @@ type
       var Close: Boolean);
     procedure ChromeTabs1Change(Sender: TObject; ATab: TChromeTab;
       TabChangeType: TTabChangeType);
-    procedure FlowPanel1Resize(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure tmrIdleTimer(Sender: TObject);
   private
@@ -63,7 +59,7 @@ implementation
 
 uses
   FireDAC.Stan.Error, Dialog.RunSQLScript, Frame.ImportContacts, 
-  Frame.ManageContacts, Frame.Welcome, Module.Main;
+  Frame.ManageContacts, Frame.Welcome, Data.Main;
 
 const
   SQL_SELECT_DatabaseVersion = 'SELECT versionnr FROM DBInfo';
@@ -151,25 +147,11 @@ begin
   end;
 end;
 
-procedure TFormMain.FlowPanel1Resize(Sender: TObject);
-var
-  i: Integer;
-begin
-  for i := 0 to FlowPanel1.ControlCount - 1 do
-  begin
-    if FlowPanel1.Controls[i].Top + FlowPanel1.Controls[i].Height + 6 >
-      FlowPanel1.ClientHeight then
-      FlowPanel1.ClientHeight := FlowPanel1.Controls[i].Top +
-        FlowPanel1.Controls[i].Height + 6;
-  end;
-end;
-
 procedure TFormMain.FormCreate(Sender: TObject);
 var
   sProjFileName: string;
   ext: string;
 begin
-  FlowPanel1.Caption := '';
   pnMain.Caption := '';
   { TODO: Powtórka: COPY-PASTE }
   { TODO: Poprawić rozpoznawanie projektu: dpr w bieżącym folderze }

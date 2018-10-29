@@ -2,13 +2,13 @@ program MailingManager;
 
 
 
-{$R *.dres}
+
 
 uses
   Vcl.Forms,
   Form.Main in 'Form.Main.pas' {FormMain},
-  Module.Main in 'Module.Main.pas' {MainDM: TDataModule},
-  Module.ManageContacts in 'Module.ManageContacts.pas' {DataModuleManageContacts: TDataModule},
+  Data.Main in 'Data.Main.pas' {MainDM: TDataModule},
+  Data.ManageContacts in 'Data.ManageContacts.pas' {DataModuleManageContacts: TDataModule},
   Dialog.RunSQLScript in 'Dialog.RunSQLScript.pas' {FormDBScript},
   MySQL.SQL.Main in 'MySQL.SQL.Main.pas',
   Interbase.SQL.Main in 'Interbase.SQL.Main.pas',
